@@ -37,11 +37,12 @@ class Welcome extends CI_Controller {
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
-		$this->load->model('products_mapper');
+		$this->load->model('products_m');
 		
-		$data['products'] = $this->products_mapper->fetch_products(1, 4);
+		$data['books'] = $this->products_m->fetch_products('Book', 4);
+		$data['dvds'] = $this->products_m->fetch_products('Dvd', 4);
 		
-		$this->load->view('welcome_main', $data);
+		$this->load->view('./index/welcome_main_v', $data);
 	}
 }
 
