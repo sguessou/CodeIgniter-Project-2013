@@ -108,10 +108,20 @@ CSS for form
   padding: 0 0 0.75em 0;
 }
 
+.style-form img {
+  float: left;
+  margin-left: 30px;
+}
+
 .style-form label {
   float: left;
   width: 120px;
   text-align: right;
+}
+
+.style-form h4 {
+  float: left;
+  margin-left: 30px; 
 }
 
 .style-form textarea, .style-form input{
@@ -464,6 +474,16 @@ h4.dvd-selected {
   height: 32px;
 } 
 
+h4.user-data { 
+  font-size: 100%;
+  background-image: url(./images/person_info.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 42px;
+  padding-top: 18px;
+  height: 32px;
+} 
+
 h4.passwd-warning { 
   font-size: 100%;
   background-image: url(./images/warning-round-red.png);
@@ -645,6 +665,21 @@ a.cart-dvd:link, a.cart-dvd:visited {
   text-decoration: none;
 }
 
+a.add-cart-book:link, a.add-cart-book:visited {
+  display: block;
+  /* padding: 0.3em 40px 0.3em 0; */
+  padding-left: 30px;
+  height: 24px;
+  margin-left: 2px;
+  text-align: left;
+  color: #666;
+  font-weight: bold;
+  background-image: url(./images/001_47.png);
+  background-position: left center; 
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+
 a.dvd 
 {
 	text-decoration: none;
@@ -656,28 +691,36 @@ CSS for Products gallery
 
 .wrapper-dvd {
   width: 100%;
+  max-width: 1024px;
+  min-width: 1000px;
   /* margin: 0 20px 10px 40px; */
-  margin: 20px 32px;
+  margin: auto;
+  padding-left: 60px;
+  padding-top: 20px;
 }
 
 .wrapper-book {
   width: 100%;
+  max-width: 1024px;
+  min-width: 1000px;
   /* margin: 0 20px 10px 40px; */
-  margin: 20px 32px;
+  margin: auto;
+  padding-left: 60px;
+  padding-top: 20px;
 }
 
-ul.gallery {
-  margin: 0;
+ul.gallery {	
+  margin: auto;
   padding: 0;
   list-style: none;
 }
 
 ul.gallery li {
   display: inline-block;
-  /*float: left;*/
+  float: left; 
   width: 150px;
   height: 220px;
-  margin: 0 20px 20px 0;
+  margin: 20px 20px 40px 0; 
   border: 1px solid #000; 
   position: relative;
   -webkit-box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, 0.3);
@@ -717,10 +760,10 @@ ul.gallery-dvd {
 
 ul.gallery-dvd li {
   display: inline-block;
-  /*float: left;*/
+  float: left;
   width: 150px;
   height: 220px;
-  margin: 0 20px 20px 0;
+  margin: 20px 20px 40px 0; 
   border: 1px solid #000;
   position: relative;
   -webkit-box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, 0.3);
@@ -750,14 +793,17 @@ ul.gallery-dvd li:hover span {
   margin-left: 0;
 }
 /*********************************************/
+
+.link { position:relative; }
+
 #cartLink { text-decoration: none; }
 
 #cartSlider {   
     width: 600px;
     min-height:40px;
 	position: absolute;
-	left: 150px;
-	top: 270px;
+	left: 10px;
+	top: 15px;
 	z-index: 100;
     display:none;
     margin: 20px auto 40px auto;
@@ -838,3 +884,7 @@ tr.alt td { background: #ddd; }
 .group { display: inline-block; }
 
 .click { color: red; }
+
+
+
+

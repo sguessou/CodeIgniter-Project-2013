@@ -7,7 +7,7 @@
 <div id="menu"> 
 		<ul>     
 			<li><a class="current" href="<?php echo $base_url; ?>/welcome/">Main</a></li>
-			<li><a href="<?php echo $base_url; ?>/books/">Books</a></li>
+			<li><a href="<?php echo $base_url; ?>/books/index/begin/">Books</a></li>
 			<li><a href="">Movies</a></li>
 			<li><a href="">Login</a></li>
 			
@@ -129,4 +129,5 @@
 	
 	$this->load->view('footer');
 	
-?>
+/* End of file welcome_main_v.php */
+/* Location: ./application/views/welcome_main_v.php */

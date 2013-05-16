@@ -15,7 +15,7 @@ class Books extends CI_Controller
 	  $this->base_url = $this->config->item('base_url');  		
 	}
 	
-	public function index()
+	public function index($action, $start = NULL, $first = NULL)
 	{
 		$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
@@ -23,7 +23,21 @@ class Books extends CI_Controller
 		
 		$this->load->model('products_m');
 		
-		$data['books'] = $this->products_m->fetch_products('Book');
+		if($action == 'begin')
+		{
+			$data['first'] = 1;
+		   	$data['start'] = 0;
+		   	$data['page_size'] = 10;		
+			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps(1, 'product_id', $data['start'], 10);	
+		}	
+		
+		if($action == 'next' && $start && $first)
+		{
+			$data['page_size'] = 10;
+		    $data['start']  = (int)$start;
+			$data['first'] = (int)$first;
+			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps(1, 'product_id', $data['start'], 10);
+		} 
 		
 		$this->load->view('/books/books_main_v', $data);
 	}
@@ -36,4 +50,3 @@ class Books extends CI_Controller
 
 /* End of file books.php */
 /* Location: ./application/controllers/books.php */
-
