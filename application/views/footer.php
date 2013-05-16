@@ -39,6 +39,7 @@
 		<p>&copy;&nbsp;<?php echo $site_title; ?>&nbsp;[sguessou 2013]</p>
 	</footer> <br />
 		<span class="small">Template design by <a href="http://andreasviklund.com/">Andreas Viklund</a></span></p>
+		<strong>Powered by </strong> <a href="http://ellislab.com/"><img src="<?php echo $base_url; ?>/css/images/codeigniterlogo1.png" height="35px" width="120px"/></a>
 	</div>  
 </div>
 </body>

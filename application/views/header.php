@@ -42,6 +42,5 @@
 <div id="containerfull"><!-- Use"containerfull" for 100% width. For fixed width, use "container980", "container760" or "container600" (the number is the layout width in pixels). -->
 	<div id="header">
 	<h1><a href="">Online Store</a></h1>
-		<h2>[My project for the Arcada PHP course 2012-2013]</h2>
-		<strong>Powered by </strong> <a href="http://ellislab.com/"><img src="<?php echo $base_url; ?>/css/images/codeigniterlogo1.png" height="35px" width="120px"/></a>
+		<h2>[Porting the online Store from a generic framework to the&nbsp;<a href="http://ellislab.com/"><img src="<?php echo $base_url; ?>/css/images/codeigniterlogo1.png" height="35px" width="120px"/></a>&nbsp;framework!]</h2>
 	</div>
