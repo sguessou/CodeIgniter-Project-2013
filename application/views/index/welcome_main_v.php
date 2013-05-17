@@ -34,8 +34,9 @@
 	
 	<div class="right">
 			<h2>NOTICE!</h2>
-			<p>Log in as <u class="click">saruman</u> with the password: <u class="click">return0</u>, to experiment with the user CMS!</p>	
-		</div>	
+			<p>The project was started on: 01-05-2013,I have started working on the main sections(books, movies), will try
+			to get the cart working at some point, then on to the admin and user CMS.</p>	
+	</div>	
 	  
 <div class="clear">&nbsp;</div>
 

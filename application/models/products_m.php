@@ -13,6 +13,8 @@ class Products_m extends CI_Model
 		$this->load->database();
 	}
 	
+	
+	
 	/*
 	*	This function returns the products type id ($ptype_id), it's used in the next function 
 	*	to get a list of products based on their type name.
@@ -54,15 +56,15 @@ class Products_m extends CI_Model
 		                                     ORDER BY product_id DESC
 		                                     LIMIT :limit";
 		$stmt = $this->db->conn_id->prepare($sql);
-		$stmt->bindparam(":ptype_id", $product_type_id['ptype_id'], \PDO::PARAM_INT);
-		$stmt->bindparam(":limit", $limit, \PDO::PARAM_INT);
+		$stmt->bindParam(":ptype_id", $product_type_id['ptype_id'], \PDO::PARAM_INT);
+		$stmt->bindParam(":limit", $limit, \PDO::PARAM_INT);
 	  }//End if
 	  elseif($limit == NULL)
 	  {
 	  	$sql = "SELECT * FROM products WHERE ptype_id = :ptype_id 
 		                                     ORDER BY product_id DESC";
 		$stmt = $this->db->conn_id->prepare($sql);
-		$stmt->bindparam(":ptype_id", $product_type_id['ptype_id'], \PDO::PARAM_INT);
+		$stmt->bindParam(":ptype_id", $product_type_id['ptype_id'], \PDO::PARAM_INT);
 	  }//End elseif
 	  
 	  $this->_data = array();
@@ -88,8 +90,8 @@ class Products_m extends CI_Model
     {
   		$stmt = $this->db->conn_id->prepare( "SELECT SQL_CALC_FOUND_ROWS * FROM products WHERE ptype_id = :product_type_id ORDER BY $order DESC LIMIT :start_row, :num_rows" );
   		$stmt->bindParam( ":product_type_id", $product_type_id, \PDO::PARAM_INT );
-  		$stmt->bindValue( ":start_row", $start_row, \PDO::PARAM_INT );
-    	$stmt->bindValue( ":num_rows", $num_rows, \PDO::PARAM_INT );
+  		$stmt->bindParam( ":start_row", $start_row, \PDO::PARAM_INT );
+    	$stmt->bindParam( ":num_rows", $num_rows, \PDO::PARAM_INT );
     
     	$this->_data = array();
     
@@ -108,6 +110,33 @@ class Products_m extends CI_Model
     
     	return array($this->_data, $row['total_rows']);
   }
+  	/*
+  	*	This method fetches a single row from database based on parameter $product_id
+  	*	@param int $product_id
+  	*	@return associative array @this->_data 
+  	*/
+	public function get_row($product_id)
+	{
+		$stmt = $this->db->conn_id->prepare( "SELECT products.*, product_types.type_name 
+												FROM products INNER JOIN product_types
+													 ON products.ptype_id = product_types.ptype_id	 
+													 WHERE product_id = :product_id" );
+		$stmt->bindParam(':product_id', $product_id, \PDO::PARAM_INT);
+		
+		$this->_data = array();
+    
+    	if($stmt->execute())
+		{
+			return $this->_data = $stmt->fetchAll(\PDO::FETCH_ASSOC); 
+		}
+		else
+		{
+			print_r($stmt->errorInfo());
+			return;
+		}
+		
+
+	}//End method get_row
 	
 }//End class Products_m
 

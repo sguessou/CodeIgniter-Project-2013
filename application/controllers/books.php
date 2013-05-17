@@ -5,7 +5,7 @@ class Books extends CI_Controller
 	var $site_title;
 	var $css;
 	var $base_url;
-	var $data = array();
+	var $data;
 	
 	public function __construct()
 	{
@@ -17,6 +17,7 @@ class Books extends CI_Controller
 	
 	public function index($action, $start = NULL, $first = NULL)
 	{
+		$data = array();
 		$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
@@ -40,13 +41,33 @@ class Books extends CI_Controller
 		} 
 		
 		$this->load->view('/books/books_main_v', $data);
-	}
+	}//End method index
+	
+	/*
+	*	when called the method loads $data['product_data'] with data associated with product
+	*	@param int $product_id
+	*/
+	public function describe_product($product_id)
+	{
+		$data = array();
+		
+		$data['css'] = $this->css;
+		$data['site_title'] = $this->site_title;
+		$data['base_url'] = $this->base_url;
+		
+		$this->load->model('products_m');
+		
+		$data['product_data'] = $this->products_m->get_row($product_id);
+		
+		$this->load->view('/books/books_display_v', $data);
+		
+	}//End method describe_product
 	
 	
 
 
 
-}
+}//End class Books
 
 /* End of file books.php */
 /* Location: ./application/controllers/books.php */

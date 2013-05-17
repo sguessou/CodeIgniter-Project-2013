@@ -20,9 +20,7 @@
 			</div>
 	
 		<div class="right">
-			<h2>NOTICE!</h2>
-			<p>Log in as <u class="click">saruman</u> with the password: <u class="click">return0</u>, to experiment with the user CMS!</p>	
-		</div>	
+			</div>	
 	  
 <div class="clear">&nbsp;</div>
 </div>
@@ -37,8 +35,8 @@
 		foreach ( $products as $product ) { 
 		echo '<li>';
 		$cover_path = $base_url."/images/products_images/" . $product['product_id'] . ".jpg";
-	    echo '<a href="'.$base_url.'/index.php?controller=books&action=showproduct&pid='.$product['product_id'].'"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
-	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/index.php?controller=books&action=showproduct&pid='.$product['product_id'].'"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
+	    echo '<a href="'.$base_url.'/books/describe_product/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
+	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/books/describe_product/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
 	    echo '<br /><a class="add-cart-book" href="index.php?controller=cart&action=addcart&pid='.htmlspecialchars( $product['product_id'] ).'">Add to cart</a>';
 	    echo '</li>';	
 	   }
@@ -62,10 +60,13 @@
 			if($total_rows % $page_size) { $last += 1; }
 			echo '&nbsp;&nbsp;<strong>( Page '.$first.' of '.(int)$last.' )</strong>'; 
         echo '</div>';	
-        ?>
-			
-			
+        ?>			
 </div>
+
+
+
+<?php print_r($products) ?>
+
  <div class="clear">&nbsp;</div>
 </div>
 <!****************************************************************************************>	
