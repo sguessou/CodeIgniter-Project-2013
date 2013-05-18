@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Books extends CI_Controller 
+class Products extends CI_Controller 
 {
 	var $site_title;
 	var $css;
@@ -15,7 +15,7 @@ class Books extends CI_Controller
 	  $this->base_url = $this->config->item('base_url');  		
 	}
 	
-	public function index($action, $start = NULL, $first = NULL)
+	public function index($action, $product_name, $start = NULL, $first = NULL)
 	{
 		$data = array();
 		$data['css'] = $this->css;
@@ -29,25 +29,32 @@ class Books extends CI_Controller
 			$data['first'] = 1;
 		   	$data['start'] = 0;
 		   	$data['page_size'] = 10;		
-			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps(1, 'product_id', $data['start'], 10);	
+			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps($product_name, 'product_id', $data['start'], 10);	
 		}	
 		
-		if($action == 'next' && $start && $first)
+		if($action == 'next')
 		{
 			$data['page_size'] = 10;
 		    $data['start']  = (int)$start;
 			$data['first'] = (int)$first;
-			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps(1, 'product_id', $data['start'], 10);
+			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps($product_name, 'product_id', $data['start'], 10);
 		} 
 		
-		$this->load->view('/books/books_main_v', $data);
+		if($product_name == 'Book')
+		{
+			$this->load->view('/books/books_main_v', $data);
+		}
+		elseif($product_name == 'Dvd')
+		{
+			$this->load->view('/movies/movies_main_v', $data);
+		}
 	}//End method index
 	
 	/*
 	*	when called the method loads $data['product_data'] with data associated with product
 	*	@param int $product_id
 	*/
-	public function describe_product($product_id)
+	public function describe_product($product_type, $product_id)
 	{
 		$data = array();
 		
@@ -59,15 +66,21 @@ class Books extends CI_Controller
 		
 		$data['product_data'] = $this->products_m->get_row($product_id);
 		
-		$this->load->view('/books/books_display_v', $data);
-		
+		if($product_type == 'Book')
+		{
+			$this->load->view('/books/books_display_v', $data);
+		}
+		elseif($product_type == 'Dvd')
+		{
+			$this->load->view('/movies/movies_display_v', $data);
+		}
 	}//End method describe_product
 	
 	
 
 
 
-}//End class Books
+}//End class Products
 
-/* End of file books.php */
-/* Location: ./application/controllers/books.php */
+/* End of file products.php */
+/* Location: ./application/controllers/products.php */

@@ -7,8 +7,8 @@
 <div id="menu"> 
 		<ul>     
 			<li><a class="current" href="<?php echo $base_url; ?>/welcome/">Main</a></li>
-			<li><a href="<?php echo $base_url; ?>/books/index/begin/">Books</a></li>
-			<li><a href="">Movies</a></li>
+			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
+			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
 			<li><a href="">Login</a></li>
 			
 		</ul>
@@ -34,7 +34,7 @@
 	
 	<div class="right">
 			<h2>NOTICE!</h2>
-			<p>The project was started on: 01-05-2013,I have started working on the main sections(books, movies), will try
+			<p>This project was started on the: 01-05-2013,I have chosen to work on the main sections (main,books...) first. I will try
 			to get the cart working at some point, then on to the admin and user CMS.</p>	
 	</div>	
 	  
@@ -63,10 +63,10 @@
 		 $description .= '...'; 
 		 
 		 echo '<td width="120">';
-		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/index.php?controller=books&action=showproduct&pid='.$book['product_id'].'&flag=begin">';
+		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$book['product_id'].'/">';
 		 echo '<img class="border" width="100" alt="Price: '.$book['product_price'].' €" src="'.$coverSrc.'"></a></td>';
 		 echo '<td width="370" style="border-bottom:1px dashed green;">';
-		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/index.php?controller=books&action=showproduct&pid='.$book['product_id'].'&flag=begin">'.$book['product_name'].'</a>';
+		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$book['product_id'].'/">'.$book['product_name'].'</a>';
 		 echo '<div style="padding-top:10px; text-align:justify;">'.htmlentities($description).'</div>';
 		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="index.php?controller=cart&action=addcart&pid='.htmlspecialchars( $book['product_id']).'&front=front">Add to cart</a></div></td>';
 		 echo '<td width="20"> </td>';
@@ -99,10 +99,10 @@
 		 $descp .= '...'; 
 		 
 		 echo '<td width="120">';
-		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/index.php?controller=dvd&action=showDvd&pid='.$dvd['product_id'].'&flag=begin">';
+		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/products/describe_product/Dvd/'.$dvd['product_id'].'/">';
 		 echo '<img class="border" width="100" alt="Price: '.$dvd['product_price'].' €" src="'.$cvrSrc.'"></a></td>';
 		 echo '<td width="370" style="border-bottom:1px dashed green;">';
-		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/index.php?controller=dvd&action=showDvd&pid='.$dvd['product_id'].'&flag=begin">'.$dvd['product_name'].'</a>';
+		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$dvd['product_id'].'/">'.$dvd['product_name'].'</a>';
 		 echo '<div style="padding-top:10px; text-align:justify;">'.$descp.'</div>';
 		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="index.php?controller=cart&action=addcart&pid='.htmlspecialchars($dvd['product_id']).'&front=front">Add to cart</a></div></td>';
 		 echo '<td width="20"> </td>';

@@ -86,10 +86,12 @@ class Products_m extends CI_Model
 	* 	@param int $product_type_id, int $order, int $start_row, int $num_rows
 	* 	@return associative array made of arrays: $this->_data and $row 
 	*/
-	public function fetch_products_ps($product_type_id, $order, $start_row, $num_rows)
+	public function fetch_products_ps($product_name, $order, $start_row, $num_rows)
     {
+ 		$product_type_id = $this->get_product_type_id($product_name); 
+ 		  
   		$stmt = $this->db->conn_id->prepare( "SELECT SQL_CALC_FOUND_ROWS * FROM products WHERE ptype_id = :product_type_id ORDER BY $order DESC LIMIT :start_row, :num_rows" );
-  		$stmt->bindParam( ":product_type_id", $product_type_id, \PDO::PARAM_INT );
+  		$stmt->bindParam( ":product_type_id", $product_type_id['ptype_id'], \PDO::PARAM_INT );
   		$stmt->bindParam( ":start_row", $start_row, \PDO::PARAM_INT );
     	$stmt->bindParam( ":num_rows", $num_rows, \PDO::PARAM_INT );
     

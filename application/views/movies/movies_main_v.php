@@ -6,8 +6,8 @@
 <div id="menu"> 
 		<ul>     
 			<li><a href="<?php echo $base_url; ?>/welcome/">Main</a></li>
-			<li><a class="current" href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
-			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
+			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
+			<li><a class="current" href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
 			<li><a href="">Login</a></li>
 			
 		</ul>
@@ -27,16 +27,16 @@
 
 <div id="main">	
 
-<h3><strong>IT-Books:</strong></h3>
+<h3><strong>Movies:</strong></h3>
    
-	<div class="wrapper-book">
-	<ul class="gallery">
+	<div class="wrapper-dvd">
+	<ul class="gallery-dvd">
 	<?php
 		foreach ( $products as $product ) { 
 		echo '<li>';
 		$cover_path = $base_url."/images/products_images/" . $product['product_id'] . ".jpg";
-	    echo '<a href="'.$base_url.'/products/describe_product/Book/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
-	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/products/describe_product/Book/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
+	    echo '<a href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
+	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
 	    echo '<br /><a class="add-cart-book" href="index.php?controller=cart&action=addcart&pid='.htmlspecialchars( $product['product_id'] ).'">Add to cart</a>';
 	    echo '</li>';	
 	   }
@@ -48,13 +48,13 @@
         
         if($start > 0) 
         { 
-           echo '<a href="'.$base_url.'/products/index/next/Book/'.max( $start - $page_size, 0 ).'/'.max( $first - 1, 1 ).'/"><strong>Previous Page</strong></a>';
+           echo '<a href="'.$base_url.'/products/index/next/Dvd/'.max( $start - $page_size, 0 ).'/'.max( $first - 1, 1 ).'/"><strong>Previous Page</strong></a>';
         } 
         echo '&nbsp;&nbsp;&nbsp;';
         
       if($start + $page_size < $total_rows) 
       { 
-        echo '<a href="'.$base_url.'/products/index/next/Book/'.min( $start + $page_size, $total_rows ).'/'.min( $first + 1, ($total_rows / $page_size) + 1 ).'/"><strong>Next Page</strong></a>';
+        echo '<a href="'.$base_url.'/products/index/next/Dvd/'.min( $start + $page_size, $total_rows ).'/'.min( $first + 1, ($total_rows / $page_size) + 1 ).'/"><strong>Next Page</strong></a>';
       } 
 		$last = $total_rows / $page_size;
 			if($total_rows % $page_size) { $last += 1; }
@@ -62,7 +62,6 @@
         echo '</div>';	
         ?>			
 </div>
-
 
 
 
@@ -77,5 +76,5 @@
 	
 	$this->load->view('footer');
 	
-/* End of file books_main_v.php */
-/* Location: ./application/views/books/books_main_v.php */
+/* End of file movies_main_v.php */
+/* Location: ./application/views/movies/movies_main_v.php */

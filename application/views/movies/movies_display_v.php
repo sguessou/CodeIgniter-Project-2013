@@ -6,8 +6,8 @@
 <div id="menu"> 
 		<ul>     
 			<li><a href="<?= $base_url ?>/welcome/">Main</a></li>
-			<li><a class="current" href="<?= $base_url ?>/products/index/begin/Book/">Books</a></li>
-			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
+			<li><a href="<?= $base_url ?>/products/index/begin/Book/">Books</a></li>
+			<li><a class="current" href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
 			<li><a href="">Login</a></li>
 			
 		</ul>
@@ -27,7 +27,7 @@
 
 <div id="main">	
 
-<h3><strong>IT-Books:</strong></h3>
+<h3><strong>Movies:</strong></h3>
    
 
 <div class="wrapper">
@@ -38,7 +38,7 @@
 			<img src="<?= $img ?>" alt="<?= $img  ?>" height="180" width="160" />
 			<p><?= $product_data[0]['product_description'] ?></p>
 			<ul class="author">
-				<li><h2 class="author">More About the Author</h2>
+				<li><h2 class="author">More About the Director</h2>
 				<strong>Biography</strong></li>
 				
 			</ul>
@@ -51,11 +51,10 @@
 				<li><strong>Price:</strong>&nbsp;<?= $product_data[0]['product_price'] ?>&nbsp;&euro;</li>
 			</ul>
 			<a class="add-cart" href="index.php?controller=cart&action=addcart&pid=">Add to cart</a>
-			<a class="more" href="<?= $base_url ?>/products/index/begin/Book/">Go Back</a>
+			<a class="more" href="<?= $base_url ?>/products/index/begin/Dvd/">Go Back</a>
 		</div>
 	</div>	
 			
-
  <div class="clear">&nbsp;</div>
 </div>
 <!****************************************************************************************>	
@@ -66,5 +65,5 @@
 	
 	$this->load->view('footer');
 	
-/* End of file books_display_v.php */
-/* Location: ./application/views/books/books_display_v.php */
+/* End of file movies_display_v.php */
+/* Location: ./application/views/movies/movies_display_v.php */
