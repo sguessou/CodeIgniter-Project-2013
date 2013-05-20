@@ -37,19 +37,23 @@
 			
 			<div id="cartSlider">	
 			<h1 class="cart_header">Your Shopping Cart:</h1>
-			<ul class="cartUl">                            
-				<li><a href=""><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>&nbsp;&nbsp;<a href="" id="cSlider">product name</a>
-				&nbsp;<strong><?php echo $cart_total_items. ($cart_total_items == 1 ? ' Item ' : ' Items '); ?></strong>à&nbsp;€&nbsp;
-				price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
+			<ul class="cartUl">       
+			 <?php foreach($cart_content as $cart): ?>                     
+				<li><a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>&nbsp;&nbsp;<a href="" id="cSlider"><?= $cart['name'] ?></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $cart['qty'] += 1; ?>/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $cart['qty'] -= 1; ?>/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
+				&nbsp;<strong><?= $cart['qty']. ($cart['qty'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
+				<?= ($cart['price'] * $cart['qty']) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
 				<font color="#FF0000"><strong>€&nbsp;<?= $cart_total ?></strong></font></li>		
 				<li>&nbsp;</li>
-				<li><strong>Total Sum: € <font color="#FF0000"><?php echo $cart_total; ?></strong></font></li>
+				<li><strong>Total Sum: € <font color="#FF0000"><?= $cart_total ?></strong></font></li>
+			 <?php endforeach; ?>
 			</ul>
 			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
 			<a class="close" id="close" href="#">Close</a>
 		 	</div>	
 		 	
-		 	
+
 		</div> 
 	</div>
 	

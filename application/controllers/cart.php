@@ -21,19 +21,42 @@ class Cart extends CI_Controller
 		
 		if($location == 'book')
 		{
+			header("Location:$this->base_url/products/index/begin/Book/");
 		}
 		elseif($location == 'dvd')
 		{
+			header("Location:$this->base_url/products/index/begin/Dvd/");
 		}
 		else
 		{
 			header("Location:$this->base_url");
 		}
 			
-		
-			
-	}
+	}//End method index
 
+	public function update_cart($rowid, $qty, $location = NULL)
+	{
+		$data = array( 'rowid' => $rowid,
+				  	   'qty' => $qty );
+	
+		$this->cart->update($data);
+		
+		if($location == 'book')
+		{
+			header("Location:$this->base_url/products/index/begin/Book/");
+		}
+		elseif($location == 'dvd')
+		{
+			header("Location:$this->base_url/products/index/begin/Dvd/");
+		}
+		else
+		{
+			header("Location:$this->base_url");
+		}		 	
+		
+	}
+	
+	
 }//End class Cart
 
 /* End of file cart.php */
