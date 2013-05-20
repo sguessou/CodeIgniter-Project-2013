@@ -43,6 +43,7 @@ class Products extends CI_Controller
 		if($product_name == 'Book')
 		{
 			$this->load->view('/books/books_main_v', $data);
+			$this->cart->destroy();
 		}
 		elseif($product_name == 'Dvd')
 		{

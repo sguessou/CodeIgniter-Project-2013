@@ -6,7 +6,7 @@
 	<meta name="keywords" content="Books, dvd's" />
 	<meta name="author" content="sguessou" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $base_url.'/'.$css; ?>" title="Variant Multi" media="all" />
-	<script src="_js/jquery-1.9.1.min.js"></script>
+	<script src="<?= $base_url ?>/_js/jquery-1.9.1.min.js"></script>
 	<title>Online Store</title>
 	<script>
 		$(document).ready(function(){
