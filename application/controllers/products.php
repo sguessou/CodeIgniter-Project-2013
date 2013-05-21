@@ -24,6 +24,10 @@ class Products extends CI_Controller
 		
 		$this->load->model('products_m');
 		
+		$data['cart_content'] = $this->cart->contents();
+		$data['cart_total'] = $this->cart->total();
+		$data['cart_total_items'] = $this->cart->total_items();
+		
 		if($action == 'begin')
 		{
 			$data['first'] = 1;
@@ -40,12 +44,11 @@ class Products extends CI_Controller
 			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps($product_name, 'product_id', $data['start'], 10);
 		} 
 		
-		if($product_name == 'Book')
+		if(strtolower($product_name) == 'book')
 		{
 			$this->load->view('/books/books_main_v', $data);
-			$this->cart->destroy();
 		}
-		elseif($product_name == 'Dvd')
+		elseif(strtolower($product_name) == 'dvd')
 		{
 			$this->load->view('/movies/movies_main_v', $data);
 		}
@@ -66,6 +69,10 @@ class Products extends CI_Controller
 		$this->load->model('products_m');
 		
 		$data['product_data'] = $this->products_m->get_row($product_id);
+		
+		$data['cart_content'] = $this->cart->contents();
+		$data['cart_total'] = $this->cart->total();
+		$data['cart_total_items'] = $this->cart->total_items();
 		
 		if($product_type == 'Book')
 		{

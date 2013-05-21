@@ -17,7 +17,46 @@
 		<div class="left">		
 		
 			<h2 class="cart" id="viewCart">Cart</h2>
-			</div>
+			<?php
+	
+			if($cart_total_items == 0) 
+			{
+				echo "<div><p>Your Shopping Cart is empty!</p>";
+			}
+			elseif($cart_total_items == 1)
+			{
+				echo '<div class="link"><p>You have <a href="#" id="cartLink">'.$cart_total_items.' product</a> in your Shopping Cart!</p>';
+			}
+			elseif($cart_total_items > 1)
+			{	
+				echo '<div class="link"><p>You have <a href="#" id="cartLink">'.$cart_total_items.' products</a> in your Shopping Cart!</p>';
+			}
+			?>
+			
+			<div id="cartSlider">	
+			<h1 class="cart_header">Your Shopping Cart:</h1>
+			<ul class="cartUl">       
+			 <?php foreach($cart_content as $cart): ?>                     
+				<li><a href="" id="cSlider"><?= $cart['name'] ?></a>
+				<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/Dvd/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
+				&nbsp;<strong><?= $cart['qty']. ($cart['qty'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
+				<?= ($cart['price'] * $cart['qty']) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
+				<font color="#FF0000"><strong>€&nbsp;<?= $cart['price'] ?></strong></font></li>		
+				
+			<?php endforeach; ?>
+				<li>&nbsp;</li>
+				<li><strong>Total Sum: € <font color="#FF0000"><?= $cart_total ?></strong></font></li>
+			 	<li>&nbsp;</li>
+			    <li><a href="<?= $base_url ?>/cart/empty_cart/Dvd/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
+			</ul>
+			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
+			<a class="close" id="close" href="#">Close</a>
+		 	</div>	
+		   </div> 
+			
+		</div>
 	
 		<div class="right">
 			</div>	
@@ -50,7 +89,7 @@
 				<li><strong>ISBN-10:</strong>&nbsp;<?= $product_data[0]['product_isbn10'] ?></li>
 				<li><strong>Price:</strong>&nbsp;<?= $product_data[0]['product_price'] ?>&nbsp;&euro;</li>
 			</ul>
-			<a class="add-cart" href="index.php?controller=cart&action=addcart&pid=">Add to cart</a>
+			<a class="add-cart" href="<?= $base_url ?>/cart/index/<?= $product_data[0]['product_id'] ?>/1/<?= $product_data[0]['product_price'] ?>/<?= $product_data[0]['product_name'] ?>/Dvd/">Add to cart</a>
 			<a class="more" href="<?= $base_url ?>/products/index/begin/Dvd/">Go Back</a>
 		</div>
 	</div>	

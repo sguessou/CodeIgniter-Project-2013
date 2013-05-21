@@ -17,13 +17,29 @@ class Cart extends CI_Controller
 					   'price' => $price,
 					   'name' => urldecode($name));
 					   
-		$this->cart->insert($data);	
+		$found = FALSE; 			   
+		foreach($this->cart->contents() as $items)
+		{
+			if(urldecode($name) == $items['name'])
+			{
+				$items['qty'] += 1;
+				$var = array( 'rowid' => $items['rowid'],
+							  'qty' => $items['qty'] );	 
+				$this->cart->update($var);
+				$found = TRUE;
+			}			   
+		}			   
 		
-		if($location == 'book')
+		if(!$found)
+		{
+			$this->cart->insert($data);	
+		}
+		
+		if(strtolower($location) == 'book')
 		{
 			header("Location:$this->base_url/products/index/begin/Book/");
 		}
-		elseif($location == 'dvd')
+		elseif(strtolower($location) == 'dvd')
 		{
 			header("Location:$this->base_url/products/index/begin/Dvd/");
 		}
@@ -41,20 +57,37 @@ class Cart extends CI_Controller
 	
 		$this->cart->update($data);
 		
-		if($location == 'book')
+		if(strtolower($location) == 'book')
 		{
 			header("Location:$this->base_url/products/index/begin/Book/");
 		}
-		elseif($location == 'dvd')
+		elseif(strtolower($location) == 'dvd')
 		{
 			header("Location:$this->base_url/products/index/begin/Dvd/");
 		}
 		else
 		{
 			header("Location:$this->base_url");
-		}		 	
+		}		 		
+	}//End method update_cart
+	
+	public function empty_cart($location = NULL)
+	{
+		$this->cart->destroy();
 		
-	}
+		if(strtolower($location) == 'book')
+		{
+			header("Location:$this->base_url/products/index/begin/Book/");
+		}
+		elseif(strtolower($location) == 'dvd')
+		{
+			header("Location:$this->base_url/products/index/begin/Dvd/");
+		}
+		else
+		{
+			header("Location:$this->base_url");
+		}	
+	}//End method empty_cart
 	
 	
 }//End class Cart

@@ -17,7 +17,46 @@
 		<div class="left">		
 		
 			<h2 class="cart" id="viewCart">Cart</h2>
-			</div>
+			<?php
+	
+			if($cart_total_items == 0) 
+			{
+				echo "<div><p>Your Shopping Cart is empty!</p>";
+			}
+			elseif($cart_total_items == 1)
+			{
+				echo '<div class="link"><p>You have <a href="#" id="cartLink">'.$cart_total_items.' product</a> in your Shopping Cart!</p>';
+			}
+			elseif($cart_total_items > 1)
+			{	
+				echo '<div class="link"><p>You have <a href="#" id="cartLink">'.$cart_total_items.' products</a> in your Shopping Cart!</p>';
+			}
+			?>
+			
+			<div id="cartSlider">	
+			<h1 class="cart_header">Your Shopping Cart:</h1>
+			<ul class="cartUl">       
+			 <?php foreach($cart_content as $cart): ?>                     
+				<li><a href="" id="cSlider"><?= $cart['name'] ?></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/Dvd/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
+				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
+				&nbsp;<strong><?= $cart['qty']. ($cart['qty'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
+				<?= ($cart['price'] * $cart['qty']) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
+				<font color="#FF0000"><strong>€&nbsp;<?= $cart['price'] ?></strong></font></li>		
+				
+			<?php endforeach; ?>
+				<li>&nbsp;</li>
+				<li><strong>Total Sum: € <font color="#FF0000"><?= $cart_total ?></strong></font></li>
+				<li>&nbsp;</li>
+			    <li><a href="<?= $base_url ?>/cart/empty_cart/Dvd/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
+			</ul>
+			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
+			<a class="close" id="close" href="#">Close</a>
+		 	</div>	
+		   </div> 
+			
+		</div>
 	
 		<div class="right">
 			</div>	
@@ -37,7 +76,7 @@
 		$cover_path = $base_url."/images/products_images/" . $product['product_id'] . ".jpg";
 	    echo '<a href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
 	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
-	    echo '<br /><a class="add-cart-book" href="index.php?controller=cart&action=addcart&pid='.htmlspecialchars( $product['product_id'] ).'">Add to cart</a>';
+	    echo '<br /><a class="add-cart-book" href="'.$base_url.'/cart/index/'.$product['product_id'].'/1/'.$product['product_price'].'/'.$product['product_name'].'/Dvd/">Add to cart</a>';
 	    echo '</li>';	
 	   }
 	?>		
