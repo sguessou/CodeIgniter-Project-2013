@@ -37,7 +37,7 @@
 			<h1 class="cart_header">Your Shopping Cart:</h1>
 			<ul class="cartUl">       
 			 <?php foreach($cart_content as $cart): ?>                     
-				<li><a href="" id="cSlider"><?= $cart['name'] ?></a>
+				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['options']['product_type']?>/<?=$cart['id']?>/" id="cSlider"><?= $cart['name'] ?></a>
 				<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/Dvd/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
@@ -89,7 +89,7 @@
 				<li><strong>ISBN-10:</strong>&nbsp;<?= $product_data[0]['product_isbn10'] ?></li>
 				<li><strong>Price:</strong>&nbsp;<?= $product_data[0]['product_price'] ?>&nbsp;&euro;</li>
 			</ul>
-			<a class="add-cart" href="<?= $base_url ?>/cart/index/<?= $product_data[0]['product_id'] ?>/1/<?= $product_data[0]['product_price'] ?>/<?= $product_data[0]['product_name'] ?>/Dvd/">Add to cart</a>
+			<a class="add-cart" href="<?= $base_url ?>/cart/index/<?= $product_data[0]['product_id'] ?>/1/<?= $product_data[0]['product_price'] ?>/<?= $product_data[0]['product_name'] ?>/<?=$product_data[0]['type_name']?>/Dvd/">Add to cart</a>
 			<a class="more" href="<?= $base_url ?>/products/index/begin/Dvd/">Go Back</a>
 		</div>
 	</div>	

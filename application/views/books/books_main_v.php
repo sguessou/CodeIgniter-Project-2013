@@ -37,7 +37,7 @@
 			<h1 class="cart_header">Your Shopping Cart:</h1>
 			<ul class="cartUl">       
 			 <?php foreach($cart_content as $cart): ?>                     
-				<li><a href="" id="cSlider"><?= $cart['name'] ?></a>
+				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['options']['product_type']?>/<?=$cart['id']?>/" id="cSlider"><?= $cart['name'] ?></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/Book/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/Book/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/Book/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
@@ -77,7 +77,7 @@
 		$cover_path = $base_url."/images/products_images/" . $product['product_id'] . ".jpg";
 	    echo '<a href="'.$base_url.'/products/describe_product/Book/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
 	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/products/describe_product/Book/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
-	    echo '<br /><a class="add-cart-book" href="'.$base_url.'/cart/index/'.$product['product_id'].'/1/'.$product['product_price'].'/'.$product['product_name'].'/Book/">Add to cart</a>';
+	    echo '<br /><a class="add-cart-book" href="'.$base_url.'/cart/index/'.$product['product_id'].'/1/'.$product['product_price'].'/'.$product['product_name'].'/'.$product['type_name'].'/Book/">Add to cart</a>';
 	    echo '</li>';	
 	   }
 	?>		

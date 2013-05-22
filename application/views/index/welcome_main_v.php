@@ -39,7 +39,7 @@
 			<h1 class="cart_header">Your Shopping Cart:</h1>
 			<ul class="cartUl">       
 			 <?php foreach($cart_content as $cart): ?>                     
-				<li><a href="" id="cSlider"><?= $cart['name'] ?></a>
+				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['options']['product_type']?>/<?=$cart['id']?>/" id="cSlider"><?= $cart['name'] ?></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
 				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
@@ -98,7 +98,7 @@
 		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$book['product_id'].'/">'.$book['product_name'].'</a>';
 		 echo '<div style="padding-top:10px; text-align:justify;">'.htmlentities($description).'</div>';
 		 $book_name = urlencode($book['product_name']);
-		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="'.$base_url.'/cart/index/'.$book['product_id'].'/1/'.$book['product_price'].'/'.$book_name.'/">Add to cart</a></div></td>';
+		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="'.$base_url.'/cart/index/'.$book['product_id'].'/1/'.$book['product_price'].'/'.$book_name.'/'.$book['type_name'].'/">Add to cart</a></div></td>';
 		 echo '<td width="20"> </td>';
 		 if($rowCount % 2 == 0 && $rowCount != 4) echo '</tr><tr height="150">';
 		 elseif($rowCount % 2 == 0 && $rowCount == 4) echo '</tr>'; 
@@ -135,7 +135,7 @@
 		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$dvd['product_id'].'/">'.$dvd['product_name'].'</a>';
 		 echo '<div style="padding-top:10px; text-align:justify;">'.$descp.'</div>';
 		 $dvd_name = urlencode($dvd['product_name']);
-		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="'.$base_url.'/cart/index/'.$dvd['product_id'].'/1/'.$dvd['product_price'].'/'.$dvd_name.'/">Add to cart</a></div></td>';
+		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="'.$base_url.'/cart/index/'.$dvd['product_id'].'/1/'.$dvd['product_price'].'/'.$dvd_name.'/'.$dvd['type_name'].'/">Add to cart</a></div></td>';
 		 echo '<td width="20"> </td>';
 		 if($rowCnt % 2 == 0 && $rowCnt != 4) echo '</tr><tr height="150">';
 		 elseif($rowCnt % 2 == 0 && $rowCnt == 4) echo '</tr>'; 

@@ -52,17 +52,22 @@ class Products_m extends CI_Model
 	  	
 	  if($limit)
 	  {	
-		$sql = "SELECT * FROM products WHERE ptype_id = :ptype_id 
-		                                     ORDER BY product_id DESC
-		                                     LIMIT :limit";
+		$sql = "SELECT products.*, product_types.type_name 
+	  			FROM products INNER JOIN product_types
+	  				 ON products.ptype_id = product_types.ptype_id 
+	  				 WHERE products.ptype_id = :ptype_id ORDER BY products.product_id DESC LIMIT :limit";
+	  				 
 		$stmt = $this->db->conn_id->prepare($sql);
 		$stmt->bindParam(":ptype_id", $product_type_id['ptype_id'], \PDO::PARAM_INT);
 		$stmt->bindParam(":limit", $limit, \PDO::PARAM_INT);
 	  }//End if
 	  elseif($limit == NULL)
 	  {
-	  	$sql = "SELECT * FROM products WHERE ptype_id = :ptype_id 
-		                                     ORDER BY product_id DESC";
+	  	$sql = "SELECT products.*, product_types.type_name 
+	  			FROM products INNER JOIN product_types
+	  				 ON products.ptype_id = product_types.ptype_id 
+	  				 WHERE products.ptype_id = :ptype_id ORDER BY products.product_id DESC";
+	  				 
 		$stmt = $this->db->conn_id->prepare($sql);
 		$stmt->bindParam(":ptype_id", $product_type_id['ptype_id'], \PDO::PARAM_INT);
 	  }//End elseif
@@ -90,7 +95,12 @@ class Products_m extends CI_Model
     {
  		$product_type_id = $this->get_product_type_id($product_name); 
  		  
-  		$stmt = $this->db->conn_id->prepare( "SELECT SQL_CALC_FOUND_ROWS * FROM products WHERE ptype_id = :product_type_id ORDER BY $order DESC LIMIT :start_row, :num_rows" );
+  		$stmt = $this->db->conn_id->prepare( "SELECT SQL_CALC_FOUND_ROWS products.*, product_types.type_name 
+	  					                        FROM products INNER JOIN product_types
+	  				 							  ON products.ptype_id = product_types.ptype_id 
+	  				 							     WHERE products.ptype_id = :product_type_id 
+	  				 							     ORDER BY $order DESC LIMIT :start_row, :num_rows" );
+	  				 							     
   		$stmt->bindParam( ":product_type_id", $product_type_id['ptype_id'], \PDO::PARAM_INT );
   		$stmt->bindParam( ":start_row", $start_row, \PDO::PARAM_INT );
     	$stmt->bindParam( ":num_rows", $num_rows, \PDO::PARAM_INT );

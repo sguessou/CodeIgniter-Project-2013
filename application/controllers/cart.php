@@ -10,12 +10,13 @@ class Cart extends CI_Controller
 		$this->base_url = $this->config->item('base_url'); 
 	}
 	 
-	public function index($id, $qty, $price, $name, $location = NULL)
+	public function index($id, $qty, $price, $name, $product_type, $location = NULL)
 	{
 		$data = array( 'id' => $id,
 					   'qty' => $qty,
 					   'price' => $price,
-					   'name' => urldecode($name));
+					   'name' => urldecode($name),
+					   'options' => array('product_type' => $product_type) );
 					   
 		$found = FALSE; 			   
 		foreach($this->cart->contents() as $items)
