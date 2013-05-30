@@ -8,7 +8,7 @@
 			<li><a href="<?php echo $base_url; ?>/welcome/">Main</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a class="current" href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<li><a href="">Login</a></li>
+			<li><a href="<?=$base_url?>/users/index/">Login</a></li>
 			
 		</ul>
 	</div>

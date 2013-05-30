@@ -9,7 +9,11 @@
 			<li><a class="current" href="<?php echo $base_url; ?>/welcome/">Main</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<li><a href="">Login</a></li>
+			<? if (isset($session['logged'])) :?>
+					<li><a href="<?=$base_url?>/users/login/">My Account</a></li>
+			<? else: ?>
+					<li><a href="<?=$base_url?>/users/index/">Login</a></li>
+			<? endif ?>
 			
 		</ul>
 	</div>
