@@ -7,15 +7,15 @@
 		<ul>     
 			<li><a href="<?php echo $base_url; ?>/welcome/">Main</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
-			<li><a class="current" href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
+			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
 			<? if (isset($session['logged'])) :?>
 					<? if (isset($user_data['admin'])) :?>
-					   <li><a href="<?=$base_url?>/users/login/">Admin</a></li>
+					   <li><a class="current" href="<?=$base_url?>/users/login/">Admin</a></li>
 					<? else: ?>  
-						<li><a href="<?=$base_url?>/users/login/">My Account</a></li>
+						<li><a class="current" href="<?=$base_url?>/users/login/">My Account</a></li>
 					<? endif ?>	
 			<? else: ?>
-					<li><a href="<?=$base_url?>/users/index/">Login</a></li>
+					<li><a class="current" href="<?=$base_url?>/users/index/">Login</a></li>
 			<? endif ?>
 			
 		</ul>
@@ -71,48 +71,53 @@
 	  
 <div class="clear">&nbsp;</div>
 </div>
-
+<!******************************************[ MAIN ]********************************************************>
 <div id="main">	
 
-<h3><strong>Movies:</strong></h3>
-   
-	<div class="wrapper-dvd">
-	<ul class="gallery-dvd">
-	<?php
-		foreach ( $products as $product ) { 
-		echo '<li>';
-		$cover_path = $base_url."/images/products_images/" . $product['product_id'] . ".jpg";
-	    echo '<a href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
-	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
-	    echo '<br /><a class="add-cart-book" href="'.$base_url.'/cart/index/'.$product['product_id'].'/1/'.$product['product_price'].'/'.$product['product_name'].'/'.$product['type_name'].'/Dvd/">Add to cart</a>';
-	    echo '</li>';	
-	   }
-	?>		
-	</ul>
-	
-	<div style="width: 80%; margin-top: 20px; text-align: center; float: left;">
-        <?php 
-        
-        if($start > 0) 
-        { 
-           echo '<a href="'.$base_url.'/products/index/next/Dvd/'.max( $start - $page_size, 0 ).'/'.max( $first - 1, 1 ).'/"><strong>Previous Page</strong></a>';
-        } 
-        echo '&nbsp;&nbsp;&nbsp;';
-        
-      if($start + $page_size < $total_rows) 
-      { 
-        echo '<a href="'.$base_url.'/products/index/next/Dvd/'.min( $start + $page_size, $total_rows ).'/'.min( $first + 1, ($total_rows / $page_size) + 1 ).'/"><strong>Next Page</strong></a>';
-      } 
-		$last = $total_rows / $page_size;
-			if($total_rows % $page_size) { $last += 1; }
-			echo '&nbsp;&nbsp;<strong>( Page '.$first.' of '.(int)$last.' )</strong>'; 
-        echo '</div>';	
-        ?>			
-</div>
+<? if(!$user_data['admin']): ?>
+
+<div id="sidebar">
+			<div class="sidebarbox">
+               <h2>My Account Menu</h2>
+				<ul class="sidemenu">
+					<li><a href="<?php echo $base_url; ?>/users/view_open_orders/">View Open Orders</a></li>
+					<li><a href="<?php echo $base_url; ?>">Change Account Settings</a></li>
+					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
+				</ul>
+			</div>
+	  </div> 		   
+
+<h4 class="my-account">My Account Menu-></h4><br />
+
+<? elseif($user_data['admin']): ?>
+
+<div id="sidebar">
+			<div class="sidebarbox">
+               <h2>Admin Menu</h2>
+				<ul class="sidemenu">
+					<li><a href="<?php echo $base_url; ?>">Manage Users</a></li>
+					<li><a href="<?php echo $base_url; ?>">Manage Product Types</a></li>
+					<li><a href="<?php echo $base_url; ?>">Manage Products</a>
+						<ul>
+							<li><a href="<?php echo $base_url; ?>">Add Product</a></li>
+							<li><a href="<?php echo $base_url; ?>">Update or Remove</a></li>
+						</ul></li>
+					<li><a href="#">Manage Orders</a></li>	
+					<li><a href="<?php echo $base_url; ?>">View Access Log</a></li>
+					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
+				</ul>
+			</div>
+	    </div> 		   
+
+	<h4 class="admin-sign">Admin Menu-></h4><br />
+
+<? endif ?>
+
+<?php var_dump($cart_content); ?>
 
 
-
-
+		
+<p>&nbsp;</p>
  <div class="clear">&nbsp;</div>
 </div>
 <!****************************************************************************************>	
@@ -123,5 +128,5 @@
 	
 	$this->load->view('footer');
 	
-/* End of file movies_main_v.php */
-/* Location: ./application/views/movies/movies_main_v.php */
+/* End of file users_open_orders_v.php */
+/* Location: ./application/views/users/users_open_orders_v.php */

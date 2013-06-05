@@ -10,7 +10,11 @@
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
 			<? if (isset($session['logged'])) :?>
-					<li><a href="<?=$base_url?>/users/login/">My Account</a></li>
+					<? if (isset($user_data['admin'])) :?>
+					   <li><a href="<?=$base_url?>/users/login/">Admin</a></li>
+					<? else: ?>  
+						<li><a href="<?=$base_url?>/users/login/">My Account</a></li>
+					<? endif ?>	
 			<? else: ?>
 					<li><a href="<?=$base_url?>/users/index/">Login</a></li>
 			<? endif ?>

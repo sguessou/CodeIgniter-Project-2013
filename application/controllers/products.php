@@ -23,10 +23,19 @@ class Products extends CI_Controller
 		$data['base_url'] = $this->base_url;
 		
 		$this->load->model('products_m');
+		$this->load->model('users_m');
 		
 		$data['cart_content'] = $this->cart->contents();
 		$data['cart_total'] = $this->cart->total();
 		$data['cart_total_items'] = $this->cart->total_items();
+		
+		$this->load->library('../controllers/auth');
+		
+		if( $this->auth->is_logged() )
+		{
+			$data['session'] = $this->session->userdata;
+		    $data['user_data'] = $this->users_m->get_user_record($this->session->userdata('login'));
+		}
 		
 		if($action == 'begin')
 		{
@@ -67,12 +76,21 @@ class Products extends CI_Controller
 		$data['base_url'] = $this->base_url;
 		
 		$this->load->model('products_m');
+		$this->load->model('users_m');
 		
 		$data['product_data'] = $this->products_m->get_row($product_id);
 		
 		$data['cart_content'] = $this->cart->contents();
 		$data['cart_total'] = $this->cart->total();
 		$data['cart_total_items'] = $this->cart->total_items();
+		
+		$this->load->library('../controllers/auth');
+		
+		if( $this->auth->is_logged() )
+		{
+			$data['session'] = $this->session->userdata;
+		    $data['user_data'] = $this->users_m->get_user_record($this->session->userdata('login'));
+		}
 		
 		if($product_type == 'Book')
 		{

@@ -21,9 +21,9 @@ class Auth extends CI_Controller
 	  parent::__construct();
 	  $this->_redirect = $this->config->item('base_url').'/users/';
 	  $this->_hash_key = 'CodeIgniter is awesome! 28 may 2013 zetla is ok 22';
-	  $this->load->library('session');	//Initializing a session	
+	  //$this->load->library('session');	//Initializing a session	
 	  $this->load->library('encrypt');
-	  $this->load->database();
+	  //$this->load->database();
 	}
 	
 	public function index()
@@ -98,7 +98,7 @@ class Auth extends CI_Controller
   	/*
   	*	Confirms that an existing login is still valid
 	*	@param none
-	*	@return void
+	*	@return boolean
 	*/
 	public function confirm_auth()
   	{
@@ -113,6 +113,29 @@ class Auth extends CI_Controller
 		}
 		return TRUE;
   	}//End method confirm_auth
+  	
+  	/*
+  	*	Same method as above, except that we don't redirect also the user session values are emptied locally 
+	*	@param none
+	*	@return boolean
+	*/
+	public function is_logged()
+  	{
+		$login = $this->session->userdata('login');
+		$password = $this->session->userdata('password');
+		$hash_key = $this->session->userdata('hash');
+		$logged = $this->session->userdata('logged');
+		
+		if ( md5($this->_hash_key.$login.$password) != $hash_key)
+		{
+		  	$this->session->unset_userdata('login');
+			$this->session->unset_userdata('password');
+			$this->session->unset_userdata('hash');
+			$this->session->unset_userdata('logged');
+		  	return FALSE;
+		}
+		return TRUE;
+  	}//End method is_logged
   	
   	/*
   	*	Logs the user out

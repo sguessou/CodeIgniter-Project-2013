@@ -8,7 +8,15 @@
 			<li><a href="<?php echo $base_url; ?>/welcome/">Main</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<li><a class="current" href="<?=$base_url?>/users/index/">Login</a></li>
+			<? if (isset($session['logged'])) :?>
+					<? if (isset($user_data['admin'])) :?>
+					   <li><a class="current" href="<?=$base_url?>/users/login/">Admin</a></li>
+					<? else: ?>  
+						<li><a class="current" href="<?=$base_url?>/users/login/">My Account</a></li>
+					<? endif ?>	
+			<? else: ?>
+					<li><a class="current" href="<?=$base_url?>/users/index/">Login</a></li>
+			<? endif ?>
 			
 		</ul>
 	</div>

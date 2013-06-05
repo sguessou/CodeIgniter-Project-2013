@@ -9,7 +9,11 @@
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
 			<? if (isset($session['logged'])) :?>
-					<li><a class="current" href="<?=$base_url?>/users/login/">My Account</a></li>
+					<? if (isset($user_data['admin'])) :?>
+					   <li><a class="current" href="<?=$base_url?>/users/login/">Admin</a></li>
+					<? else: ?>  
+						<li><a class="current" href="<?=$base_url?>/users/login/">My Account</a></li>
+					<? endif ?>	
 			<? else: ?>
 					<li><a class="current" href="<?=$base_url?>/users/index/">Login</a></li>
 			<? endif ?>
@@ -69,11 +73,13 @@
 <!******************************************[ MAIN ]********************************************************>
 <div id="main">	
 
+<? if(!$user_data['admin']): ?>
+
 <div id="sidebar">
 			<div class="sidebarbox">
                <h2>My Account Menu</h2>
 				<ul class="sidemenu">
-					<li><a href="<?php echo $base_url; ?>">View Open Orders</a></li>
+					<li><a href="<?php echo $base_url; ?>/users/view_open_orders/">View Open Orders</a></li>
 					<li><a href="<?php echo $base_url; ?>">Change Account Settings</a></li>
 					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
 				</ul>
@@ -81,6 +87,30 @@
 	  </div> 		   
 
 <h4 class="my-account">My Account Menu-></h4><br />
+
+<? elseif($user_data['admin']): ?>
+
+<div id="sidebar">
+			<div class="sidebarbox">
+               <h2>Admin Menu</h2>
+				<ul class="sidemenu">
+					<li><a href="<?php echo $base_url; ?>">Manage Users</a></li>
+					<li><a href="<?php echo $base_url; ?>">Manage Product Types</a></li>
+					<li><a href="<?php echo $base_url; ?>">Manage Products</a>
+						<ul>
+							<li><a href="<?php echo $base_url; ?>">Add Product</a></li>
+							<li><a href="<?php echo $base_url; ?>">Update or Remove</a></li>
+						</ul></li>
+					<li><a href="#">Manage Orders</a></li>	
+					<li><a href="<?php echo $base_url; ?>">View Access Log</a></li>
+					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
+				</ul>
+			</div>
+	    </div> 		   
+
+	<h4 class="admin-sign">Admin Menu-></h4><br />
+
+<? endif ?>
 	
 <?php if($user_data['last_log']): ?>
 	<h4><?php echo $msg.' '.$user_data['firstname'].'!'; ?>

@@ -18,7 +18,9 @@ class Cart extends CI_Controller
 					   'name' => urldecode($name),
 					   'options' => array('product_type' => $product_type) );
 					   
-		$found = FALSE; 			   
+		$found = FALSE;
+		// We go through the cart to see if product is already included, if it is the quantity is upped by 1.
+		// If the product is not found we insert it. 			   
 		foreach($this->cart->contents() as $items)
 		{
 			if(urldecode($name) == $items['name'])

@@ -14,8 +14,8 @@ class Users extends CI_Controller
 	  $this->site_title = $this->config->item('site_title');
 	  $this->css = $this->config->item('css');
 	  $this->base_url = $this->config->item('base_url');  
-	  $this->load->library('session');	//Initializing a session
-	  $this->load->database();	
+	  //$this->load->library('session');	//Initializing a session
+	  //$this->load->database();	
 	}
 	/*
 	*	This method loads the main view of section: login, with the login form
@@ -72,6 +72,32 @@ class Users extends CI_Controller
 		{
 			header('Location:'.$this->base_url.'/users/login/');
 		}	
+	}
+	
+	/*
+	*
+	*
+	*/
+	public function view_open_orders()
+	{
+		$data = array();
+		$data['css'] = $this->css;
+		$data['site_title'] = $this->site_title;
+		$data['base_url'] = $this->base_url;
+		
+		$this->load->model('users_m');
+		
+		$data['cart_content'] = $this->cart->contents();
+		$data['cart_total'] = $this->cart->total();
+		$data['cart_total_items'] = $this->cart->total_items();
+		
+		$this->load->library('../controllers/auth');
+		$this->auth->confirm_auth();
+		
+		$data['session'] = $this->session->userdata;
+		$data['user_data'] = $this->users_m->get_user_record($this->session->userdata('login'));
+		
+		$this->load->view('/users/users_open_orders_v', $data);
 	}
 	
 	/*

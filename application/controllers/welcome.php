@@ -13,7 +13,6 @@ class Welcome extends CI_Controller {
 	  $this->site_title = $this->config->item('site_title');
 	  $this->css = $this->config->item('css');
 	  $this->base_url = $this->config->item('base_url');
-	  $this->load->library('session');		
 	}
 
 	/**
@@ -46,7 +45,14 @@ class Welcome extends CI_Controller {
 		$data['cart_total'] = $this->cart->total();
 		$data['cart_total_items'] = $this->cart->total_items();
 		
-		$data['session'] = $this->session->all_userdata();
+		$this->load->model('users_m');
+		$this->load->library('../controllers/auth');
+		
+		if( $this->auth->is_logged() )
+		{
+			$data['session'] = $this->session->userdata;
+		    $data['user_data'] = $this->users_m->get_user_record($this->session->userdata('login'));
+		}
 		
 		$this->load->view('./index/welcome_main_v', $data);
 	}
