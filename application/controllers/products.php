@@ -9,27 +9,29 @@ class Products extends CI_Controller
 	
 	public function __construct()
 	{
-	  parent::__construct();
-	  $this->site_title = $this->config->item('site_title');
-	  $this->css = $this->config->item('css');
-	  $this->base_url = $this->config->item('base_url');  		
+		parent::__construct();
+	  
+		$this->site_title = $this->config->item('site_title');
+		$this->css = $this->config->item('css');
+		$this->base_url = $this->config->item('base_url');  
+	  
+		$this->load->library('my_session');
+	    $this->load->library('my_cart');
+	    $this->load->library('auth');		
 	}
 	
 	public function index($action, $product_name, $start = NULL, $first = NULL)
 	{
 		$data = array();
-		$data['css'] = $this->css;
-		$data['site_title'] = $this->site_title;
-		$data['base_url'] = $this->base_url;
 		
 		$this->load->model('products_m');
 		$this->load->model('users_m');
 		
-		$data['cart_content'] = $this->cart->contents();
-		$data['cart_total'] = $this->cart->total();
-		$data['cart_total_items'] = $this->cart->total_items();
+		$data['css'] = $this->css;
+		$data['site_title'] = $this->site_title;
+		$data['base_url'] = $this->base_url;
 		
-		$this->load->library('../controllers/auth');
+		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 		
 		if( $this->auth->is_logged() )
 		{
@@ -80,11 +82,7 @@ class Products extends CI_Controller
 		
 		$data['product_data'] = $this->products_m->get_row($product_id);
 		
-		$data['cart_content'] = $this->cart->contents();
-		$data['cart_total'] = $this->cart->total();
-		$data['cart_total_items'] = $this->cart->total_items();
-		
-		$this->load->library('../controllers/auth');
+		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 		
 		if( $this->auth->is_logged() )
 		{

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Auth extends CI_Controller 
+class Auth 
 {
 	//Url to re-direct to in case not authenticated
 	protected $_redirect; 
@@ -14,24 +14,24 @@ class Auth extends CI_Controller
 	//variable for various purposes
 	protected $_data;
 	
+	//Assign by reference the CodeIgniter object to variable $_CI that will be used instead of $this
+	protected $_CI;
+	
 	
 	
 	public function __construct()
 	{
-	  parent::__construct();
-	  $this->_redirect = $this->config->item('base_url').'/users/';
+	  //parent::__construct();
+	  $this->_CI =& get_instance();
+	  $this->_redirect = $this->_CI->config->item('base_url').'/users/';
 	  $this->_hash_key = 'CodeIgniter is awesome! 28 may 2013 zetla is ok 22';
-	  //$this->load->library('session');	//Initializing a session	
-	  $this->load->library('encrypt');
-	  //$this->load->database();
+	  $this->_CI->load->library('my_session');	//Initializing a session	
+	  $this->_CI->load->library('encrypt');
 	}
 	
 	public function index()
 	{
 		$this->_data = array();
-		
-		//$this->load->model('products_m');
-		
 	}//End method index
 	
 	/*
@@ -41,10 +41,10 @@ class Auth extends CI_Controller
 	*/
 	public function login()
 	{
-		$this->load->model('users_m');
+		$this->_CI->load->model('users_m');
 		
 		// See if we have values already stored in the session
-		if($this->session->userdata('hash'))
+		if($this->_CI->session->userdata('hash'))
 		{
 		  if($this->confirm_auth())
 		  {
@@ -53,19 +53,19 @@ class Auth extends CI_Controller
 		}
 
 		// If this is a fresh login, check $_POST variables, also check that both variables contains only alphanumerical characters 
-		if ( !$this->input->post('login') || !$this->input->post('password') ) //|| !ctype_alnum($_POST['login']) || !ctype_alnum($_POST['password']) )
+		if ( !$this->_CI->input->post('login') || !$this->_CI->input->post('password') ) //|| !ctype_alnum($_POST['login']) || !ctype_alnum($_POST['password']) )
 		{
 			$this->redirect();
 		}
 		
 		
-		$login = $this->input->post('login');
+		$login = $this->_CI->input->post('login');
 		
         //Encrypt password
-		$password = md5($this->input->post('password'));
+		$password = md5($this->_CI->input->post('password'));
 		
 		//if check_login returns TRUE, set variables into session
-		if( $this->users_m->check_login($login, $password) )
+		if( $this->_CI->users_m->check_login($login, $password) )
 		{
 			$this->store_auth($login, $password);
 			$this->_login = $login;
@@ -90,7 +90,7 @@ class Auth extends CI_Controller
   							  'logged' => TRUE
   							 );
   							   		
-		$this->session->set_userdata($this->_data);
+		$this->_CI->my_session->set('auth', $this->_data);
 		return;
 		
   	}//End method store_auth  
@@ -102,10 +102,10 @@ class Auth extends CI_Controller
 	*/
 	public function confirm_auth()
   	{
-		$login = $this->session->userdata('login');
-		$password = $this->session->userdata('password');
-		$hash_key = $this->session->userdata('hash');
-		$logged = $this->session->userdata('logged');
+		$login = $this->_CI->my_session->get('login');
+		$password = $this->_CI->my_session->get('password');
+		$hash_key = $this->_CI->my_session->get('hash');
+		$logged = $this->_CI->my_session->get('logged');
 		
 		if ( md5($this->_hash_key.$login.$password) != $hash_key)
 		{
@@ -121,17 +121,17 @@ class Auth extends CI_Controller
 	*/
 	public function is_logged()
   	{
-		$login = $this->session->userdata('login');
-		$password = $this->session->userdata('password');
-		$hash_key = $this->session->userdata('hash');
-		$logged = $this->session->userdata('logged');
+		$login = $this->_CI->my_session->get('login');
+		$password = $this->_CI->my_session->get('password');
+		$hash_key = $this->_CI->my_session->get('hash');
+		$logged = $this->_CI->my_session->get('logged');
 		
 		if ( md5($this->_hash_key.$login.$password) != $hash_key)
 		{
-		  	$this->session->unset_userdata('login');
-			$this->session->unset_userdata('password');
-			$this->session->unset_userdata('hash');
-			$this->session->unset_userdata('logged');
+		  	$this->_CI->my_session->del('login');
+			$this->_CI->my_session->del('password');
+			$this->_CI->my_session->del('hash');
+			$this->_CI->my_session->del('logged');
 		  	return FALSE;
 		}
 		return TRUE;
@@ -144,10 +144,10 @@ class Auth extends CI_Controller
 	*/
 	public function logout()
   	{	  
-		$this->session->unset_userdata('login');
-		$this->session->unset_userdata('password');
-		$this->session->unset_userdata('hash');
-		$this->session->unset_userdata('logged');
+		$this->_CI->my_session->del('login');
+		$this->_CI->my_session->del('password');
+		$this->_CI->my_session->del('hash');
+		$this->_CI->my_session->del('logged');
 	
 		//$this->session->sess_destroy();
 		$this->redirect();

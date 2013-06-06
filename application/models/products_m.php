@@ -23,6 +23,7 @@ class Products_m extends CI_Model
 	*/
 	public function get_product_type_id($product_name) 
 	{
+		
 		$sql = "SELECT ptype_id FROM product_types WHERE type_name LIKE :type_name";
 		$stmt = $this->db->conn_id->prepare($sql);
 		$stmt->bindParam(":type_name", $product_name, \PDO::PARAM_STR);
@@ -46,8 +47,7 @@ class Products_m extends CI_Model
 	* 	@return associative array $this->_data 
 	*/
 	function fetch_products($product_name, $limit = NULL)
-	{
-	
+	{	
 	  $product_type_id = $this->get_product_type_id($product_name);
 	  	
 	  if($limit)
