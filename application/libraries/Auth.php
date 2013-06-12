@@ -21,10 +21,11 @@ class Auth
 	
 	public function __construct()
 	{
-	  //parent::__construct();
 	  $this->_CI =& get_instance();
+	 
 	  $this->_redirect = $this->_CI->config->item('base_url').'/users/';
 	  $this->_hash_key = 'CodeIgniter is awesome! 28 may 2013 zetla is ok 22';
+	  
 	  $this->_CI->load->library('my_session');	//Initializing a session	
 	  $this->_CI->load->library('encrypt');
 	}
@@ -44,7 +45,7 @@ class Auth
 		$this->_CI->load->model('users_m');
 		
 		// See if we have values already stored in the session
-		if($this->_CI->session->userdata('hash'))
+		if($this->_CI->my_session->get('hash'))
 		{
 		  if($this->confirm_auth())
 		  {
@@ -84,15 +85,12 @@ class Auth
 	*/
 	public function store_auth( $login, $password )
   	{
-    	$this->_data = array( 'login' => $login,
-  							  'password' => $password,
-  							  'hash' => md5($this->_hash_key.$login.$password),
-  							  'logged' => TRUE
-  							 );
-  							   		
-		$this->_CI->my_session->set('auth', $this->_data);
-		return;
+  		$this->_CI->my_session->set('login', $login);					 
+		$this->_CI->my_session->set('password', $password);
+		$this->_CI->my_session->set('hash', md5($this->_hash_key . $login . $password));
+  		$this->_CI->my_session->set('logged', TRUE);
 		
+		return;
   	}//End method store_auth  
   	
   	/*
@@ -107,7 +105,7 @@ class Auth
 		$hash_key = $this->_CI->my_session->get('hash');
 		$logged = $this->_CI->my_session->get('logged');
 		
-		if ( md5($this->_hash_key.$login.$password) != $hash_key)
+		if ( md5($this->_hash_key . $login . $password) != $hash_key )
 		{
 		  	$this->logout();
 		}
@@ -115,7 +113,7 @@ class Auth
   	}//End method confirm_auth
   	
   	/*
-  	*	Same method as above, except that we don't redirect also the user session values are emptied locally 
+  	*	Same method as above, except that we don't redirect and the user session values are emptied locally 
 	*	@param none
 	*	@return boolean
 	*/
@@ -126,17 +124,20 @@ class Auth
 		$hash_key = $this->_CI->my_session->get('hash');
 		$logged = $this->_CI->my_session->get('logged');
 		
-		if ( md5($this->_hash_key.$login.$password) != $hash_key)
+		if ( md5($this->_hash_key . $login . $password) != $hash_key )
 		{
-		  	$this->_CI->my_session->del('login');
-			$this->_CI->my_session->del('password');
-			$this->_CI->my_session->del('hash');
-			$this->_CI->my_session->del('logged');
+		  	$login = $this->_CI->my_session->del('login');
+			$password = $this->_CI->my_session->del('password');
+			$hash_key = $this->_CI->my_session->del('hash');
+			$logged = $this->_CI->my_session->del('logged');
+			
 		  	return FALSE;
 		}
+		
+		
 		return TRUE;
   	}//End method is_logged
-  	
+  		
   	/*
   	*	Logs the user out
 	*	@param none
@@ -144,12 +145,13 @@ class Auth
 	*/
 	public function logout()
   	{	  
-		$this->_CI->my_session->del('login');
-		$this->_CI->my_session->del('password');
-		$this->_CI->my_session->del('hash');
-		$this->_CI->my_session->del('logged');
-	
-		//$this->session->sess_destroy();
+		//this->_CI->my_session->del('login');
+		//$this->_CI->my_session->del('password');
+		//$this->_CI->my_session->del('hash');
+		//$this->_CI->my_session->del('logged');
+		
+		//$this->_CI->my_session->del('auth');
+		$this->_CI->my_session->destroy();
 		$this->redirect();
 		  
   	}//End method logout

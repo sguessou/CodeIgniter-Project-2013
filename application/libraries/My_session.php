@@ -13,14 +13,23 @@ class My_session
 	*/  	
 	protected function _open_session()
 	{
-		if (session_status() != PHP_SESSION_ACTIVE)
+	/*	if (session_status() != PHP_SESSION_ACTIVE)
 		{
 			session_start();
 		}
 		else
 		{
 			session_regenerate_id(true);
-		}
+		}*/
+		if( !isset( $_SESSION['active'] ) || !( $_SESSION['active'] == TRUE ) )
+			{
+				session_start();
+				 $_SESSION['active'] = TRUE;
+			}
+			else
+			{
+				session_regenerate_id(true);
+			}
 	}
 	
 	 /*
@@ -82,6 +91,20 @@ class My_session
 		session_regenerate_id();
 	}		
 	
+	 /*
+	 * 
+	 * 
+	 * 
+	*/
+	public function get_session_content()
+	{
+	  $sess = array();
+		foreach($_SESSION as $key => $value)
+		{
+		   array_push($sess, array($key => $value));	
+		}	
+	  return $sess;		
+	}	
 }//End class My_Session
 
 /* End of file My_Session.php */

@@ -67,29 +67,6 @@ class Users_m extends CI_Model
 		}
 	}//End method get_user_record
 	
-	/**
-	* 	This method returns TRUE if admin column is set to 1 in user record
-	*	@param string  
-	* 	@return boolean
-	*/	
-	public function is_admin($login)
-	{
-		$sql = "SELECT admin FROM user WHERE login = :login";
-	  	$stmt = $this->db->conn_id->prepare($sql);
-		$stmt->bindParam(':login', $login);
-		
-		if( $stmt->execute() )
-		{
-			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
-			return ($row['admin']) ? TRUE : FALSE;
-		}
-		else
-		{
-			exit(print_r($stmt->errorInfo()));
-		}
-	}//End method is_admin
-	
-	
 }//End class Users_m
 
 /* End of file users_m.php */

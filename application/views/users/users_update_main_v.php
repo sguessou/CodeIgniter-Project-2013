@@ -61,7 +61,7 @@
 			</ul>
 			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
 			<a class="close" id="close" href="#">Close</a>
-		 	</div>		
+		 	</div>	
 		   </div> 
 			
 		</div>
@@ -70,51 +70,40 @@
 			<h2>NOTICE!</h2>
 			<p>Log in as <u class="click">saruman</u> with the password: <u class="click">return0</u>, to experiment with the user CMS!
 			To Log in as the admin use:<u class="click">sguessou</u> with same password as above!</p>	
-		</div>			
+		</div>		
 	  
 <div class="clear">&nbsp;</div>
 </div>
-
+<!--******************************************[ MAIN ]********************************************************-->
 <div id="main">	
 
-<?php //var_dump($_POST); ?>
+<div id="sidebar">
+			<div class="sidebarbox">
+               <h2>My Account Menu</h2>
+				<ul class="sidemenu">
+					<li><a href="<?php echo $base_url; ?>/users/view_open_orders/">View Open Orders</a></li>
+					<li><a href="<?php echo $base_url; ?>/users/update_user_data/">Change Account Settings</a></li>
+					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
+				</ul>
+			</div>
+	  </div> 		   
 
-<div class="wrapper-login">
- <p>&nbsp;</p> 
-<!--?php 
-	if($warning)
-	{
-		echo '<h2 class="warning">You should be logged in to proceed!</h2>';
-    }
-    elseif($loginProblem)
-	{
-		echo '<h2 class="warning-2">The entered password doesn\'t match or the account doesn\'t exist. Reenter the password or <a href="index.php?controller=login&action=register">get a new account.</a></h2>';
-    }
-    else { echo '<h2 class="login">Sign in to access your account:</h2>'; }
-?-->
-
-	<h2 class="login">Sign in to access your account:</h2>	
-      <br />
-		<div class="login-form">
-   	
-		<form action="<?=$base_url?>/users/login/" method="post" class="style-form">
-		
-			<div><label for="login">Username:</label>
-			<input type="text" name="login" id="username" required="required" /></div>
-			
-			<div><label for="password">Password:</label>
-			<input type="password" name="password" id="password" required="required"/></div>
-			
-			<div class="submit"><input type="submit" name="login-submit" id="login-submit" value="Sign In" /></div>
-			
-			<div><a class="login" href="" >New customer? Start here.</a>
-	 		</div>
-		</form>
-		</div>	
-		
+<h4 class="my-account">My Account Menu>>Change Account Settings-></h4><br />
+	<?php
+	echo '<form id="PrdTypeForm" action="'.$base_url.'/users/update_user_data/" method="post">';
+  	echo '<label for="PType">Select the information you wish to change:&nbsp;&nbsp;&nbsp;&nbsp;</label>';
+  	echo '<select id="TypeSelect" name="PType" size="1">'; 	 
+  	
+  	echo '<option value="">Select...</option>'; 
+  	echo '<option value="personal">Change personal info</option>';
+  	echo '<option value="passwd">Change password</option>';
+  	echo '<option value="address">Change address</option>';
+	echo '</select></form><br /><br />';
+	//echo $action;
+	?>
+              
 <p>&nbsp;</p>
  <div class="clear">&nbsp;</div>
-</div>
 </div>
 <!--****************************************************************************************-->	
 	
@@ -124,5 +113,5 @@
 	
 	$this->load->view('footer');
 	
-/* End of file users_main_v.php */
-/* Location: ./application/views/users/users_main_v.php */
+/* End of file users_checkout_v.php */
+/* Location: ./application/views/users/users_checkout_v.php */

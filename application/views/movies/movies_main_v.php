@@ -2,13 +2,13 @@
 
 	$this->load->view('header');
 ?>
-<!****************************************************************************************/>
+<!--****************************************************************************************/-->
 <div id="menu"> 
 		<ul>     
 			<li><a href="<?php echo $base_url; ?>/welcome/">Main</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a class="current" href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<? if (isset($session['logged'])) :?>
+			<? if ($logged) :?>
 					<? if (isset($user_data['admin'])) :?>
 					   <li><a href="<?=$base_url?>/users/login/">Admin</a></li>
 					<? else: ?>  
@@ -45,25 +45,25 @@
 			<h1 class="cart_header">Your Shopping Cart:</h1>
 			<ul class="cartUl">       
 			 <?php foreach($cart_content as $cart): ?>                     
-				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['options']['product_type']?>/<?=$cart['id']?>/" id="cSlider"><?= $cart['name'] ?></a>
-				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/Dvd/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
-				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
-				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/Dvd/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
-				&nbsp;<strong><?= $cart['qty']. ($cart['qty'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
-				<?= ($cart['price'] * $cart['qty']) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
-				<font color="#FF0000"><strong>€&nbsp;<?= $cart['price'] ?></strong></font></li>		
+				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['attributes']['product_type']?>/<?=$cart['product_id']?>/" id="cSlider"><?= $cart['attributes']['name'] ?></a>
+				&nbsp;<a href="<?= $base_url ?>/welcome/empty_cart/<?=$cart['product_id']?>/dvd/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
+				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_pos = ($cart['quantity'] + 1); ?>/dvd/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
+				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_neg = ($cart['quantity'] - 1); ?>/dvd/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
+				&nbsp;<strong><?= $cart['quantity']. ($cart['quantity'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
+				<?=$cart['attributes']['price']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
+				<font color="#FF0000"><strong>€&nbsp;<?= $cart['attributes']['price'] * $cart['quantity'] ?></strong></font></li>		
 				
 			<?php endforeach; ?>
 				<li>&nbsp;</li>
 				<li><strong>Total Sum: € <font color="#FF0000"><?= $cart_total ?></strong></font></li>
-				<li>&nbsp;</li>
-			    <li><a href="<?= $base_url ?>/cart/empty_cart/Dvd/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
+			    <li>&nbsp;</li>
+			    <li><a href="<?= $base_url ?>/welcome/empty_cart/0/dvd/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
 			</ul>
 			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
 			<a class="close" id="close" href="#">Close</a>
-		 	</div>	
+		 	</div>
+		 	
 		   </div> 
-			
 		</div>
 	
 		<div class="right">
@@ -84,7 +84,7 @@
 		$cover_path = $base_url."/images/products_images/" . $product['product_id'] . ".jpg";
 	    echo '<a href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><img src="'.$cover_path.'" alt="'.$product['product_name'].'" height="225" width="150" /></a>';        
 	    echo '<span><strong>'.$product['product_name'].'</strong><br /><strong>Price:</strong>&nbsp;'.$product['product_price'].'&nbsp;&euro;<br /><br /><a class="dvd" href="'.$base_url.'/products/describe_product/Dvd/'.$product['product_id'].'/"><strong class="click">CLICK FOR MORE DETAILS!</strong></a></span>';
-	    echo '<br /><a class="add-cart-book" href="'.$base_url.'/cart/index/'.$product['product_id'].'/1/'.$product['product_price'].'/'.$product['product_name'].'/'.$product['type_name'].'/Dvd/">Add to cart</a>';
+	    echo '<br /><a class="add-cart-book" href="'.$base_url.'/welcome/add_to_cart/'.$product['product_id'].'/'.$product['product_price'].'/'.urlencode($product['product_name']).'/'.$product['type_name'].'/Dvd/">Add to cart</a>';
 	    echo '</li>';	
 	   }
 	?>		
@@ -115,7 +115,7 @@
 
  <div class="clear">&nbsp;</div>
 </div>
-<!****************************************************************************************>	
+<!--****************************************************************************************-->	
 	
 	
 	

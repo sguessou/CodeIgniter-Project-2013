@@ -636,6 +636,19 @@ a.add-cart:link, a.add-cart:visited {
   text-decoration: none;
 }
 
+a.proceed-checkout:link, a.proceed-checkout:visited {
+  display: block;
+  padding: 10px 0 10px 35px; 
+  margin-left: 0;
+  text-align: left;
+  color: #666;
+  font-weight: bold;
+  background-image: url(./images/money32.png);
+  background-position: left center; 
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+
 a.cart-index:link, a.cart-index:visited {
   display: block;
   /* padding: 0.3em 40px 0.3em 0; */

@@ -17,6 +17,7 @@
 			<? else: ?>
 					<li><a class="current" href="<?=$base_url?>/users/index/">Login</a></li>
 			<? endif ?>
+			
 		</ul>
 	</div>
 	
@@ -69,14 +70,12 @@
 			<h2>NOTICE!</h2>
 			<p>Log in as <u class="click">saruman</u> with the password: <u class="click">return0</u>, to experiment with the user CMS!
 			To Log in as the admin use:<u class="click">sguessou</u> with same password as above!</p>	
-		</div>		
+		</div>			
 	  
 <div class="clear">&nbsp;</div>
 </div>
 <!--******************************************[ MAIN ]********************************************************-->
 <div id="main">	
-
-<? if(!$user_data['admin']): ?>
 
 <div id="sidebar">
 			<div class="sidebarbox">
@@ -89,45 +88,103 @@
 			</div>
 	  </div> 		   
 
-<h4 class="my-account">My Account Menu-></h4><br />
+<h4 class="my-account">My Account Menu>>Proceed To Checkout-></h4><br />
+<table cellspacing="0" style="width: 70%;">
+      <tr>
+        <th align="left">Product name</th>
+        <th align="left">Remove/Add</th>
+        <th align="left">quantity</th>
+        <th align="left">price</th>
+        <th align="left">Subtotal</th>
+      </tr>
 
-<? elseif($user_data['admin']): ?>
-
-<div id="sidebar">
-			<div class="sidebarbox">
-               <h2>Admin Menu</h2>
-				<ul class="sidemenu">
-					<li><a href="<?php echo $base_url; ?>">Manage Users</a></li>
-					<li><a href="<?php echo $base_url; ?>">Manage Product Types</a></li>
-					<li><a href="<?php echo $base_url; ?>">Manage Products</a>
-						<ul>
-							<li><a href="<?php echo $base_url; ?>">Add Product</a></li>
-							<li><a href="<?php echo $base_url; ?>">Update or Remove</a></li>
-						</ul></li>
-					<li><a href="#">Manage Orders</a></li>	
-					<li><a href="<?php echo $base_url; ?>">View Access Log</a></li>
-					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
-				</ul>
-			</div>
-	    </div> 		   
-
-	<h4 class="admin-sign">Admin Menu-></h4><br />
-
-<? endif ?>
+<?php	
+	$row_cnt = 0;
 	
-<?php if($user_data['last_log']): ?>
-	<h4><?php echo $msg.' '.$user_data['firstname'].'!'; ?>
-	</h4><br /> 
-	    <?php echo 'Last login: '.$user_data['last_log']; ?>
-	<br /><br />
-<?php else :?>	 
-	 <p><h4> Welcome for the first time <?=$user['firstname']?> !</h4>';
-<?php endif ?>
+		foreach( $cart_content as $cart_item ) 
+		{
+		$row_cnt++;
 		
+	    ?>
+	<tr <?php if ( $row_cnt % 2 != 0 ) echo ' class="alt"'; ?>>
+	<td><a href="" class="no-style"><?php echo $cart_item['attributes']['name']; ?></a></td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo $base_url; ?>"><img src="<?php echo $base_url; ?>/css/images/minus-small-white.png"></a><a href="<?php echo $base_url; ?>"><img src="<?php echo $base_url; ?>/css/images/plus-small-white.png"></a><a href=""><img src="<?php echo $base_url; ?>/css/images/bin_closed.png"></a></td>
+	<td><strong><?php echo $cart_item['quantity']. ($cart_item['quantity'] == 1 ? ' Item ' : ' Items '); ?></strong></td><td>à&nbsp;€&nbsp;<?php echo $cart_item['attributes']['price']; ?></td>
+	<td><font color="#FF0000"><strong>€&nbsp;<?php echo $cart_item['attributes']['price'] * $cart_item['quantity']; ?></strong></font></td>
+	</tr>	
+	<?php
+				}			
+	?>
+<tr><td><strong>Total Sum: € <font color="#FF0000"><?php echo $cart_total; ?></strong></font></td></tr>
+</table>
+
+<br />
+<br />
+
+
+<?php
+	$auth_code = array();
+
+	$auth_code = array( 'MERCHANT_ID' => '13466',
+						'AMOUNT' => $cart_total,
+	   				    'ORDER_NUMBER' => '123456',
+						'REFERENCE_NUMBER' => '',
+						'ORDER_DESCRIPTION' => 'Online Store dummy buy',
+						'CURRENCY' => 'EUR',
+						'RETURN_ADDRESS' => $base_url.'/users/checkout_success/',
+						'CANCEL_ADDRESS' => $base_url.'/users/checkout_cancel/',
+						'PENDING_ADDRESS' => '',
+						'NOTIFY_ADDRESS' => $base_url.'/users/checkout_notify/',
+						'TYPE' => 'S1',
+						'CULTURE' => 'fi_FI',
+						'PRESELECTED_METHOD' => '',
+						'MODE' =>  '1',
+						'VISIBLE_METHODS' => '',
+						'GROUP' => '' );
+	
+	$AUTHCODE = '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ';
+	
+	foreach($auth_code as $key => $value)
+	{
+		$AUTHCODE .= '|' . $value; 	
+	}
+	
+	$AUTHCODE = strtoupper( md5($AUTHCODE) );
+?>
+
+	<form id="payment">
+	
+	<input name="MERCHANT_ID" type="hidden" value="13466">
+	<input name="AMOUNT" type="hidden" value="<?php echo $cart_total; ?>">
+	<input name="ORDER_NUMBER" type="hidden" value="123456">
+	<input name="REFERENCE_NUMBER" type="hidden" value="">
+	<input name="ORDER_DESCRIPTION" type="hidden" value="Online Store dummy buy">
+	<input name="CURRENCY" type="hidden" value="EUR">
+	<input name="RETURN_ADDRESS" type="hidden" value="<?php echo $base_url; ?>/users/checkout_success/">
+	<input name="CANCEL_ADDRESS" type="hidden" value="<?php echo $base_url; ?>/users/checkout_cancel/">
+	<input name="PENDING_ADDRESS" type="hidden" value="">
+	<input name="NOTIFY_ADDRESS" type="hidden" value="<?php echo $base_url; ?>/users/checkout_notify/">
+	<input name="TYPE" type="hidden" value="S1">
+	<input name="CULTURE" type="hidden" value="fi_FI">
+	<input name="PRESELECTED_METHOD" type="hidden" value="">
+	<input name="MODE" type="hidden" value="1">
+	<input name="VISIBLE_METHODS" type="hidden" value="">
+	<input name="GROUP" type="hidden" value="">
+	
+	<input name="AUTHCODE" type="hidden" value="<?php echo $AUTHCODE; ?>">
+    
+    </form>
+
+	
+	<script type="text/javascript" src="//payment.verkkomaksut.fi/js/payment-widget-v1.0.min.js"></script>
+	<script type="text/javascript">
+				SV.widget.initWithForm('payment', {charset:'ISO-8859-1'});
+	</script>
+              
 <p>&nbsp;</p>
  <div class="clear">&nbsp;</div>
 </div>
-<!--************************************************************************************************************-->	
+<!--****************************************************************************************-->	
 	
 	
 	
@@ -135,5 +192,5 @@
 	
 	$this->load->view('footer');
 	
-/* End of file users_account_v.php */
-/* Location: ./application/views/users/users_account_v.php */
+/* End of file users_checkout_v.php */
+/* Location: ./application/views/users/users_checkout_v.php */

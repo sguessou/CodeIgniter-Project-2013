@@ -17,6 +17,7 @@
 			<? else: ?>
 					<li><a class="current" href="<?=$base_url?>/users/index/">Login</a></li>
 			<? endif ?>
+			
 		</ul>
 	</div>
 	
@@ -76,8 +77,6 @@
 <!--******************************************[ MAIN ]********************************************************-->
 <div id="main">	
 
-<? if(!$user_data['admin']): ?>
-
 <div id="sidebar">
 			<div class="sidebarbox">
                <h2>My Account Menu</h2>
@@ -89,45 +88,101 @@
 			</div>
 	  </div> 		   
 
-<h4 class="my-account">My Account Menu-></h4><br />
+<h4 class="my-account">My Account Menu>>Change Account Settings-></h4><br />
 
-<? elseif($user_data['admin']): ?>
 
-<div id="sidebar">
-			<div class="sidebarbox">
-               <h2>Admin Menu</h2>
-				<ul class="sidemenu">
-					<li><a href="<?php echo $base_url; ?>">Manage Users</a></li>
-					<li><a href="<?php echo $base_url; ?>">Manage Product Types</a></li>
-					<li><a href="<?php echo $base_url; ?>">Manage Products</a>
-						<ul>
-							<li><a href="<?php echo $base_url; ?>">Add Product</a></li>
-							<li><a href="<?php echo $base_url; ?>">Update or Remove</a></li>
-						</ul></li>
-					<li><a href="#">Manage Orders</a></li>	
-					<li><a href="<?php echo $base_url; ?>">View Access Log</a></li>
-					<li><a href="<?php echo $base_url; ?>/users/logout/">Logout</a></li>	
-				</ul>
-			</div>
-	    </div> 		   
+	<?php
+	echo '<form id="PrdTypeForm" action="'.$base_url.'/users/update_user_data/" method="post">';
+  	echo '<label for="PType">Select the information you wish to change:&nbsp;&nbsp;&nbsp;&nbsp;</label>';
+  	echo '<select id="TypeSelect" name="PType" size="1">'; 	 
+  	
+  	echo '<option value="">Select...</option>'; 
 
-	<h4 class="admin-sign">Admin Menu-></h4><br />
-
-<? endif ?>
+  	if($action == 'personal')		
+	echo '<option value="personal" selected="selected">Change personal info</option>';
+	else echo '<option value="personal">Change personal info</option>';
 	
-<?php if($user_data['last_log']): ?>
-	<h4><?php echo $msg.' '.$user_data['firstname'].'!'; ?>
-	</h4><br /> 
-	    <?php echo 'Last login: '.$user_data['last_log']; ?>
-	<br /><br />
-<?php else :?>	 
-	 <p><h4> Welcome for the first time <?=$user['firstname']?> !</h4>';
-<?php endif ?>
+	if($action == 'passwd')
+	echo '<option value="passwd" selected="selected">Change password</option>';
+	else echo '<option value="passwd">Change password</option>';
+	
+	if($action == 'address')
+	echo '<option value="address" selected="selected">Change address</option>';
+	else echo '<option value="address">Change address</option>';
+	
+	echo '</select></form><br /><br />';
+
+	if ($action == 'personal')
+	{
+		echo '<form action="'.$base_url.'/index.php?controller=login&action=viewUser" method="post" class="style-form">';
+		echo '<div><label for="username">My Username Is(<b>*</b>):</label>';
+		echo '<input type="text" name="username" value="'.$user_data['login'].'" readonly="readonly" style="background-color:lightgrey" id="username" /></div>';
+			
+		echo '<input type="hidden" value="'.$user_data['user_id'].'" name="user_id" />';
+		echo '<input type="hidden" value="update" name="personal" />';
 		
+		echo '<div><label for="firstname">My Firstname Is:</label>';
+		echo '<input type="text" value="'.$user_data['firstname'].'" name="firstname" id="firstname" required="required"/></div>';
+			
+		echo '<div><label for="lastname">My Lastname Is:</label>';
+		echo '<input type="text" value="'.$user_data['lastname'].'" name="lastname" id="lastname" required="required"/></div>';
+				
+		echo '<div><label for="email">My E-mail Address is:</label>';
+		echo '<input type="email" value="'.$user_data['email'].'" name="email" id="email" required="required"/></div>';
+		
+		echo '<div class="submit"><input type="submit" value="Change" /></div>';
+		echo '<div>(<b>*</b>) Value can\'t be changed.</div>';
+		
+		if($flag == 'updated')
+		{
+			echo '<div><h4 class="data-updated">Your Personal information have been updated.</h4></div>';
+			$flag = '';
+		}
+		echo '</form>';		
+		
+		//var_dump($_POST);
+	}
+	elseif ($action == 'passwd')
+	{
+		echo '<form action="'.$base_url.'/" method="post" class="style-form">';
+		echo '<div><label for="passwd_current">Current password:</label>';
+		echo '<input type="password" name="passwd_current" value="'.substr($user_data['password'], 0, 10).'" readonly="readonly" style="background-color:lightgrey"/></div>';
+			
+		echo '<input type="hidden" value="'.$user_data['user_id'].'" name="user_id" />';
+		echo '<input type="hidden" name="username" value="'.$user_data['login'].'"/>';
+		echo '<input type="hidden" value="update" name="passwd" />';
+		
+		echo '<div><label for="new_passwd">New password:</label>';
+		echo '<input type="password" name="new_passwd"/></div>';
+			
+		echo '<div><label for="new_passwd_2">Reenter password:</label>';
+		echo '<input type="password" name="new_passwd_2" /></div>';
+		
+		echo '<div class="submit"><input type="submit" value="Change" /></div>';
+		
+		if($flag == 'updated')
+		{
+			echo '<div><h4 class="data-updated">Your Password have been updated.</h4></div>';
+			$flag = '';
+		}
+		
+		if($passwd_error)
+		{
+			echo '<div><h4 class="passwd-warning">'.$passwd_error.'</h4></div>';
+		}
+		
+		echo '</form>';
+		//var_dump($_POST);
+	}
+	echo $action;
+	?>
+
+
+              
 <p>&nbsp;</p>
  <div class="clear">&nbsp;</div>
 </div>
-<!--************************************************************************************************************-->	
+<!--****************************************************************************************-->	
 	
 	
 	
@@ -135,5 +190,5 @@
 	
 	$this->load->view('footer');
 	
-/* End of file users_account_v.php */
-/* Location: ./application/views/users/users_account_v.php */
+/* End of file users_checkout_v.php */
+/* Location: ./application/views/users/users_checkout_v.php */

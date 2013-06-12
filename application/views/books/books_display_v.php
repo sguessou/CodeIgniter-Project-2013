@@ -2,13 +2,13 @@
 
 	$this->load->view('header');
 ?>
-<!****************************************************************************************/>
+<!--****************************************************************************************/-->
 <div id="menu"> 
 		<ul>     
 			<li><a href="<?= $base_url ?>/welcome/">Main</a></li>
 			<li><a class="current" href="<?= $base_url ?>/products/index/begin/Book/">Books</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<? if (isset($session['logged'])) :?>
+			<? if ($logged) :?>
 					<? if (isset($user_data['admin'])) :?>
 					   <li><a href="<?=$base_url?>/users/login/">Admin</a></li>
 					<? else: ?>  
@@ -46,19 +46,19 @@
 			<h1 class="cart_header">Your Shopping Cart:</h1>
 			<ul class="cartUl">       
 			 <?php foreach($cart_content as $cart): ?>                     
-				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['options']['product_type']?>/<?=$cart['id']?>/" id="cSlider"><?= $cart['name'] ?></a>
-				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/0/Book/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
-				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_pos = ($cart['qty'] + 1); ?>/Book/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
-				&nbsp;<a href="<?= $base_url ?>/cart/update_cart/<?= $cart['rowid'] ?>/<?php echo $num_neg = ($cart['qty'] - 1); ?>/Book/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
-				&nbsp;<strong><?= $cart['qty']. ($cart['qty'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
-				<?= ($cart['price'] * $cart['qty']) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
-				<font color="#FF0000"><strong>€&nbsp;<?= $cart['price'] ?></strong></font></li>		
+				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['attributes']['product_type']?>/<?=$cart['product_id']?>/" id="cSlider"><?= $cart['attributes']['name'] ?></a>
+				&nbsp;<a href="<?= $base_url ?>/welcome/empty_cart/<?=$cart['product_id']?>/book/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
+				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_pos = ($cart['quantity'] + 1); ?>/book/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
+				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_neg = ($cart['quantity'] - 1); ?>/book/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
+				&nbsp;<strong><?= $cart['quantity']. ($cart['quantity'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
+				<?=$cart['attributes']['price']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
+				<font color="#FF0000"><strong>€&nbsp;<?= $cart['attributes']['price'] * $cart['quantity'] ?></strong></font></li>		
 				
 			<?php endforeach; ?>
 				<li>&nbsp;</li>
 				<li><strong>Total Sum: € <font color="#FF0000"><?= $cart_total ?></strong></font></li>
-			 	<li>&nbsp;</li>
-			    <li><a href="<?= $base_url ?>/cart/empty_cart/Book/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
+			    <li>&nbsp;</li>
+			    <li><a href="<?= $base_url ?>/welcome/empty_cart/0/book/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
 			</ul>
 			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
 			<a class="close" id="close" href="#">Close</a>
@@ -99,7 +99,7 @@
 				<li><strong>ISBN-10:</strong>&nbsp;<?= $product_data[0]['product_isbn10'] ?></li>
 				<li><strong>Price:</strong>&nbsp;<?= $product_data[0]['product_price'] ?>&nbsp;&euro;</li>
 			</ul>
-			<a class="add-cart" href="<?= $base_url ?>/cart/index/<?= $product_data[0]['product_id'] ?>/1/<?= $product_data[0]['product_price'] ?>/<?= $product_data[0]['product_name'] ?>/<?=$product_data[0]['type_name']?>/Book/">Add to cart</a>
+			<a class="add-cart" href="<?= $base_url ?>/welcome/add_to_cart/<?= $product_data[0]['product_id'] ?>/<?= $product_data[0]['product_price'] ?>/<?php echo urlencode($product_data[0]['product_name']); ?>/<?=$product_data[0]['type_name']?>/Book/">Add to cart</a>
 			<a class="more" href="<?= $base_url ?>/products/index/begin/Book/">Go Back</a>
 		</div>
 	</div>	
@@ -107,7 +107,7 @@
 
  <div class="clear">&nbsp;</div>
 </div>
-<!****************************************************************************************>	
+<!--****************************************************************************************-->	
 	
 	
 	

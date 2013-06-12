@@ -177,7 +177,23 @@ class Cart_m extends CI_Model
 
 		
 	}//End method content
-	
+	public function content_dum()
+	{
+		$sql = 'SELECT product_id, quantity, attributes  FROM cart';
+		$stmt = $this->db->conn_id->prepare($sql);
+		$stmt->bindParam(":cart_id", $cart_id, \PDO::PARAM_STR);
+		
+		if($stmt->execute()) 
+		{
+			return $stmt->fetchAll();		
+		} 
+		else 
+		{
+			exit( print_r($stmt->errorInfo()) );		
+		}
+
+		
+	}
 }//End class Cart_m
 
 /* End of file Cart_m.php */

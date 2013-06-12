@@ -19,7 +19,19 @@ class My_cart
 		//parent::__construct();
 		$this->_CI =& get_instance();
 		$this->_CI->load->library('my_session');
+		$this->_CI->load->helper('cookie');
+
+
 		$this->set_cart_id();
+	}
+
+	public function get_cart_id()
+	{
+		// Ensure we have a cart id for the current visitor
+		if( !isset( $this->_cart_id ) )
+			   $this->set_cart_id();
+			
+		return $this->_cart_id;
 	}
 
 	/*
@@ -36,7 +48,7 @@ class My_cart
 										'product_type' => $product_type,
 										'price' => $price ));
 					   
-		$this->_CI->cart_m->insert_item($this->_cart_id, $id, $attributes);
+		$this->_CI->cart_m->insert_item($this->get_cart_id(), $id, $attributes);
 		
 		return;	
 	}//End method add_item
@@ -77,31 +89,34 @@ class My_cart
 	* @return void  
 	*/
 	public function set_cart_id() 
-    {
+   	{
+		
+		$this->_CI->load->helper('cookie');
+		
 		// If Cart ID hasn't been set yet...
 		if( $this->_cart_id == '' ) 
 		{
 			// If ID is in the session, get it from there 
-			if($this->_CI->my_session->is_set('cart_id')) 
+			if($this->_CI->my_session->is_set('CICartId')) 
 			{
-				$this->_cart_id = $this->_CI->my_session->get('cart_id');
+				$this->_cart_id = $this->_CI->my_session->get('CICartId');
 			}
 			// If not, check wether the ID was saved as a cookie
-			elseif(isset($_COOKIE['cart_id']))
+			elseif($this->_CI->input->cookie('CICartId', TRUE))
 			{
-				$this->_cart_id = $_COOKIE['cart_id'];
-				$this->_CI->my_session->set('cart_id', $this->_cart_id);
+				$this->_cart_id = $this->_CI->input->cookie('CICartId', TRUE);
+				$this->_CI->my_session->set('CICartId', $this->_cart_id);
   			
 				// Regenerate cookie to be valid for 7 days (604800 seconds)
-				setcookie( 'cart_id', $this->_cart_id, time() + 604800 );
+				$this->_CI->input->set_cookie( 'CICartId', $this->_cart_id, time() + 604800, '.127.0.0.1', '/', '', '' );
 			}
 			else 
 			{
 				// Generate cart id and save it to $_cart_id, the session and a cookie
 				$this->_cart_id = md5( uniqid(rand(), true) );
-				$this->_CI->my_session->set('cart_id', $this->_cart_id);
-				setcookie( 'cart_id', $this->_cart_id, time() + 604800 );
-			}
+				$this->_CI->my_session->set('CICartId', $this->_cart_id);
+				$this->_CI->input->set_cookie( 'CICartId', $this->_cart_id, time() + 604800, '.127.0.0.1', '/', '', '' );
+}
 		}
 	}//End method set_cart_id
 	
@@ -117,7 +132,7 @@ class My_cart
 		
 		$this->_CI->load->model('cart_m');
 		
-		$this->_data = $this->_CI->cart_m->content($this->_cart_id);
+		$this->_data = $this->_CI->cart_m->content($this->get_cart_id());
 		//return $this->_data;	
 		for($i = 0; $i < count($this->_data); $i++)
 		{
@@ -128,7 +143,7 @@ class My_cart
 		for($i = 0; $i < count($this->_data); $i++)
 		{
 			$this->_total_items += (int)$this->_data[$i]['quantity']; 
-			$this->_total += (int)$this->_data[$i]['attributes']['price'] * (int)$this->_data[$i]['quantity'];
+			(float)$this->_total += (float)$this->_data[$i]['attributes']['price'] * (int)$this->_data[$i]['quantity'];
 		}
 		
 		return array($this->_data, $this->_total, $this->_total_items);	

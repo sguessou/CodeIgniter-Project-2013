@@ -2,14 +2,14 @@
 
 	$this->load->view('header');
 ?>
-<!****************************************************************************************/>
+<!--****************************************************************************************/-->
 
 <div id="menu"> 
 		<ul>     
 			<li><a class="current" href="<?php echo $base_url; ?>/welcome/">Main</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
 			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<? if (isset($session['auth']['logged'])) :?>
+			<? if ($logged) :?>
 					<? if (isset($user_data['admin'])) :?>
 					   <li><a href="<?=$base_url?>/users/login/">Admin</a></li>
 					<? else: ?>  
@@ -52,7 +52,7 @@
 				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_pos = ($cart['quantity'] + 1); ?>/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
 				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_neg = ($cart['quantity'] - 1); ?>/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
 				&nbsp;<strong><?= $cart['quantity']. ($cart['quantity'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
-				<?= ($cart['attributes']['price'] * $cart['quantity']) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
+				<?=$cart['attributes']['price']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
 				<font color="#FF0000"><strong>€&nbsp;<?= $cart['attributes']['price'] * $cart['quantity'] ?></strong></font></li>		
 				
 			<?php endforeach; ?>
@@ -80,10 +80,7 @@
 </div>
 
 <div id="main">	
-     
-  <?php
-	//print_r($mycart); 
-  ?>
+  
    
  <table width="100%" border="0" align="center">
    <tbody>
@@ -164,7 +161,7 @@
  <div class="clear">&nbsp;</div>
 </div>
 
-<!****************************************************************************************>	
+<!--****************************************************************************************-->	
 	
 	
 	

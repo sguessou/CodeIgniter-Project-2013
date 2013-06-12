@@ -1,5 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+*
+*
+*/
 class Products extends CI_Controller 
 {
 	var $site_title;
@@ -33,10 +37,11 @@ class Products extends CI_Controller
 		
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 		
+		$data['logged'] = FALSE;
 		if( $this->auth->is_logged() )
 		{
-			$data['session'] = $this->session->userdata;
-		    $data['user_data'] = $this->users_m->get_user_record($this->session->userdata('login'));
+			$data['logged'] = TRUE;
+		    $data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		}
 		
 		if($action == 'begin')
@@ -84,10 +89,11 @@ class Products extends CI_Controller
 		
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 		
+		$data['logged'] = FALSE;
 		if( $this->auth->is_logged() )
 		{
-			$data['session'] = $this->session->userdata;
-		    $data['user_data'] = $this->users_m->get_user_record($this->session->userdata('login'));
+			$data['logged'] = TRUE;
+		    $data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		}
 		
 		if($product_type == 'Book')
