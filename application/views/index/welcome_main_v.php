@@ -1,173 +1,210 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Home | <?php echo $site_title; ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="<?php echo $base_url?>/css/footer.css" title="Variant Multi" media="all" />
+    <!-- Le styles -->
+    <link href="<?php echo $base_url?>/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        /* padding-bottom: 40px; */
+      }
+    </style>
+    <link href="<?php echo $base_url?>/css/bootstrap-responsive.css" rel="stylesheet">
 
-	$this->load->view('header');
-?>
-<!--****************************************************************************************/-->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
 
-<div id="menu"> 
-		<ul>     
-			<li><a class="current" href="<?php echo $base_url; ?>/welcome/">Main</a></li>
-			<li><a href="<?php echo $base_url; ?>/products/index/begin/Book/">Books</a></li>
-			<li><a href="<?php echo $base_url; ?>/products/index/begin/Dvd/">Movies</a></li>
-			<? if ($logged) :?>
-					<? if (isset($user_data['admin'])) :?>
-					   <li><a href="<?=$base_url?>/users/login/">Admin</a></li>
-					<? else: ?>  
-						<li><a href="<?=$base_url?>/users/login/">My Account</a></li>
-					<? endif ?>	
-			<? else: ?>
-					<li><a href="<?=$base_url?>/users/index/">Login</a></li>
-			<? endif ?>
-			
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="<?php echo $base_url; ?>/welcome/">Online Store</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="<?php echo $base_url; ?>/welcome/">Home</a></li>
+              			<li><a href="#">Products</a></li>
+              			<li><a href="#">Cart</a></li>
+              </li>
+            </ul>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Your Account <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="#">Login</a></li>
+                      <li><a href="#">Profile</a></li>
+                      <li><a href="#">Cart</a></li>
+                  </ul>
+                </li>
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Welcome To Online Store!<small>&nbsp;Powered by:&nbsp;<a href="http://ellislab.com/codeigniter">
+        <img src="<?php echo $base_url; ?>/css/images/codeigniterlogo1.png" height="50" width="150" /></a></img></small></h1><br />
+        <p>I have redesigned the old "<a href="http://rascal.mooo.com/project/">Online Store</a>" site, JQuery &amp; Bootstrap libraries have been used for the template layout.
+        <br />The original "Online Store" was developed using a Framework built from scratch.
+        This time around I'm using the <a href="http://ellislab.com/codeigniter">CodeIgniter</a> PHP Framework to power the site.<br />
+        As soon as the <strong>CMS</strong> section will be ready, you'll be able to access the user section by logging in as user <strong>saruman</strong> with 
+        the password <strong>return0</strong>, for the administrator section log in as user <strong>sguessou</strong> and use <strong>return0</strong>
+         as the password.</p>
+      </div>
+
+      <div class="carousel slide" id="home-carousel">
+        <div class="carousel-inner">
+
+          <div class="item active">
+            <img src="<?php echo $base_url; ?>/images/products_images/carousel_dvd.jpg" alt="dvd" />
+            <div class="carousel-caption">
+              <p>Go to the "Products" section to see more of our Dvd's</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <img src="<?php echo $base_url; ?>/images/products_images/carousel_ebook.jpg" alt="ebook" />
+            <div class="carousel-caption">
+              <p>Go to the "Products" section to see more of our Ebook's</p>
+            </div>
+          </div>
+
+          <div class="item">  
+            <img src="<?php echo $base_url; ?>/images/products_images/carousel_dvd_2.jpg" alt="dvd" />
+            <div class="carousel-caption">
+              <p>Go to the "Products" section to see more of our Dvd's</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <img src="<?php echo $base_url; ?>/images/products_images/carousel_ebook_2.jpg" alt="ebook" />
+            <div class="carousel-caption">
+              <p>Go to the "Products" section to see more of our Ebook's</p>
+            </div>
+          </div>
+              
+        </div><!-- .carousel-inner -->
+          <a class="carousel-control left" href="#home-carousel" data-slide="prev">&lsaquo;</a>
+          <a class="carousel-control right" href="#home-carousel" data-slide="next">&rsaquo;</a>
+      </div><!-- .carousel -->
+
+      <!-- div class="container">
+      <!-- Example row of columns -->
+      <!--div class="row">
+      <h3>Latest DVD's Arrival</h3>
+
+        <ul class="thumbnails">
+         <?php foreach ($dvds as $dvd): ?> 	
+		  <li class="span3">
+		    <div class="thumbnail">
+		      <img src="<?php echo $base_url; ?>/images/products_images/<?php echo $dvd['product_id'].'.jpg'; ?>" alt="" style="">
+		      <div class="caption">
+		        <h3>Meats</h3>
+		        <p>Bacon ipsum dolor sit amet sirloin pancetta shoulder tongue doner,
+		           shank sausage.</p>
+		        <p><a href="#" class="btn btn-primary">Add to cart</a> <a href="#" class="btn">View details</a></p>
+		      </div>
+		    </div>
+		  </li>
+		 <?php endforeach; ?>
 		</ul>
-	</div>
-	
-	<div id="feature">	
-		<div class="left">		
-		
-			<h2 class="cart" id="viewCart">Cart</h2>
-			
-			<?php
-	
-			if($cart_total_items == 0) 
-			{
-				echo "<div><p>Your Shopping Cart is empty!</p>";
-			}
-			elseif($cart_total_items == 1)
-			{
-				echo '<div class="link"><p>You have <a href="#" id="cartLink">'.$cart_total_items.' product</a> in your Shopping Cart!</p>';
-			}
-			elseif($cart_total_items > 1)
-			{	
-				echo '<div class="link"><p>You have <a href="#" id="cartLink">'.$cart_total_items.' products</a> in your Shopping Cart!</p>';
-			}
-			?>
-			
-			<div id="cartSlider">	
-			<h1 class="cart_header">Your Shopping Cart:</h1>
-			<ul class="cartUl">       
-			 <?php foreach($cart_content as $cart): ?>                     
-				<li><a href="<?= $base_url ?>/products/describe_product/<?=$cart['attributes']['product_type']?>/<?=$cart['product_id']?>/" id="cSlider"><?= $cart['attributes']['name'] ?></a>
-				&nbsp;<a href="<?= $base_url ?>/welcome/empty_cart/<?=$cart['product_id']?>/"><img src="<?= $base_url.'/css/images/bin_closed.png' ?>"></a>
-				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_pos = ($cart['quantity'] + 1); ?>/"><img src="<?= $base_url ?>/css/images/plus-small-white.png"></a>
-				&nbsp;<a href="<?= $base_url ?>/welcome/update_cart/<?=$cart['product_id']?>/<?php echo $num_neg = ($cart['quantity'] - 1); ?>/"><img src="<?= $base_url ?>/css/images/minus-small-white.png"></a>
-				&nbsp;<strong><?= $cart['quantity']. ($cart['quantity'] == 1 ? ' Item ' : ' Items ') ?></strong>à&nbsp;€&nbsp;
-				<?=$cart['attributes']['price']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Subtotal:</strong>&nbsp;
-				<font color="#FF0000"><strong>€&nbsp;<?= $cart['attributes']['price'] * $cart['quantity'] ?></strong></font></li>		
-				
-			<?php endforeach; ?>
-				<li>&nbsp;</li>
-				<li><strong>Total Sum: € <font color="#FF0000"><?= $cart_total ?></strong></font></li>
-			    <li>&nbsp;</li>
-			    <li><a href="<?= $base_url ?>/welcome/empty_cart/" class="no-style"><img src="<?= $base_url ?>/css/images/RecBin.png">&nbsp;<font color="#FF0000">Click to empty cart!</font></a></li>
-			</ul>
-			<a class="checkout" id="checkout" href="<?= $base_url ?>/index.php?controller=login&action=index&checkout=checkout">Proceed to Checkout</a>
-			<a class="close" id="close" href="#">Close</a>
-		 	</div>	
-		 	
 
-		</div> 
-	</div>
-	
-	<div class="right">
-			<h2>NOTICE!</h2>
-			<p>This project was started on the: 01-05-2013,I have chosen to work on the main sections (main,books...) first. I will try
-			to get the cart working at some point, then on to the admin and user CMS.</p>	
-	</div>	
-	  
-<div class="clear">&nbsp;</div>
 
+       
+      </div>
+
+      <div class="row">
+      <h3>Latest eBooks Arrival</h3>
+        <div class="span3">
+          <h4>Heading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+       
+      </div>
+   </div -->
+   <hr>
+       <div class="alert alert-info">
+	    <button type="button" class="close" data-dismiss="alert">&times;</button>
+	    <h4>NOTICE!</h4>
+	    Click on the "Products" section in the navigation bar to browse our eBooks and DVD's! 
+	   </div>
+
+</div> <!-- /container -->
+    
+    <footer>
+      <div id="footer">
+		<div id="footersections">
+			<div class="half">
+				<h2>Useful Links</h2>
+				<ul>
+					<li><a href="http://www.arcada.fi" >Arcada.fi</a></li> 
+					<li><a href="http://www.hs.fi/" >Helsingin Sanomat</a></li> 
+					<li><a href="http://www.youtube.com/" >Youtube</a></li>
+					<li><a href="http://www.wired.com/" >Wired</a></li>
+					<li><a href="http://www.imdb.com/" >IMDB</a></li>
+					<li><a href="https://www.paypal.com" >PayPal</a></li>
+				</ul>
+			</div>
+
+			<div class="quarter">
+				<h2>Web Templates</h2>
+				<p>If you want to learn more about HTML, CSS & web templates building go to <a href="http://andreasviklund.com/" >Andreasviklund.com</a></p>
+				<p>You can also experiment on your own with freely available templates!</p>
+			</div>
+
+			<div class="lastquarter">
+				<h2>Programming</h2>
+				<ul>
+					<li><a href="http://www.php.net/">Php.net</a></li>
+					<li><a href="http://jqueryui.com/">jQuery</a></li>
+					<li><a href="http://www.apachefriends.org/en/index.html">Apache Friends</a></li>
+					<li><a href="http://www.debian.org/">Debian</a></li>
+					<li><a href="http://www.mysql.com/">MySQL</a></li>
+					<li><a href="http://stackoverflow.com/">Stackoverflow</a></li>
+					<li><a href="http://www.evoluted.net/thinktank/web-development/paypal-php-integration">PayPal Integration</a></li>
+					
+				</ul>	
+			</div>     
+			<div class="clear">&nbsp;</div> 
+		</div>
+	</div> 
+
+	<div id="credits">
+		<p>&copy;&nbsp;<?php echo $site_title ?>&nbsp;[sguessou 2013]</p>
+	<br />
+		<p>Powered by <img src="<?php echo $base_url ?>/css/images/codeigniter_logo.png" height="70" width="120"></p>
+	</div>  
 </div>
+</footer>
 
-<div id="main">	
-  
-   
- <table width="100%" border="0" align="center">
-   <tbody>
-    <tr>
-    <td>
-    <h3><strong>Last Upload eBooks:</strong></h3><br />
-     <table width="100%" align="center">
-      <tbody>
-      <?php
-      	$rowCount = 0;
-      	echo '<tr height="150">';
-      	foreach ( $books as $book ) 
-      	{ 
-      	 $rowCount++;
-		 $coverSrc = $base_url."/images/products_images/" . $book['product_id'] . ".jpg";
-		 $description = implode(' ', array_slice(explode(' ', $book['product_description']), 0, 40));
-		 $description .= '...'; 
-		 
-		 echo '<td width="120">';
-		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$book['product_id'].'/">';
-		 echo '<img class="border" width="100" alt="Price: '.$book['product_price'].' €" src="'.$coverSrc.'"></a></td>';
-		 echo '<td width="370" style="border-bottom:1px dashed green;">';
-		 echo '<a title="Price: '.$book['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$book['product_id'].'/">'.$book['product_name'].'</a>';
-		 echo '<div style="padding-top:10px; text-align:justify;">'.htmlentities($description).'</div>';
-		 $book_name = urlencode($book['product_name']);
-		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="'.$base_url.'/welcome/add_to_cart/'.$book['product_id'].'/'.$book['product_price'].'/'.$book_name.'/'.$book['type_name'].'/">Add to cart</a></div></td>';
-		 echo '<td width="20"> </td>';
-		 if($rowCount % 2 == 0 && $rowCount != 4) echo '</tr><tr height="150">';
-		 elseif($rowCount % 2 == 0 && $rowCount == 4) echo '</tr>'; 
-		}
-		echo '</tr>';
-      ?>
-      </tbody>
-     </table>
-    </td>
-    </tr>
-   </tbody>
-   </table>
-   <br />
-   <br />
-   
-   <h3><strong>Last Upload Dvd's:</strong></h3><br />
- <table width="100%" align="center">
-      <tbody>
-      <?php 
-      
-      	$rowCnt = 0;
-      	echo '<tr height="150">';
-      	foreach ( $dvds as $dvd ) 
-      	{ 
-      	 $rowCnt++;
-		 $cvrSrc = $base_url."/images/products_images/" . $dvd['product_id'] . ".jpg";
-		 $descp = implode(' ', array_slice(explode(' ', $dvd['product_description']), 0, 40));
-		 $descp .= '...'; 
-		 
-		 echo '<td width="120">';
-		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/products/describe_product/Dvd/'.$dvd['product_id'].'/">';
-		 echo '<img class="border" width="100" alt="Price: '.$dvd['product_price'].' €" src="'.$cvrSrc.'"></a></td>';
-		 echo '<td width="370" style="border-bottom:1px dashed green;">';
-		 echo '<a title="Price: '.$dvd['product_price'].' €" href="'.$base_url.'/products/describe_product/Book/'.$dvd['product_id'].'/">'.$dvd['product_name'].'</a>';
-		 echo '<div style="padding-top:10px; text-align:justify;">'.$descp.'</div>';
-		 $dvd_name = urlencode($dvd['product_name']);
-		 echo '<div style="padding-top:10px;padding-bottom:10px; text-align:justify;"><a class="cart-dvd" href="'.$base_url.'/welcome/add_to_cart/'.$dvd['product_id'].'/'.$dvd['product_price'].'/'.$dvd_name.'/'.$dvd['type_name'].'/">Add to cart</a></div></td>';
-		 echo '<td width="20"> </td>';
-		 if($rowCnt % 2 == 0 && $rowCnt != 4) echo '</tr><tr height="150">';
-		 elseif($rowCnt % 2 == 0 && $rowCnt == 4) echo '</tr>'; 
-		}
-		echo '</tr>';
-      ?>
-      </tbody>
-     </table>
-    </td>
-    </tr>
-   </tbody>
-   </table>
-		
- <p>&nbsp;</p>
- <div class="clear">&nbsp;</div>
-</div>
+    
 
-<!--****************************************************************************************-->	
-	
-	
-	
-<?php
-	
-	$this->load->view('footer');
-	
-/* End of file welcome_main_v.php */
-/* Location: ./application/views/welcome_main_v.php */
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="<?php echo $base_url?>/js/jquery-1.10.1.js"></script>
+    <script src="<?php echo $base_url?>/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

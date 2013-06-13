@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
 		
 		$this->load->library('my_session');
 	   	$this->load->library('my_cart');
-	    	$this->load->library('auth');
+	    $this->load->library('auth');
 	}
 
 	/**
@@ -36,23 +36,26 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{		
+	{	
+	
 		$this->load->model('products_m');
 		$this->load->model('users_m');
 		$this->load->library('my_session');
 		$this->load->library('my_cart');
 
+		$data['site_title'] = $this->site_title;
+		$data['base_url'] = $this->base_url;
 
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 
-		$data['css'] = $this->css;
+		//$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
-		$data['dummy'] = $this->cart_m->content_dum();	
+		//$data['dummy'] = $this->cart_m->content_dum();	
 		$data['books'] = $this->products_m->fetch_products('Book', 4);
 		$data['dvds'] = $this->products_m->fetch_products('Dvd', 4);
-		$data['cart_id_dum'] = $this->my_cart->get_cart_id();	
+		//$data['cart_id_dum'] = $this->my_cart->get_cart_id();	
 		//$this->my_cart->set_cart_id();
 
             
@@ -67,10 +70,10 @@ class Welcome extends CI_Controller {
 		    $data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		}
 		
-		//header("Location:$this->base_url/welcome/");
 
+		//header("Location:$this->base_url/welcome/");
+		
 		$this->load->view('./index/welcome_main_v', $data);
-		//$this->load->view('./index/welcome_bootstrap_v', $data);
 	}
 	/*
 	*
