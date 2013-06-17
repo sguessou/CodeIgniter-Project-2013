@@ -24,12 +24,13 @@ class Products extends CI_Controller
 	    $this->load->library('auth');		
 	}
 	
-	public function index($action = NULL, $product_name = NULL, $first = NULL)
+	public function index($action = NULL, $product_name = NULL, $ebook_page = NULL, $dvd_page = NULL)
 	{
 		$data = array();
 		
 		$this->load->model('products_m');
 		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
 		
 		//$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
@@ -46,15 +47,21 @@ class Products extends CI_Controller
 		
 		if($action == 'begin')
 		{
-			$data['first'] = 1;
-		   	$data['start'] = 0;
+			$this->accesslog_m->register( 'CI_BS->products->begin', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
+
+			$data['ebook_page'] = 1;
+			$data['dvd_page'] = 1;
+
+		   	$data['ebook_start'] = 0;
+		   	$data['dvd_start'] = 0;
+
 		   	$data['page_size'] = 6;	
 
 		   	$data['ebook_set'] = TRUE;
 			$data['dvd_set'] = NULL;
 
-			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['start'], $data['page_size']);
-			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['start'], $data['page_size']);
+			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['ebook_start'], $data['page_size']);
+			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['dvd_start'], $data['page_size']);
 			
 			$data['ebooks_num_pages'] = (int) ( $data['total_rows_ebooks'] / $data['page_size'] );
 			if ( $data['total_rows_ebooks'] % $data['page_size'] ) $data['ebooks_num_pages'] += 1;
@@ -67,15 +74,22 @@ class Products extends CI_Controller
 		
 		if ( $action == 'next' && $product_name == 'ebook' )
 		{
+			$this->accesslog_m->register( 'CI_BS->products->ebook', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
+
 			$data['page_size'] = 6;
-			$data['first'] = (int)$first;
-			$data['start'] = ($data['first'] - 1) * 6;
+			
+			$data['ebook_page'] = (int)$ebook_page;
+			$data['dvd_page'] = (int)$dvd_page;;	
+			
+
+			$data['ebook_start'] = ($data['ebook_page'] - 1) * 6;
+		   	$data['dvd_start'] = ($data['dvd_page'] - 1) * 6;
 
 			$data['ebook_set'] = TRUE;
 			$data['dvd_set'] = NULL;
 
-			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['start'], $data['page_size']);
-			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', 0, $data['page_size']);
+			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['ebook_start'], $data['page_size']);
+			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['dvd_start'], $data['page_size']);
 			
 			$data['ebooks_num_pages'] = (int) ( $data['total_rows_ebooks'] / $data['page_size'] );
 			if ( $data['total_rows_ebooks'] % $data['page_size'] ) $data['ebooks_num_pages'] += 1;
@@ -87,15 +101,22 @@ class Products extends CI_Controller
 		}
 		elseif ( $action == 'next' && $product_name == 'dvd' )
 		{
+			$this->accesslog_m->register( 'CI_BS->products->dvd', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
+
 			$data['page_size'] = 6;
-			$data['first'] = (int)$first;
-			$data['start'] = ($data['first'] - 1) * 6;
+
+			$data['ebook_page'] = (int)$ebook_page;
+			$data['dvd_page'] = (int)$dvd_page;;	
+			
+
+			$data['ebook_start'] = ($data['ebook_page'] - 1) * 6;
+		   	$data['dvd_start'] = ($data['dvd_page'] - 1) * 6;
 
 			$data['ebook_set'] = NULL;
 			$data['dvd_set'] = TRUE;
 
-			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', 0, $data['page_size']);
-			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['start'], $data['page_size']);
+			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['ebook_start'], $data['page_size']);
+			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['dvd_start'], $data['page_size']);
 			
 			$data['ebooks_num_pages'] = (int) ( $data['total_rows_ebooks'] / $data['page_size'] );
 			if ( $data['total_rows_ebooks'] % $data['page_size'] ) $data['ebooks_num_pages'] += 1;

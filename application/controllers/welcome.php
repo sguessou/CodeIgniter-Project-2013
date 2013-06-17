@@ -40,6 +40,8 @@ class Welcome extends CI_Controller {
 	
 		$this->load->model('products_m');
 		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
+
 		$this->load->library('my_session');
 		$this->load->library('my_cart');
 
@@ -94,6 +96,8 @@ class Welcome extends CI_Controller {
 		
 
 		//header("Location:$this->base_url/welcome/");
+
+		$this->accesslog_m->register( 'CI_BS->Welcome->index', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
 		
 		$this->load->view('./index/welcome_main_v', $data);
 	}

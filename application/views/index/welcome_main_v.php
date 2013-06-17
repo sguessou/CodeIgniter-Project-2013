@@ -64,7 +64,7 @@
       <div class="hero-unit">
         <h1>Welcome To Online Store!<small>&nbsp;Powered by:&nbsp;<a href="http://ellislab.com/codeigniter">
         <img src="<?php echo $base_url; ?>/css/images/codeigniterlogo2.png" /></a></img></small></h1><br />
-        <p>I have redesigned the old "<a href="http://rascal.mooo.com/project/">Online Store</a>" site, JQuery &amp; Bootstrap libraries have been used for the template layout.
+        <p>I have redesigned my old "<a href="http://rascal.mooo.com/online_store_original/">Online Store</a>" site, JQuery &amp; Bootstrap libraries have been used for the template layout.
         <br />The original "Online Store" was developed using a Framework built from scratch.
         This time around I'm using the <a href="http://ellislab.com/codeigniter">CodeIgniter</a> PHP Framework to power the site.<br />
         As soon as the <strong>CMS</strong> section will be ready, you'll be able to access the user section by logging in as user <strong>saruman</strong> with 

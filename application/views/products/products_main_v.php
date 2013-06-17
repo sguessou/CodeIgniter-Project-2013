@@ -126,19 +126,19 @@
 				</ul>
 				    <div class="pagination pagination-centered">
 					    <ul>
-						    <li <?php echo ($first == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($first - 1); ?>/">Prev</a></li>
+						    <li <?php echo ($ebook_page == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($ebook_page - 1); ?>/">Prev</a></li>
 						    <?php 
 						    for ($x = 1; $x <= $ebooks_num_pages; $x++)
 						    {
-						    	if($first == $x)
-						    		echo '<li class="active"><a href="'.$base_url.'/products/index/next/ebook/'.$x.'/">'.$x.'</a></li>';
+						    	if($ebook_page == $x)
+						    		echo '<li class="active"><a href="'.$base_url.'/products/index/next/ebook/'.$x.'/'.$dvd_page.'/">'.$x.'</a></li>';
 						    	else
-						    		echo '<li><a href="'.$base_url.'/products/index/next/ebook/'.$x.'/">'.$x.'</a></li>';
+						    		echo '<li><a href="'.$base_url.'/products/index/next/ebook/'.$x.'/'.$dvd_page.'/">'.$x.'</a></li>';
 						    }	
 						    		
 						   
 						    ?>
-						    <li <?php echo ($first == $ebooks_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($first + 1); ?>/">Next</a></li>
+						    <li <?php echo ($ebook_page == $ebooks_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($ebook_page + 1); ?>/">Next</a></li>
 					    </ul>
 				    </div>
 				  
@@ -186,19 +186,19 @@
 				</ul>
 				    <div class="pagination pagination-centered">
 					    <ul>
-						    <li <?php echo ($first == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/<?php echo ($first - 1); ?>/">Prev</a></li>
+						    <li <?php echo ($dvd_page == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/<?php echo ($dvd_page - 1); ?>/">Prev</a></li>
 						    <?php 
 						    for ($i = 1; $i <= $dvds_num_pages; $i++)
 						    {
-						    	if($first == $i)
-						    		echo '<li class="active"><a href="'.$base_url.'/products/index/next/dvd/'.$i.'/">'.$i.'</a></li>';
+						    	if($dvd_page == $i)
+						    		echo '<li class="active"><a href="'.$base_url.'/products/index/next/dvd/'.$ebook_page.'/'.$i.'/">'.$i.'</a></li>';
 						    	else
-						    		echo '<li><a href="'.$base_url.'/products/index/next/dvd/'.$i.'/">'.$i.'</a></li>';
+						    		echo '<li><a href="'.$base_url.'/products/index/next/dvd/'.$ebook_page.'/'.$i.'/">'.$i.'</a></li>';
 						    }	
 						    		
 						   
 						    ?>
-						    <li <?php echo ($first == $dvds_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/<?php echo ($first + 1); ?>/">Next</a></li>
+						    <li <?php echo ($dvd_page == $dvds_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/<?php echo ($dvd_page + 1); ?>/">Next</a></li>
 					    </ul>
 				    </div>
             </div>
