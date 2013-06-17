@@ -24,14 +24,14 @@ class Products extends CI_Controller
 	    $this->load->library('auth');		
 	}
 	
-	public function index($action, $product_name, $start = NULL, $first = NULL)
+	public function index($action = NULL, $product_name = NULL, $first = NULL)
 	{
 		$data = array();
 		
 		$this->load->model('products_m');
 		$this->load->model('users_m');
 		
-		$data['css'] = $this->css;
+		//$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
@@ -48,26 +48,76 @@ class Products extends CI_Controller
 		{
 			$data['first'] = 1;
 		   	$data['start'] = 0;
-		   	$data['page_size'] = 10;		
-			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps($product_name, 'product_id', $data['start'], 10);	
+		   	$data['page_size'] = 6;	
+
+		   	$data['ebook_set'] = TRUE;
+			$data['dvd_set'] = NULL;
+
+			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['start'], $data['page_size']);
+			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['start'], $data['page_size']);
+			
+			$data['ebooks_num_pages'] = (int) ( $data['total_rows_ebooks'] / $data['page_size'] );
+			if ( $data['total_rows_ebooks'] % $data['page_size'] ) $data['ebooks_num_pages'] += 1;
+
+			$data['dvds_num_pages'] = (int) ( $data['total_rows_dvds'] / $data['page_size'] );
+			if ( $data['total_rows_dvds'] % $data['page_size'] ) $data['dvds_num_pages'] += 1;
+
+			$this->load->view('/products/products_main_v', $data);	
 		}	
 		
-		if($action == 'next')
+		if ( $action == 'next' && $product_name == 'ebook' )
 		{
-			$data['page_size'] = 10;
-		    $data['start']  = (int)$start;
+			$data['page_size'] = 6;
 			$data['first'] = (int)$first;
-			list($data['products'], $data['total_rows']) = $this->products_m->fetch_products_ps($product_name, 'product_id', $data['start'], 10);
-		} 
+			$data['start'] = ($data['first'] - 1) * 6;
+
+			$data['ebook_set'] = TRUE;
+			$data['dvd_set'] = NULL;
+
+			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['start'], $data['page_size']);
+			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', 0, $data['page_size']);
+			
+			$data['ebooks_num_pages'] = (int) ( $data['total_rows_ebooks'] / $data['page_size'] );
+			if ( $data['total_rows_ebooks'] % $data['page_size'] ) $data['ebooks_num_pages'] += 1;
+
+			$data['dvds_num_pages'] = (int) ( $data['total_rows_dvds'] / $data['page_size'] );
+			if ( $data['total_rows_dvds'] % $data['page_size'] ) $data['dvds_num_pages'] += 1;
+
+			$this->load->view('/products/products_main_v', $data);
+		}
+		elseif ( $action == 'next' && $product_name == 'dvd' )
+		{
+			$data['page_size'] = 6;
+			$data['first'] = (int)$first;
+			$data['start'] = ($data['first'] - 1) * 6;
+
+			$data['ebook_set'] = NULL;
+			$data['dvd_set'] = TRUE;
+
+			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', 0, $data['page_size']);
+			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['start'], $data['page_size']);
+			
+			$data['ebooks_num_pages'] = (int) ( $data['total_rows_ebooks'] / $data['page_size'] );
+			if ( $data['total_rows_ebooks'] % $data['page_size'] ) $data['ebooks_num_pages'] += 1;
+
+			$data['dvds_num_pages'] = (int) ( $data['total_rows_dvds'] / $data['page_size'] );
+			if ( $data['total_rows_dvds'] % $data['page_size'] ) $data['dvds_num_pages'] += 1;
+
+			$this->load->view('/products/products_main_v', $data);
+		}  
 		
-		if(strtolower($product_name) == 'book')
+		/*if(strtolower($product_name) == 'book')
 		{
 			$this->load->view('/books/books_main_v', $data);
 		}
 		elseif(strtolower($product_name) == 'dvd')
 		{
 			$this->load->view('/movies/movies_main_v', $data);
-		}
+		}*/
+
+		
+ 		
+
 	}//End method index
 	
 	/*
@@ -96,6 +146,8 @@ class Products extends CI_Controller
 		    $data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		}
 		
+		
+
 		if($product_type == 'Book')
 		{
 			$this->load->view('/books/books_display_v', $data);

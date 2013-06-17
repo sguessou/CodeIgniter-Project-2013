@@ -46,22 +46,44 @@ class Welcome extends CI_Controller {
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 
-		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
+		//list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 
 		//$data['css'] = $this->css;
-		$data['site_title'] = $this->site_title;
-		$data['base_url'] = $this->base_url;
 		
 		//$data['dummy'] = $this->cart_m->content_dum();	
-		$data['books'] = $this->products_m->fetch_products('Book', 4);
-		$data['dvds'] = $this->products_m->fetch_products('Dvd', 4);
+		//$data['books'] = $this->products_m->fetch_products('Book', 4);
+		//$data['dvds'] = $this->products_m->fetch_products('Dvd', 4);
 		//$data['cart_id_dum'] = $this->my_cart->get_cart_id();	
 		//$this->my_cart->set_cart_id();
+		/*
+		$stuff = array();
+ 		$stuff = $this->products_m->fetch_products('Dvd');
+ 		$x = '';
+ 		foreach ($stuff as $book)
+ 		{
+ 			$x .= $book['product_id'].'--';	
+ 		}	
+ 		$data['prd_id'] = $x;
 
-            
+ 		$prd_id = $this->input->post('prd_id');
+ 		if($prd_id)
+ 		{
+ 			$config['image_library'] = 'gd2';
+			$config['source_image'] = 'images/products_images/'.$prd_id.'.jpg';
+			$config['create_thumb'] = TRUE;
+			$config['maintain_ratio'] = TRUE;
+			//$config['width'] = 75;
+			$config['height'] = 300;
+
+			$this->load->library('image_lib', $config);
+
+			$this->image_lib->resize();
+ 		}
+		
+        */
 	        //if(!$data['cart_content']) die(print_r('nothing returned from db!'));
 
-		$data['sess_data'] = $this->my_session->get_session_content(); 
+		//$data['sess_data'] = $this->my_session->get_session_content(); 
 		
 		$data['logged'] = FALSE;
 		if( $this->auth->is_logged() )

@@ -37,7 +37,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="<?php echo $base_url; ?>/welcome/">Home</a></li>
-              			<li><a href="#">Products</a></li>
+              <li><a href="<?php echo $base_url; ?>/products/index/begin/">Products</a></li>
               			<li><a href="#">Cart</a></li>
               </li>
             </ul>
@@ -63,7 +63,7 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         <h1>Welcome To Online Store!<small>&nbsp;Powered by:&nbsp;<a href="http://ellislab.com/codeigniter">
-        <img src="<?php echo $base_url; ?>/css/images/codeigniterlogo1.png" height="50" width="150" /></a></img></small></h1><br />
+        <img src="<?php echo $base_url; ?>/css/images/codeigniterlogo2.png" /></a></img></small></h1><br />
         <p>I have redesigned the old "<a href="http://rascal.mooo.com/project/">Online Store</a>" site, JQuery &amp; Bootstrap libraries have been used for the template layout.
         <br />The original "Online Store" was developed using a Framework built from scratch.
         This time around I'm using the <a href="http://ellislab.com/codeigniter">CodeIgniter</a> PHP Framework to power the site.<br />
@@ -143,6 +143,9 @@
        
       </div>
    </div -->
+   
+   
+
    <hr>
        <div class="alert alert-info">
 	    <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -153,9 +156,9 @@
 </div> <!-- /container -->
     
     <footer>
-      <div id="footer">
-		<div id="footersections">
-			<div class="half">
+      <div id="footer_SG">
+		<div id="footersections_SG">
+			<div class="half_SG">
 				<h2>Useful Links</h2>
 				<ul>
 					<li><a href="http://www.arcada.fi" >Arcada.fi</a></li> 
@@ -167,13 +170,13 @@
 				</ul>
 			</div>
 
-			<div class="quarter">
+			<div class="quarter_SG">
 				<h2>Web Templates</h2>
 				<p>If you want to learn more about HTML, CSS & web templates building go to <a href="http://andreasviklund.com/" >Andreasviklund.com</a></p>
 				<p>You can also experiment on your own with freely available templates!</p>
 			</div>
 
-			<div class="lastquarter">
+			<div class="lastquarter_SG">
 				<h2>Programming</h2>
 				<ul>
 					<li><a href="http://www.php.net/">Php.net</a></li>
@@ -186,14 +189,14 @@
 					
 				</ul>	
 			</div>     
-			<div class="clear">&nbsp;</div> 
+			<div class="clear_SG">&nbsp;</div> 
 		</div>
 	</div> 
 
-	<div id="credits">
+	<div id="credits_SG">
 		<p>&copy;&nbsp;<?php echo $site_title ?>&nbsp;[sguessou 2013]</p>
 	<br />
-		<p>Powered by <img src="<?php echo $base_url ?>/css/images/codeigniter_logo.png" height="70" width="120"></p>
+		<p>Powered by <img src="<?php echo $base_url ?>/css/images/codeigniter_logo2.png"></p>
 	</div>  
 </div>
 </footer>
