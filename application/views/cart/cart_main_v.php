@@ -89,7 +89,7 @@
             <p>Your Shopping Cart is empty.</p>
             </div>
       <?php else : ?>  
-        
+
            <table class="table table-hover">
             <caption></caption>
               <thead>
@@ -122,7 +122,7 @@
               </tbody>
             </table> 
 
-            <a class="btn btn-danger" href="#">
+            <a class="btn btn-danger" href="<?php echo $base_url; ?>/cart/empty_cart/">
               <i class="icon-trash icon-large"></i>&nbsp;Empty Cart</a>
               <hr>
           <?php endif ?>    
