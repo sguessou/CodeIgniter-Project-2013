@@ -17,6 +17,10 @@
     </style>
     <link href="<?php echo $base_url?>/css/bootstrap-responsive.css" rel="stylesheet">
 
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="../assets/js/html5shiv.js"></script>
@@ -36,19 +40,19 @@
           <a class="brand" href="<?php echo $base_url; ?>/welcome/">Online Store</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="<?php echo $base_url; ?>/welcome/">Home</a></li>
-              <li><a href="<?php echo $base_url; ?>/products/index/begin/">Products</a></li>
-              			<li><a href="#">Cart</a></li>
-              </li>
+              <li class="active"><a href="<?php echo $base_url; ?>/welcome/"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
+              <li><a href="<?php echo $base_url; ?>/products/index/begin/"><i class="icon-eye-open icon-white"></i>&nbsp;Products</a></li>
             </ul>
 
-            <ul class="nav pull-right">
+             <a id="example" class="btn btn-info" rel="popover" data-placement="bottom"><i class="icon-shopping-cart icon-white"></i>&nbsp;<strong>Cart</strong><?php if (!$cart_total_items){echo ' (you have 0 items)';} elseif($cart_total_items == 1){echo ' (you have 0 items)';} else {echo ' (you have '.$cart_total_items.' items)';} ?></a>
+            
+             <ul class="nav pull-right">
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Your Account <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>&nbsp;Your Account <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                      <li><a href="#">Login</a></li>
-                      <li><a href="#">Profile</a></li>
-                      <li><a href="#">Cart</a></li>
+                      <li><a href="#"><i class="icon-signin"></i>&nbsp;<strong>Login</strong></a></li>
+                      <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
+                      <li><a href="#"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
                 </li>
             </ul>
@@ -108,44 +112,7 @@
           <a class="carousel-control right" href="#home-carousel" data-slide="next">&rsaquo;</a>
       </div><!-- .carousel -->
 
-      <!-- div class="container">
-      <!-- Example row of columns -->
-      <!--div class="row">
-      <h3>Latest DVD's Arrival</h3>
-
-        <ul class="thumbnails">
-         <?php foreach ($dvds as $dvd): ?> 	
-		  <li class="span3">
-		    <div class="thumbnail">
-		      <img src="<?php echo $base_url; ?>/images/products_images/<?php echo $dvd['product_id'].'.jpg'; ?>" alt="" style="">
-		      <div class="caption">
-		        <h3>Meats</h3>
-		        <p>Bacon ipsum dolor sit amet sirloin pancetta shoulder tongue doner,
-		           shank sausage.</p>
-		        <p><a href="#" class="btn btn-primary">Add to cart</a> <a href="#" class="btn">View details</a></p>
-		      </div>
-		    </div>
-		  </li>
-		 <?php endforeach; ?>
-		</ul>
-
-
-       
-      </div>
-
-      <div class="row">
-      <h3>Latest eBooks Arrival</h3>
-        <div class="span3">
-          <h4>Heading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-       
-      </div>
-   </div -->
-   
-   
-
+        
    <hr>
        <div class="alert alert-info">
 	    <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -201,13 +168,42 @@
 </div>
 </footer>
 
-    
+
+<?php
+        $cart_data = '';
+        $item_num = 1;
+        foreach ($cart_content as $cart_item)
+        {
+          $cart_data .= '#'.$item_num.'&nbsp;<a href=""><small>'.$cart_item['attributes']['name'].'</small></a>,&nbsp;';
+          $cart_data .= '<small><em class="muted">Quantity:'.$cart_item['quantity'].'</em></small><br />';
+          $item_num++;
+        }
+        $cart_data .= '<a href="'.$base_url.'/cart/" class="btn btn-small btn" type="button">View Cart ('.$cart_total_items;
+
+        if ($cart_total_items == 1) 
+        {
+          $cart_data .= ' item)';
+        }
+        else
+        {
+          $cart_data .= ' items)';
+        }
+      //$cart_data .= '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+        $cart_data = str_replace("'","\\'", $cart_data);
+    ?>
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo $base_url?>/js/jquery-1.10.1.js"></script>
     <script src="<?php echo $base_url?>/js/bootstrap.min.js"></script>
+    <script>  
+    $(function() {  
+  
+      $("#example").popover({ html:true,
+                  title: '<h5>My Cart Content</h5>',
+                  content: '<?php echo $cart_data ?>'  });  
+    }); 
+  </script> 
 
   </body>
-</html>

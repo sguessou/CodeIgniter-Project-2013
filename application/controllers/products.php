@@ -45,7 +45,7 @@ class Products extends CI_Controller
 		    $data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		}
 		
-		if($action == 'begin')
+		if($action == 'begin' || $action == 'item_added')
 		{
 			$this->accesslog_m->register( 'CI_BS->products->begin', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
 
@@ -59,6 +59,15 @@ class Products extends CI_Controller
 
 		   	$data['ebook_set'] = TRUE;
 			$data['dvd_set'] = NULL;
+
+			if ($action == 'item_added')
+			{
+				$data['item_added'] = TRUE;
+			}
+			else
+			{
+				$data['item_added'] = FALSE;	
+			}
 
 			list($data['ebooks'], $data['total_rows_ebooks']) = $this->products_m->fetch_products_ps('Book', 'product_id', $data['ebook_start'], $data['page_size']);
 			list($data['dvds'], $data['total_rows_dvds']) = $this->products_m->fetch_products_ps('Dvd', 'product_id', $data['dvd_start'], $data['page_size']);
@@ -145,6 +154,7 @@ class Products extends CI_Controller
 	*	when called the method loads $data['product_data'] with data associated with product
 	*	@param int $product_id
 	*/
+	/*
 	public function describe_product($product_type, $product_id)
 	{
 		$data = array();
@@ -178,8 +188,19 @@ class Products extends CI_Controller
 			$this->load->view('/movies/movies_display_v', $data);
 		}
 	}//End method describe_product
-	
-	
+	*/
+	public function add_to_cart($id, $price, $name, $product_type)
+	{
+		$this->load->model('accesslog_m');
+
+		$this->load->library('my_session');
+		$this->load->library('my_cart');
+
+		$this->my_cart->add_item($id, $price, $name, $product_type);
+
+		header('Location:'.$this->base_url.'/products/index/item_added/');
+
+	}
 
 
 

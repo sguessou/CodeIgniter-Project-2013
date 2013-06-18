@@ -59,7 +59,7 @@ class My_cart
 	*	@param int 
 	* 	@return void
    */
-	public function remove($id)
+	public function remove($id = NULL)
 	{
 		$this->_CI->load->model('cart_m');
 					   
@@ -143,9 +143,11 @@ class My_cart
 		for($i = 0; $i < count($this->_data); $i++)
 		{
 			$this->_total_items += (int)$this->_data[$i]['quantity']; 
+
 			(float)$this->_total += (float)$this->_data[$i]['attributes']['price'] * (int)$this->_data[$i]['quantity'];
 		}
 		
+		if ( !$this->_total_items ) $this->_total_items = 0;
 		return array($this->_data, $this->_total, $this->_total_items);	
 	}
 	/*
