@@ -52,7 +52,7 @@
                   <ul class="dropdown-menu">
                       <li><a href="#"><i class="icon-signin"></i>&nbsp;<strong>Login</strong></a></li>
                       <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
-                      <li><a href="#"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
+                      <li><a href="<?php echo $base_url; ?>/cart/"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
                 </li>
             </ul>
@@ -107,15 +107,41 @@
                   <?php
                     foreach($cart_content as $cart_data)
                     {
-                      echo '<tr><td><a href="#"><img src="'.$base_url.'/images/products_images/'.$cart_data['product_id'].'_thumb.jpg" width="70" height="100"/></a></td>';
-                      echo '<td><a href="#">'.$cart_data['attributes']['name'].'</a>
+                      echo '<tr><td><a href="#modal_'.$cart_data['product_id'].'" data-toggle="modal"><img src="'.$base_url.'/images/products_images/'.$cart_data['product_id'].'_thumb.jpg" width="70" height="100"/></a></td>';
+                      echo '<td><a href="#modal_'.$cart_data['product_id'].'" data-toggle="modal">'.$cart_data['attributes']['name'].'</a>
                        <h6 class="text-success">In Stock</h6>
                        <a href="#"><i class="icon-trash"></i></a>&nbsp;<a href="#"><i class="icon-plus"></i></a>
                        &nbsp;<a href="#"><i class="icon-minus"></i></a></td>';
                       echo '<td>'.$cart_data['attributes']['price'].'</td>';
-                      echo '<td>'.$cart_data['quantity'].'</td></tr>';  
-                    }
+                      echo '<td>'.$cart_data['quantity'].'</td></tr>'; 
+                    ?> 
+                      <div id="<?php echo 'modal_'.$cart_data['product_id']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel"><?php echo $cart_data['attributes']['name']; ?></h3>
+                              </div>
+                                <div class="modal-body">
+                                <h4>DVD Description</h4>
+                                <div class="product">
+                                <img src="<?php echo $base_url; ?>/images/products_images/<?php echo $cart_data['product_id'].'_thumb.jpg'; ?>" height="180" width="160" />
+                                <p><?php echo $cart_data['attributes']['description']; ?></p>
+                                </div>
+                                <h4>DVD Details</h4>
+                                <ul>
+                                 <li><strong>Language:</strong>&nbsp;<?php echo $cart_data['attributes']['language']; ?></li>  
+                                  <li><strong>ISBN-10:</strong>&nbsp;<?php echo $cart_data['attributes']['isbn10']; ?></li>
+                                  <li><strong>Price:</strong>&nbsp;<?php echo $cart_data['attributes']['price']; ?>&nbsp;&euro;</li>
+                                </ul>
+                              </div>
+                            <div class="modal-footer">
+                           
+                          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        </div>
+                      </div> 
+                  <?php 
 
+                    }
+                  
                   ?>
                   
               
@@ -184,7 +210,16 @@
         $item_num = 1;
         foreach ($cart_content as $cart_item)
         {
-          $cart_data .= '#'.$item_num.'&nbsp;<a href=""><small>'.$cart_item['attributes']['name'].'</small></a>,&nbsp;';
+          if ( $cart_item['attributes']['product_type'] == 'Dvd' ) 
+          {
+            $item_type = '<i class="icon-film"></i>';
+          } 
+          elseif ( $cart_item['attributes']['product_type'] == 'Book' )
+          {
+            $item_type = '<i class="icon-book"></i>';
+          } 
+              
+          $cart_data .= '#'.$item_num.'&nbsp;'.$item_type.'&nbsp<small class="text-info">'.$cart_item['attributes']['name'].'</small>,&nbsp;';
           $cart_data .= '<small><em class="muted">Quantity:'.$cart_item['quantity'].'</em></small><br />';
           $item_num++;
         }

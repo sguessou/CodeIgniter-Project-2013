@@ -52,7 +52,7 @@
                   <ul class="dropdown-menu">
                       <li><a href="#"><i class="icon-signin"></i>&nbsp;<strong>Login</strong></a></li>
                       <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
-                      <li><a href="#"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
+                      <li><a href="<?php echo $base_url; ?>/cart/"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
                 </li>
             </ul>
@@ -160,6 +160,8 @@
 		</div>
 	</div> 
 
+	<?php echo $data97[0]['product_description']; ?>
+
 	<div id="credits_SG">
 		<p>&copy;&nbsp;<?php echo $site_title ?>&nbsp;[sguessou 2013]</p>
 	<br />
@@ -174,9 +176,18 @@
         $item_num = 1;
         foreach ($cart_content as $cart_item)
         {
-          $cart_data .= '#'.$item_num.'&nbsp;<a href=""><small>'.$cart_item['attributes']['name'].'</small></a>,&nbsp;';
-          $cart_data .= '<small><em class="muted">Quantity:'.$cart_item['quantity'].'</em></small><br />';
-          $item_num++;
+        	if ( $cart_item['attributes']['product_type'] == 'Dvd' ) 
+    		{
+    			$item_type = '<i class="icon-film"></i>';
+    		} 
+    		elseif ( $cart_item['attributes']['product_type'] == 'Book' )
+    		{
+    				$item_type = '<i class="icon-book"></i>';
+    		}	
+	        
+	        $cart_data .= '#'.$item_num.'&nbsp;'.$item_type.'&nbsp<small class="text-info">'.$cart_item['attributes']['name'].'</small>,&nbsp;';
+	        $cart_data .= '<small><em class="muted">Quantity:'.$cart_item['quantity'].'</em></small><br />';
+	        $item_num++;
         }
         $cart_data .= '<a href="'.$base_url.'/cart/" class="btn btn-small btn" type="button">View Cart ('.$cart_total_items;
 

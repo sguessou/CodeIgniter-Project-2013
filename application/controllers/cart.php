@@ -36,6 +36,7 @@ class Cart extends CI_Controller
 		$data['base_url'] = $this->base_url;
 		
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
+
 		
 		$data['logged'] = FALSE;
 		if( $this->auth->is_logged() )

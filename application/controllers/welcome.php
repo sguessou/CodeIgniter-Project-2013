@@ -50,6 +50,8 @@ class Welcome extends CI_Controller {
 
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 
+		$data['data97'] = $this->products_m->get_row(97);
+
 		//$data['css'] = $this->css;
 		
 		//$data['dummy'] = $this->cart_m->content_dum();	

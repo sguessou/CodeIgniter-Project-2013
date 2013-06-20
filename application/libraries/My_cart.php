@@ -43,10 +43,19 @@ class My_cart
 	public function add_item($id, $price, $name, $product_type)
 	{
 		$this->_CI->load->model('cart_m');
+		$this->_CI->load->model('products_m');
+
+		$product_data = $this->_CI->products_m->get_row($id);
+		
+		//$description = implode(' ', array_slice(explode(' ', $product_data['product_description']), 0, 40));
+		//$description .= '...'; 
 		
 		$attributes = serialize( array( 'name' => urldecode($name),
 										'product_type' => $product_type,
-										'price' => $price ));
+										'price' => $price,
+										'description' => $product_data[0]['product_description'], 
+										'language' => $product_data[0]['product_language'],
+										'isbn10' => $product_data[0]['product_isbn10']) );
 					   
 		$this->_CI->cart_m->insert_item($this->get_cart_id(), $id, $attributes);
 		
