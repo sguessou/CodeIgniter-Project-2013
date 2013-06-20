@@ -160,8 +160,7 @@
 		</div>
 	</div> 
 
-	<?php echo $data97[0]['product_description']; ?>
-
+	
 	<div id="credits_SG">
 		<p>&copy;&nbsp;<?php echo $site_title ?>&nbsp;[sguessou 2013]</p>
 	<br />
