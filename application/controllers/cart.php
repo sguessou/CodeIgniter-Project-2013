@@ -28,16 +28,20 @@ class Cart extends CI_Controller
 	{
 		$data = array();
 		
-		//$this->load->model('products_m');
-		//$this->load->model('users_m');
-		//$this->load->model('accesslog_m');
+		$this->load->model('products_m');
+		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
+
+		$this->load->library('my_session');
+	    $this->load->library('my_cart');
+	    $this->load->library('auth');
 		
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 
-		
+
 		$data['logged'] = FALSE;
 		if( $this->auth->is_logged() )
 		{

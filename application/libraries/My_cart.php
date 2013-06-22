@@ -53,9 +53,9 @@ class My_cart
 		$attributes = serialize( array( 'name' => urldecode($name),
 										'product_type' => $product_type,
 										'price' => $price,
-										'description' => $product_data[0]['product_description'], 
-										'language' => $product_data[0]['product_language'],
-										'isbn10' => $product_data[0]['product_isbn10']) );
+										'description' => $product_data['product_description'], 
+										'language' => $product_data['product_language'],
+										'isbn10' => $product_data['product_isbn10']) );
 					   
 		$this->_CI->cart_m->insert_item($this->get_cart_id(), $id, $attributes);
 		
