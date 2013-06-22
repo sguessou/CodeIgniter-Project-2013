@@ -44,7 +44,7 @@
               <li class="active"><a href="<?php echo $base_url; ?>/products/index/begin/"><i class="icon-eye-open icon-white"></i>&nbsp;Products</a></li>
             </ul>
 			
-				<a id="example" class="btn btn-info" rel="popover" data-placement="bottom"><i class="icon-shopping-cart icon-white"></i>&nbsp;<strong>Cart</strong><?php if (!$cart_total_items){echo ' (you have 0 items)';} elseif($cart_total_items == 1){echo ' (you have 1 items)';} else {echo ' (you have '.$cart_total_items.' items)';} ?></a>
+				<a id="example" class="btn btn-info" rel="popover" data-placement="bottom"><i class="icon-shopping-cart icon-white"></i>&nbsp;<strong>Cart</strong><?php echo($cart_total_items == 1)? ' (You have '.$cart_total_items.' item)': ' (You have '.$cart_total_items.' items)'; ?></a>
             
             <ul class="nav pull-right">
                 <li class="dropdown">

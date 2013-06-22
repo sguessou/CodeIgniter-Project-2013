@@ -139,7 +139,7 @@ class Products_m extends CI_Model
     
     	if($stmt->execute())
 		{
-			return $this->_data = $stmt->fetchAll(\PDO::FETCH_ASSOC); 
+			return $this->_data = $stmt->fetch(\PDO::FETCH_ASSOC); 
 		}
 		else
 		{

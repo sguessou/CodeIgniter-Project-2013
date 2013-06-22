@@ -48,9 +48,11 @@ class Welcome extends CI_Controller {
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 
+		$this->my_cart->set_cart_id();
+		
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 
-		$data['data97'] = $this->products_m->get_row(97);
+		//$data['data97'] = $this->products_m->get_row(97);
 
 		//$data['css'] = $this->css;
 		
