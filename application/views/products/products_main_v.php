@@ -129,7 +129,7 @@
 				</ul>
 				    <div class="pagination pagination-centered">
 					    <ul>
-						    <li <?php echo ($ebook_page == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($ebook_page - 1); ?>/">Prev</a></li>
+						    <li <?php echo ($ebook_page == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($ebook_page - 1); ?>/1/">Prev</a></li>
 						    <?php 
 						    for ($x = 1; $x <= $ebooks_num_pages; $x++)
 						    {
@@ -141,7 +141,7 @@
 						    		
 						   
 						    ?>
-						    <li <?php echo ($ebook_page == $ebooks_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($ebook_page + 1); ?>/">Next</a></li>
+						    <li <?php echo ($ebook_page == $ebooks_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/ebook/<?php echo ($ebook_page + 1); ?>/1/">Next</a></li>
 					    </ul>
 				    </div>
 				  
@@ -190,7 +190,7 @@
 				</ul>
 				    <div class="pagination pagination-centered">
 					    <ul>
-						    <li <?php echo ($dvd_page == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/<?php echo ($dvd_page - 1); ?>/">Prev</a></li>
+						    <li <?php echo ($dvd_page == 1)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/1/<?php echo ($dvd_page - 1); ?>/">Prev</a></li>
 						    <?php 
 						    for ($i = 1; $i <= $dvds_num_pages; $i++)
 						    {
@@ -202,7 +202,7 @@
 						    		
 						   
 						    ?>
-						    <li <?php echo ($dvd_page == $dvds_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/<?php echo ($dvd_page + 1); ?>/">Next</a></li>
+						    <li <?php echo ($dvd_page == $dvds_num_pages)? 'class="disabled" ':''; ?>><a href="<?php echo $base_url; ?>/products/index/next/dvd/1/<?php echo ($dvd_page + 1); ?>/">Next</a></li>
 					    </ul>
 				    </div>
             </div>

@@ -120,7 +120,7 @@
 	    Click on the "Products" section in the navigation bar to browse our eBooks and DVD's! 
       <?php echo $cart_total_items; ?>
 	   </div>
-
+     <?php //echo var_dump($_SERVER); ?>
 </div> <!-- /container -->
     
     <footer>

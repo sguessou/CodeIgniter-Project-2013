@@ -117,14 +117,14 @@ class My_cart
 				$this->_CI->my_session->set('CICartId', $this->_cart_id);
   			
 				// Regenerate cookie to be valid for 7 days (604800 seconds)
-				$this->_CI->input->set_cookie( 'CICartId', $this->_cart_id, time() + 604800, '.ci.dev', '/', '', '' );
+				$this->_CI->input->set_cookie( 'CICartId', $this->_cart_id, time() + 604800, '.'.$_SERVER['SERVER_NAME'], '/', '', '' );
 			}
 			else 
 			{
 				// Generate cart id and save it to $_cart_id, the session and a cookie
 				$this->_cart_id = md5( uniqid(rand(), true) );
 				$this->_CI->my_session->set('CICartId', $this->_cart_id);
-				$this->_CI->input->set_cookie( 'CICartId', $this->_cart_id, time() + 604800, '.ci.dev', '/', '', '' );
+				$this->_CI->input->set_cookie( 'CICartId', $this->_cart_id, time() + 604800, '.'.$_SERVER['SERVER_NAME'], '/', '', '' );
 }
 		}
 	}//End method set_cart_id
