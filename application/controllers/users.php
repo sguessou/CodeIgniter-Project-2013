@@ -33,18 +33,18 @@ class Users extends CI_Controller
 	public function index()
 	{
 		$data = array();
-		$data['css'] = $this->css;
+		
+		$this->load->model('products_m');
+		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
+		
+		//$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
-		$this->load->library('my_session');
-	  	$this->load->library('my_cart');
-	  	$this->load->library('auth');	
-
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 		
-		//$data['stuff'] = $this->my_session->get('auth');
-		
+	
 		if($this->auth->is_logged())
 		{
 			header("Location:$this->base_url/users/login/");	
@@ -52,6 +52,7 @@ class Users extends CI_Controller
 		else
 		{
 			$data['logged'] = FALSE;
+			$this->accesslog_m->register( 'CI_BS->users->index', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
 			$this->load->view('/users/users_main_v', $data);
 		}
 	}

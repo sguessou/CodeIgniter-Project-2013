@@ -50,7 +50,7 @@
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>&nbsp;Your Account <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                      <li><a href="#"><i class="icon-signin"></i>&nbsp;<strong>Login</strong></a></li>
+                      <li><a href="<?php echo $base_url; ?>/users/"><i class="icon-signin"></i>&nbsp;<strong>Login</strong></a></li>
                       <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
                       <li><a href="<?php echo $base_url; ?>/cart/"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
@@ -77,33 +77,41 @@
       </div>
 
       <div class="carousel slide" id="home-carousel">
+
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+
         <div class="carousel-inner">
 
           <div class="item active">
             <img src="<?php echo $base_url; ?>/images/products_images/carousel_dvd.jpg" alt="dvd" />
             <div class="carousel-caption">
-              <p>Go to the "Products" section to see more of our Dvd's</p>
+              <p><i class="icon-info"></i>&nbsp;Go to the "Products" section to see more of our Dvd's</p>
             </div>
           </div>
 
           <div class="item">
             <img src="<?php echo $base_url; ?>/images/products_images/carousel_ebook.jpg" alt="ebook" />
             <div class="carousel-caption">
-              <p>Go to the "Products" section to see more of our Ebook's</p>
+              <p><i class="icon-info"></i>&nbsp;Go to the "Products" section to see more of our Ebook's</p>
             </div>
           </div>
 
           <div class="item">  
             <img src="<?php echo $base_url; ?>/images/products_images/carousel_dvd_2.jpg" alt="dvd" />
             <div class="carousel-caption">
-              <p>Go to the "Products" section to see more of our Dvd's</p>
+              <p><i class="icon-info"></i>&nbsp;Go to the "Products" section to see more of our Dvd's</p>
             </div>
           </div>
 
           <div class="item">
             <img src="<?php echo $base_url; ?>/images/products_images/carousel_ebook_2.jpg" alt="ebook" />
             <div class="carousel-caption">
-              <p>Go to the "Products" section to see more of our Ebook's</p>
+              <p><i class="icon-info"></i>&nbsp;Go to the "Products" section to see more of our Ebook's</p>
             </div>
           </div>
               
@@ -116,7 +124,7 @@
    <hr>
        <div class="alert alert-info">
 	    <button type="button" class="close" data-dismiss="alert">&times;</button>
-	    <h4>NOTICE!</h4>
+	    <h4><i class="icon-info-sign"></i>&nbsp;NOTICE!</h4>
 	    Click on the "Products" section in the navigation bar to browse our eBooks and DVD's! 
       <?php echo $cart_total_items; ?>
 	   </div>
