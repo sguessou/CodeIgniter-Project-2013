@@ -59,7 +59,7 @@
                     <?php elseif ( $logged ) :?> 
                       <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;<strong>Logout</strong></a></li>
                     <?php endif ?>
-                      <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
+                      <li><a href="<?php echo $base_url; ?>/users/"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
                       <li><a href="<?php echo $base_url; ?>/cart/"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
                 </li>

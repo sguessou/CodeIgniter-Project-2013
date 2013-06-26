@@ -59,7 +59,7 @@
                     <?php elseif ( $logged ) :?> 
                       <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;<strong>Logout</strong></a></li>
                     <?php endif ?>
-                      <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
+                      <li><a href="<?php echo $base_url; ?>/users/"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
                       <li><a href="<?php echo $base_url; ?>/cart/"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
                 </li>
@@ -71,14 +71,82 @@
     </div>
 
     <div class="container">
+    
+    
+	
+	<?php if ( !$user_data['admin'] ) :?>  
 
-      
-      <h1>You're logged!</h1>
-      
+	<div class="page-header">
+        <h1>My Account</h1>  
+    </div>
+
+    <div class="row">
+    
+    <div class="span3"> 
+    
+    <div class="well">
+    	<ul class="nav nav-list">
+		    <li class="nav-header"><h5><i class="icon-user icon-2x"></i>&nbsp;My Account</h5></li>
+		    <li class="divider"></li>
+		    <li><a href="#">View Open Orders</a></li>
+		    <li><a href="#">Change Account Settings</a></li>
+		    <li class="divider"></li>
+		    <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;Logout</a></li>
+		</ul>
+		</div>
+    </div>
+    
+    <?php elseif ( $user_data['admin'] ) :?>
+
+    	<div class="page-header">
+        <h1>Admin Menu</h1>  
+    </div>
+
+    <div class="row">
+    
+    <div class="span3"> 
+    
+    <div class="well">
+    	<ul class="nav nav-list">
+		    <li class="nav-header"><h5><i class="icon-wrench icon-2x"></i>&nbsp;Admin Menu</h5></li>
+		    <li class="divider"></li>
+		    <li><a href="#">Manage Users</a></li>
+		    <li><a href="#">Manage Product Types</a></li>
+		    <li class="divider"></li>
+		    <li class="nav-header"><strong><i class="icon-barcode"></i>&nbsp;Manage Products</strong></li>
+		    <li><a href="#">Add Product</a></li>
+		    <li><a href="#">Update or Remove Product</a></li>
+		    <li class="divider"></li>
+		    <li><a href="#">Manage Orders</a></li>
+		    <li><a href="#">View Access Log</a></li>
+		    <li class="divider"></li>
+		    <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;Logout</a></li>
+		</ul>
+		</div>
+    </div>
+    
+    <?php endif ?>
+    
+    <div class="span6">  
+   
+   <?php 
+	
+	if ( $user_data['last_log'] )
+	 {	
+		echo '<h4>Welcome '.$user_data['firstname'].'!</h4><br />'; 
+		echo 'Last login: '.$user_data['last_log'].'<br /><br />';
+	 }
+	 else
+	 {
+	 	echo '<p><h4> Welcome for the first time '.$user_data['firstname'].'!</h4>';
+	 }	
+	?>
+
+    </div>  
      
 
       
-      </div>  
+    </div> <!-- /row  -->   
      
       <br />
       <br />

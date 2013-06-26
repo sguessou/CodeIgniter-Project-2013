@@ -196,6 +196,8 @@ class Products extends CI_Controller
 		$this->load->library('my_session');
 		$this->load->library('my_cart');
 
+		$this->accesslog_m->register( 'CI_BS->products->add_to_cart', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
+
 		$this->my_cart->add_item($id, $price, $name, $product_type);
 
 		header('Location:'.$this->base_url.'/products/index/item_added/');

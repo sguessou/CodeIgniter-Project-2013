@@ -91,6 +91,8 @@
         <div class="span3">
          </div>
          <div class="span5">
+         
+         <div class="well">
          <h3><i class="icon-signin"></i>&nbsp;Sign in to access your account</h3><br />
           <form class="form-horizontal" action="<?php echo $base_url; ?>/users/view_account/" method="post">
               <div class="control-group">
@@ -108,19 +110,21 @@
               <div class="control-group">
               <div class="controls">
               
-              <button type="submit" class="btn">Sign in</button>
+              <button type="submit" class="btn btn-primary"><i class="icon-signin"></i>&nbsp;Sign in</button>
               </div>
               </div>
           </form>
+          </div>
               <br />
               <br />
 
               
-                           
+                        <div class="well">    
                        <button class="btn btn-link" data-toggle="collapse" data-target="#registration">
                         <strong><i class="icon-exclamation-sign"></i>&nbsp;New customer?</strong>&nbsp;Start Here
                         </button>
-                                   
+
+                                  
                       <div id="registration" class="collapse">
                         <h5>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-key"></i>&nbsp;New Registration</h5>
                                     <br />
@@ -161,7 +165,7 @@
                                       </div>
                                     </div>
 
-                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-lock"></i>&nbsp;Protect Your Information With A Password</h5>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-lock"></i>&nbsp;Protect Your Information With A Password</h5><br />
 
                                     <div class="control-group">
                                       <label class="control-label" for="password">Enter A New Password:</label>
@@ -180,11 +184,12 @@
                                     <div class="control-group">
                                     <div class="controls">
                                     
-                                    <button type="submit" class="btn">Register</button>
+                                    <button type="submit" class="btn btn-primary">Register</button>
                                     </div>
                                     </div>
                                 </form>
-                      </div>             
+                            </div>  
+                           </div>            
 
 
                                 <!--div class="accordion-group">

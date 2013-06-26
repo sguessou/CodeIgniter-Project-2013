@@ -78,7 +78,8 @@ class Users extends CI_Controller
 		$data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		$data['logged'] = TRUE; //$this->my_session->get('logged');
 		$data['msg'] = 'Welcome back ';
-			
+
+		$this->accesslog_m->register( 'CI_BS->users->account', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );	
 		$this->load->view('/users/users_account_v', $data);
 			
 	}
