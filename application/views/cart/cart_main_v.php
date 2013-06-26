@@ -214,7 +214,6 @@
 </footer>
 
     <?php
-    
         $cart_data = '';
         $item_num = 1;
         
@@ -236,22 +235,25 @@
 
         $cart_data .= '<a href="'.$base_url.'/cart/" class="btn btn-small btn" type="button">View Cart ('.$cart_total_items;
         
-        if ( $cart_total_items > 0 ) 
-        {
-          $cart_data .= '<a class="btn btn-danger" href="'.$base_url.'/cart/empty_cart/"><i class="icon-trash icon-large"></i>&nbsp;Empty Cart</a>';
-        }  
-        
         if ($cart_total_items == 1) 
         {
-          $cart_data .= ' item)';
+          $cart_data .= ' item)</a>&nbsp;&nbsp;&nbsp;';
         }
         else
         {
-          $cart_data .= ' items)';
+          $cart_data .= ' items)</a>&nbsp;&nbsp;&nbsp;';
         }
+
+        if ( $cart_total_items > 0 ) 
+        {
+          $cart_data .= '<a class="btn btn-small btn-danger" href="'.$base_url.'/cart/empty_cart/"><i class="icon-trash icon-large"></i>&nbsp;Empty Cart</a>';
+        }  
+        
+        
       //$cart_data .= '<button type="button" class="close" data-dismiss="alert">&times;</button>';
         $cart_data = str_replace("'","\\'", $cart_data);
     ?>
+
 
     <!-- Le javascript
     ================================================== -->
