@@ -66,6 +66,7 @@ class Users extends CI_Controller
 		$data = array();
 		
 		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
 		
 		$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
