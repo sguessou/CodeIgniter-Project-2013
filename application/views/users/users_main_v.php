@@ -40,17 +40,25 @@
           <a class="brand" href="<?php echo $base_url; ?>/welcome/">Online Store</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="<?php echo $base_url; ?>/welcome/"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
+              <li><a href="<?php echo $base_url; ?>/welcome/"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
               <li><a href="<?php echo $base_url; ?>/products/index/begin/"><i class="icon-eye-open icon-white"></i>&nbsp;Products</a></li>
             </ul>
 
              <a id="example" class="btn btn-info" rel="popover" data-placement="bottom"><i class="icon-shopping-cart icon-white"></i>&nbsp;<strong>Cart</strong><?php echo($cart_total_items == 1)? ' (You have '.$cart_total_items.' item)': ' (You have '.$cart_total_items.' items)'; ?></a>
+
+            <?php if ( $logged ) :?>
+            <button class="btn btn-primary disabled" type="button"><i class="icon-info-sign"></i>&nbsp;You're currently logged in</button>
+            <?php endif ?> 
             
              <ul class="nav pull-right">
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>&nbsp;Your Account <b class="caret"></b></a>
                   <ul class="dropdown-menu">
+                      <?php if ( !$logged ) :?>
                       <li><a href="<?php echo $base_url; ?>/users/"><i class="icon-signin"></i>&nbsp;<strong>Login</strong></a></li>
+                    <?php elseif ( $logged ) :?> 
+                      <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;<strong>Logout</strong></a></li>
+                    <?php endif ?>
                       <li><a href="#"><i class="icon-cog"></i>&nbsp;<strong>Profile</strong></a></li>
                       <li><a href="<?php echo $base_url; ?>/cart/"><i class="icon-shopping-cart"></i>&nbsp;<strong>Cart</strong><em class="muted">&nbsp;(<?php echo($cart_total_items == 1)? $cart_total_items.' item': $cart_total_items.' items'; ?>)</em></a></li>
                   </ul>
@@ -84,11 +92,11 @@
          </div>
          <div class="span5">
          <h3><i class="icon-signin"></i>&nbsp;Sign in to access your account</h3><br />
-          <form class="form-horizontal">
+          <form class="form-horizontal" action="<?php echo $base_url; ?>/users/view_account/" method="post">
               <div class="control-group">
-              <label class="control-label" for="inputEmail">Email</label>
+              <label class="control-label" for="login">Username</label>
               <div class="controls">
-              <input type="text" id="inputEmail" name="email" placeholder="Email">
+              <input type="text" name="login" placeholder="Username">
               </div>
               </div>
               <div class="control-group">
@@ -116,7 +124,7 @@
                       <div id="registration" class="collapse">
                         <h5>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-key"></i>&nbsp;New Registration</h5>
                                     <br />
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" action="" method="post">
                                     
                                     <div class="control-group">
                                       <label class="control-label" for="username">My Username Is:</label>
@@ -283,23 +291,30 @@
 <?php
         $cart_data = '';
         $item_num = 1;
+        
         foreach ($cart_content as $cart_item)
         {
-        	if ( $cart_item['attributes']['product_type'] == 'Dvd' ) 
-    		{
-    			$item_type = '<i class="icon-film"></i>';
-    		} 
-    		elseif ( $cart_item['attributes']['product_type'] == 'Book' )
-    		{
-    				$item_type = '<i class="icon-book"></i>';
-    		}	
-	        
-	        $cart_data .= '#'.$item_num.'&nbsp;'.$item_type.'&nbsp<small class="text-info">'.$cart_item['attributes']['name'].'</small>,&nbsp;';
-	        $cart_data .= '<small><em class="muted">Quantity:'.$cart_item['quantity'].'</em></small><br />';
-	        $item_num++;
+          if ( $cart_item['attributes']['product_type'] == 'Dvd' ) 
+          {
+            $item_type = '<i class="icon-film"></i>';
+          } 
+          elseif ( $cart_item['attributes']['product_type'] == 'Book' )
+          {
+              $item_type = '<i class="icon-book"></i>';
+          } 
+          
+          $cart_data .= '#'.$item_num.'&nbsp;'.$item_type.'&nbsp<small class="text-info">'.$cart_item['attributes']['name'].'</small>,&nbsp;';
+          $cart_data .= '<small><em class="muted">Quantity:'.$cart_item['quantity'].'</em></small><br />';
+          $item_num++;
         }
-        $cart_data .= '<a href="'.$base_url.'/cart/" class="btn btn-small btn" type="button">View Cart ('.$cart_total_items;
 
+        $cart_data .= '<a href="'.$base_url.'/cart/" class="btn btn-small btn" type="button">View Cart ('.$cart_total_items;
+        
+        if ( $cart_total_items > 0 ) 
+        {
+          $cart_data .= '<a class="btn btn-danger" href="'.$base_url.'/cart/empty_cart/"><i class="icon-trash icon-large"></i>&nbsp;Empty Cart</a>';
+        }  
+        
         if ($cart_total_items == 1) 
         {
           $cart_data .= ' item)';
@@ -327,3 +342,10 @@
   </script> 
 
   </body>
+
+</html>
+
+<?php
+
+/* End of file users_main_v.php */
+/* Location: ./application/views/users/users_main_v.php */

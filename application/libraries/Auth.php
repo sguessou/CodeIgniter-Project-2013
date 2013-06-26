@@ -145,13 +145,13 @@ class Auth
 	*/
 	public function logout()
   	{	  
-		//this->_CI->my_session->del('login');
-		//$this->_CI->my_session->del('password');
-		//$this->_CI->my_session->del('hash');
-		//$this->_CI->my_session->del('logged');
+		$this->_CI->my_session->del('login');
+		$this->_CI->my_session->del('password');
+		$this->_CI->my_session->del('hash');
+		$this->_CI->my_session->del('logged');
 		
 		//$this->_CI->my_session->del('auth');
-		$this->_CI->my_session->destroy();
+		//$this->_CI->my_session->destroy();
 		$this->redirect();
 		  
   	}//End method logout

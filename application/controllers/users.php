@@ -45,9 +45,9 @@ class Users extends CI_Controller
 		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
 		
 	
-		if($this->auth->is_logged())
+		if ( $this->auth->is_logged() )
 		{
-			header("Location:$this->base_url/users/login/");	
+			header('Location:'.$this->base_url.'/users/view_account/');	
 		}
 		else
 		{
@@ -61,7 +61,7 @@ class Users extends CI_Controller
 	*
 	*
 	*/
-		public function login()
+	public function view_account()
 	{
 		$data = array();
 		
