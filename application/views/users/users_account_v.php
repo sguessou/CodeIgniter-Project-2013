@@ -77,7 +77,7 @@
 	<?php if ( !$user_data['admin'] ) :?>  
 
 	<div class="page-header">
-        <h1>My Account</h1>  
+        <h1>My Account <small>{ main }</small></h1>  
     </div>
 
     <div class="row">
@@ -88,7 +88,7 @@
     	<ul class="nav nav-list">
 		    <li class="nav-header"><h5><i class="icon-user icon-2x"></i>&nbsp;My Account</h5></li>
 		    <li class="divider"></li>
-		    <li><a href="#">View Open Orders</a></li>
+		    <li><a href="<?php echo $base_url; ?>/users/view_open_orders/">View Open Orders</a></li>
 		    <li><a href="#">Change Account Settings</a></li>
 		    <li class="divider"></li>
 		    <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;Logout</a></li>

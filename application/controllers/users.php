@@ -94,6 +94,7 @@ class Users extends CI_Controller
 		$data = array();
 		
 		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
 		
 		$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
@@ -106,6 +107,7 @@ class Users extends CI_Controller
 		$data['logged'] = TRUE;
 		$data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 		
+		$this->accesslog_m->register( 'CI_BS->users->view_orders', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
 		$this->load->view('/users/users_open_orders_v', $data);
 	}
 	
