@@ -41,7 +41,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="<?php echo $base_url; ?>/welcome/"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
-              <li class="active"><a href="<?php echo $base_url; ?>/products/index/begin/"><i class="icon-eye-open icon-white"></i>&nbsp;Products</a></li>
+              <li><a href="<?php echo $base_url; ?>/products/index/begin/"><i class="icon-eye-open icon-white"></i>&nbsp;Products</a></li>
             </ul>
 			
 				<a id="example" class="btn btn-info" rel="popover" data-placement="bottom"><i class="icon-shopping-cart icon-white"></i>&nbsp;<strong>Cart</strong><?php echo($cart_total_items == 1)? ' (You have '.$cart_total_items.' item)': ' (You have '.$cart_total_items.' items)'; ?></a>
@@ -49,7 +49,7 @@
             <?php if ( $logged ) :?>
             <button class="btn btn-primary disabled" type="button"><i class="icon-info-sign"></i>&nbsp;You're currently logged in</button>
             <?php endif ?> 
-            
+
             <ul class="nav pull-right">
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>&nbsp;Your Account <b class="caret"></b></a>

@@ -47,7 +47,7 @@
 				<a id="example" class="btn btn-info" rel="popover" data-placement="bottom"><i class="icon-shopping-cart icon-white"></i>&nbsp;<strong>Cart</strong><?php echo($cart_total_items == 1)? ' (You have '.$cart_total_items.' item)': ' (You have '.$cart_total_items.' items)'; ?></a>
             
             <?php if ( $logged ) :?>
-            <button class="btn btn-primary disabled" type="button"><i class="icon-info-sign"></i>&nbsp;You're currently logged in</button>
+            <button class="btn btn-success disabled" type="button"><i class="icon-info-sign"></i>&nbsp;You're currently logged in</button>
             <?php endif ?> 
             
             <ul class="nav pull-right">

@@ -86,8 +86,8 @@
     	<ul class="nav nav-list">
 		    <li class="nav-header"><h5><i class="icon-user icon-2x"></i>&nbsp;My Account</h5></li>
 		    <li class="divider"></li>
-		    <li class="active"><a href="<?php echo $base_url; ?>/users/view_open_orders/">View Open Orders</a></li>
-		    <li><a href="#">Change Account Settings</a></li>
+		    <li class="active"><a href="<?php echo $base_url; ?>/users/view_open_orders/"><i class="icon-eye-open"></i>&nbsp;View Open Orders</a></li>
+		    <li><a href="<?php echo $base_url; ?>/users/update_user_data/"><i class="icon-pencil"></i>&nbsp;Change Account Settings</a></li>
 		    <li class="divider"></li>
 		    <li><a href="<?php echo $base_url; ?>/users/logout/"><i class="icon-signout"></i>&nbsp;Logout</a></li>
 		</ul>
@@ -162,8 +162,79 @@
               </tbody>
             </table> 
 
-            <a class="btn btn-primary" href="<?php echo $base_url; ?>/cart/empty_cart/">
+            <a class="btn btn-primary" href="#modal_checkout" data-toggle="modal">
               <i class="icon-money icon-large"></i>&nbsp;Proceed To Checkout</a>
+              <div id="modal_checkout" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Checkout</h3>
+                              </div>
+                                <div class="modal-body">
+                                <h4>Checkout</h4>
+                                <?php
+							$auth_code = array();
+
+							$auth_code = array( 'MERCHANT_ID' => '13466',
+												'AMOUNT' => $cart_total,
+							   				    'ORDER_NUMBER' => '123456',
+												'REFERENCE_NUMBER' => '',
+												'ORDER_DESCRIPTION' => 'Online Store dummy buy',
+												'CURRENCY' => 'EUR',
+												'RETURN_ADDRESS' => $base_url.'/users/checkout_success/',
+												'CANCEL_ADDRESS' => $base_url.'/users/checkout_cancel/',
+												'PENDING_ADDRESS' => '',
+												'NOTIFY_ADDRESS' => $base_url.'/users/checkout_notify/',
+												'TYPE' => 'S1',
+												'CULTURE' => 'fi_FI',
+												'PRESELECTED_METHOD' => '',
+												'MODE' =>  '1',
+												'VISIBLE_METHODS' => '',
+												'GROUP' => '' );
+							
+							$AUTHCODE = '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ';
+							
+							foreach($auth_code as $key => $value)
+							{
+								$AUTHCODE .= '|' . $value; 	
+							}
+							
+							$AUTHCODE = strtoupper( md5($AUTHCODE) );
+						?>
+
+							<form id="payment">
+							
+							<input name="MERCHANT_ID" type="hidden" value="13466">
+							<input name="AMOUNT" type="hidden" value="<?php echo $cart_total; ?>">
+							<input name="ORDER_NUMBER" type="hidden" value="123456">
+							<input name="REFERENCE_NUMBER" type="hidden" value="">
+							<input name="ORDER_DESCRIPTION" type="hidden" value="Online Store dummy buy">
+							<input name="CURRENCY" type="hidden" value="EUR">
+							<input name="RETURN_ADDRESS" type="hidden" value="<?php echo $base_url; ?>/users/checkout_success/">
+							<input name="CANCEL_ADDRESS" type="hidden" value="<?php echo $base_url; ?>/users/checkout_cancel/">
+							<input name="PENDING_ADDRESS" type="hidden" value="">
+							<input name="NOTIFY_ADDRESS" type="hidden" value="<?php echo $base_url; ?>/users/checkout_notify/">
+							<input name="TYPE" type="hidden" value="S1">
+							<input name="CULTURE" type="hidden" value="fi_FI">
+							<input name="PRESELECTED_METHOD" type="hidden" value="">
+							<input name="MODE" type="hidden" value="1">
+							<input name="VISIBLE_METHODS" type="hidden" value="">
+							<input name="GROUP" type="hidden" value="">
+							
+							<input name="AUTHCODE" type="hidden" value="<?php echo $AUTHCODE; ?>">
+						    
+						    </form>
+
+							
+							<script type="text/javascript" src="//payment.verkkomaksut.fi/js/payment-widget-v1.0.min.js"></script>
+							<script type="text/javascript">
+										SV.widget.initWithForm('payment', {charset:'ISO-8859-1'});
+							</script>
+                                </div>
+                            <div class="modal-footer">
+                           
+                          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        </div>
+                      </div> 
 
             <a class="btn btn-danger" href="<?php echo $base_url; ?>/cart/empty_cart/">
               <i class="icon-trash icon-large"></i>&nbsp;Remove Open Orders</a>

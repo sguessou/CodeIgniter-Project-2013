@@ -192,46 +192,6 @@
                            </div>            
 
 
-                                <!--div class="accordion-group">
-                                    <div class="accordion-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                  
-                                    <strong><i class="icon-exclamation-sign"></i>&nbsp;New customer?</strong>&nbsp;Start Here
-                                  
-                                    </div>
-                                    <div id="collapseOne" class="accordion-body collapse">
-                                    <div class="accordion-inner">
-                                    <h5>New Registration</h5>
-                                    <br />
-                                    <form class="form-horizontal">
-                                    <div class="control-group">
-                                      <label class="control-label" for="username">My Username Is:</label>
-                                      <div class="controls">
-                                        <input type="text" name="username" placeholder="Username">
-                                      </div>
-                                    </div>
-                                    <div class="control-group">
-                                      <label class="control-label" for="firstname">My Firstname Is:</label>
-                                      <div class="controls">
-                                        <input type="text" name="firstname" placeholder="Firstname">
-                                      </div>
-                                    </div>
-                                    
-                                    <div class="control-group">
-                                    <div class="controls">
-                                    
-                                    <button type="submit" class="btn">Register</button>
-                                    </div>
-                                    </div>
-                                </form>
-                                    </div>
-                                </div>
-                               </div--> 
-                            
-                          
-
-
-              
           </div>
           <div class="span4">
           </div>

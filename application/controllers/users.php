@@ -38,7 +38,7 @@ class Users extends CI_Controller
 		$this->load->model('users_m');
 		$this->load->model('accesslog_m');
 		
-		//$data['css'] = $this->css;
+
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
@@ -68,7 +68,7 @@ class Users extends CI_Controller
 		$this->load->model('users_m');
 		$this->load->model('accesslog_m');
 		
-		$data['css'] = $this->css;
+		
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
@@ -96,7 +96,7 @@ class Users extends CI_Controller
 		$this->load->model('users_m');
 		$this->load->model('accesslog_m');
 		
-		$data['css'] = $this->css;
+		
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
@@ -111,29 +111,6 @@ class Users extends CI_Controller
 		$this->load->view('/users/users_open_orders_v', $data);
 	}
 	
-	/*
-	*
-	*
-	*/
-	public function checkout()
-	{
-		$data = array();
-		
-		$this->load->model('users_m');
-		
-		$data['css'] = $this->css;
-		$data['site_title'] = $this->site_title;
-		$data['base_url'] = $this->base_url;
-		
-		list($data['cart_content'], $data['cart_total'], $data['cart_total_items']) = $this->my_cart->get_cart();
-		
-		$this->auth->confirm_auth();
-		
-		$data['logged'] = TRUE;
-		$data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
-		
-		$this->load->view('/users/users_checkout_v', $data);
-	}
 	
 	/*
 	*
@@ -144,8 +121,8 @@ class Users extends CI_Controller
 		$data = array();
 		
 		$this->load->model('users_m');
+		$this->load->model('accesslog_m');
 		
-		$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
 		$data['base_url'] = $this->base_url;
 		
@@ -154,20 +131,17 @@ class Users extends CI_Controller
 		$this->auth->confirm_auth();
 		
 		$data['logged'] = TRUE;
-		//$data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
+		$data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 
-        $action = $this->input->post('PType');
-        //$data['action'] = $action;
-        if($action)
-        {
-        	header('Location:'.$this->base_url.'/users/update_data/'.$action.'/');
-        } 
-        else
-        {
-        	$this->load->view('/users/users_update_main_v', $data);	
-        }
-		
+        //$action = $this->input->post('PType');
 
+
+        $data['user_personal'] = TRUE;
+        $data['user_password'] = FALSE;
+        $data['user_address'] = FALSE;
+        $this->accesslog_m->register( 'CI_BS->users->update_user_personal', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
+        $this->load->view('/users/users_update_main_v', $data);	
+        
 	}
 
 	/*
