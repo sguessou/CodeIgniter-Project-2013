@@ -220,8 +220,13 @@
                     <label class="control-label" for="country">Country:</label>
                     <div class="controls">
                      <select name="country" size="1">
-	                     <option value="">stuff1</option>
-	                     <option value="">stuff2</option>
+	                     <?php foreach($countries as $country) :?> 
+	                     	<?php if($country['name'] == $user_data['country']) :?>		
+	                          <option value="<?php echo $country['name']; ?>" selected="selected"><?php echo $country['printable_name']; ?></option>
+	                 	 	<?php else :?>
+	                 	 	   <option value="<?php echo $country['name']; ?>"><?php echo $country['printable_name']; ?></option>	
+	                 	 	<?php endif ?>	
+	                 	 <?php endforeach ?>
                      </select>
                    </div>
                   </div>
