@@ -119,6 +119,8 @@
               <br />
 
               
+
+              
                         <div class="well">    
                        <button class="btn btn-link" data-toggle="collapse" data-target="#registration">
                         <strong><i class="icon-exclamation-sign"></i>&nbsp;New customer?</strong>&nbsp;Start Here
