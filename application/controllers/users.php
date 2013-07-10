@@ -142,6 +142,7 @@ class Users extends CI_Controller
         $data['user_personal'] = TRUE;
         $data['user_password'] = FALSE;
         $data['user_address'] = FALSE;
+        $data['success'] = NULL;
         $this->accesslog_m->register( 'CI_BS->users->update_user_personal', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
         $this->load->view('/users/users_update_main_v', $data);	
         
@@ -151,7 +152,7 @@ class Users extends CI_Controller
 	*
 	*
 	*/
-	public function update_data($action)
+	public function update_success($action)
 	{
 		$data = array();
 		
@@ -170,26 +171,80 @@ class Users extends CI_Controller
 
 		$data['action'] = $action;
 
+		$data['success'] = TRUE;
+
+		//debug
+		//$data['stuff'] = $stuff;
+
 		if ($action == 'personal')
 		{
-			$data['flag'] = '';
-			$this->load->view('/users/users_update_v', $data);
+			$data['user_personal'] = TRUE;
+	        $data['user_password'] = FALSE;
+	        $data['user_address'] = FALSE;
+
+			$this->load->view('/users/users_update_main_v', $data);
 		}
 		elseif ($action == 'passwd')
 		{
-			$data['flag'] = '';
-			$data['passwd_error'] = '';
-			$this->load->view('/users/users_update_v', $data);	
+			$data['user_personal'] = FALSE;
+	        $data['user_password'] = TRUE;
+	        $data['user_address'] = FALSE;
+
+			$this->load->view('/users/users_update_main_v', $data);	
 		}
 		elseif ($action == 'address')
 		{
-			$this->load->view('/users/users_update_v', $data);	
+			$data['user_personal'] = FALSE;
+	        $data['user_password'] = FALSE;
+	        $data['user_address'] = TRUE;
+
+			$this->load->view('/users/users_update_main_v', $data);	
 		}
 		else
 		{
-        	header('Location:'.$this->base_url.'/users/update_user_data/');
+        	$this->update_user_data();
         }	
 
+	}
+
+	/*
+	*
+	*
+	*/
+	public function change_personal_info( $action )
+	{
+		$this->load->model('users_m');
+
+		$data = array(); 
+		$data['personal_data'] = $this->input->post(NULL, TRUE);
+
+		//debug
+		//$this->update_success('personal', $data['personal_data']);
+		
+		$this->users_m->update_personal_info( $data['personal_data'] );
+
+		if( $action == 'personal' )
+		{
+			$this->update_success('personal');
+		}
+		elseif( $action == 'passwd' )
+		{
+
+		}	
+		elseif( $action == 'address' )
+		{
+
+		}	
+	}
+
+
+	/*
+	*
+	*
+	*/
+	public function checkout_success()
+	{
+		
 	}
 
 

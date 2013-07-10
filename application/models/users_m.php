@@ -66,6 +66,39 @@ class Users_m extends CI_Model
 			exit(print_r($stmt->errorInfo()));
 		}
 	}//End method get_user_record
+
+	/**
+	* Updates table user, set the personal data and it's related columns
+	* @param array $data 
+	* @return none
+	*/
+	public function update_personal_info( $data )
+	{
+		$sql = "UPDATE user SET firstname = :firstname,
+								 lastname = :lastname,
+								    email = :email,
+							   updated_at = :updated
+								    WHERE login = :login 
+									  AND user_id = :user_id";
+														
+	  $stmt = $this->db->conn_id->prepare($sql);
+	  $stmt->bindParam(':firstname', $data['firstname'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':lastname', $data['lastname'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':email', $data['email'], \PDO::PARAM_STR );
+	  $date = date("Y-m-d H:i:s");
+	  $stmt->bindParam(':updated', $date, \PDO::PARAM_STR );  
+	  $stmt->bindParam(':login', $data['username'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':user_id', $data['user_id'], \PDO::PARAM_INT );
+		
+		if( $stmt->execute() )
+		{
+			return;
+		}
+		else
+		{
+			exit(print_r($stmt->errorInfo()));
+		}
+	}//End method updatePersonal
 	
 }//End class Users_m
 

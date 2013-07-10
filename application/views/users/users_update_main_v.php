@@ -108,7 +108,7 @@
 
           <div class="tab-pane <?php if($user_personal) echo 'active'; ?>" id="personal">
 
-          	<form class="form-horizontal" action="" method="post">
+          	<form class="form-horizontal" action="<?php echo $base_url; ?>/users/change_personal_info/personal/" method="post">
                                     
                  <div class="control-group">
                   <label class="control-label" for="username">My Username Is<strong class="text-error">(*)</strong>:</label>
@@ -116,6 +116,8 @@
                      <input type="text" name="username" readonly="readonly" value="<?php echo $user_data['login']; ?>"/>
                     </div>
                   </div>
+
+                  <input type="hidden" name="user_id" value="<?php echo $user_data['user_id']; ?>"/>
 
                   <div class="control-group">
                   <label class="control-label" for="firstname">My Firstname Is:</label>
@@ -146,6 +148,14 @@
 
                </form>   
               <p><strong class="text-error">(*)</strong> Value can't be changed.</p>
+
+              <?php if ( $success ) :?>
+
+              	    <div class="alert alert-success">
+					    <button type="button" class="close" data-dismiss="alert">&times;</button>
+					    <strong>Success!</strong> Your personal info was updated successfully.
+				    </div>
+              <?php endif ?>
     	
           </div>
 
