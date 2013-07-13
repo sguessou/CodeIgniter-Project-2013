@@ -149,7 +149,7 @@
                </form>   
               <p><strong class="text-error">(*)</strong> Value can't be changed.</p>
 
-              <?php if ( $success ) :?>
+              <?php if ( $personal_success ) :?>
 
               	    <div class="alert alert-success">
 					    <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -162,7 +162,7 @@
           
           <div class="tab-pane <?php if($user_password) echo 'active'; ?>" id="password">
 
-          <form class="form-horizontal" action="" method="post">
+          <form class="form-horizontal" action="<?php echo $base_url; ?>/users/change_personal_info/password/" method="post">
                                     
                  <div class="control-group">
                   <label class="control-label" for="password">Current Password:</label>
@@ -170,6 +170,9 @@
                      <input type="password" name="password" readonly="readonly" value="<?php echo substr($user_data['password'], 0, 10); ?>"/>
                     </div>
                   </div>
+
+                  <input type="hidden" name="username" value="<?php echo $user_data['login']; ?>"/>  
+                  <input type="hidden" name="user_id" value="<?php echo $user_data['user_id']; ?>"/>
 
                   <div class="control-group">
                   <label class="control-label" for="new_password_1">New Password:</label>
@@ -192,23 +195,33 @@
                   </div>
 
            </form>
+           <?php if ( $password_success ) :?>
+
+                    <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Success!</strong> Your password was updated successfully.
+            </div>
+              <?php endif ?>
           </div>
 
           <div class="tab-pane <?php if($user_address) echo 'active'; ?>" id="address">
 
-          <form class="form-horizontal" action="" method="post">
+          <form class="form-horizontal" action="<?php echo $base_url; ?>/users/change_personal_info/address/" method="post">
                                     
                  <div class="control-group">
-                  <label class="control-label" for="addres_line_1">Address Line1:</label>
+                  <label class="control-label" for="address_line_1">Address Line1:</label>
                    <div class="controls">
-                     <input type="text" name="addres_line_1" value="<?php echo $user_data['address_line_1']; ?>"/>
+                     <input type="text" name="address_line_1" value="<?php echo $user_data['address_line_1']; ?>"/>
                     </div>
                   </div>
 
+                  <input type="hidden" name="username" value="<?php echo $user_data['login']; ?>"/>  
+                  <input type="hidden" name="user_id" value="<?php echo $user_data['user_id']; ?>"/>
+
                   <div class="control-group">
-                  <label class="control-label" for="addres_line_2">Address Line2:</label>
+                  <label class="control-label" for="address_line_2">Address Line2:</label>
                    <div class="controls">
-                     <input type="text" name="addres_line_2" value="<?php echo $user_data['address_line_2']; ?>"/>
+                     <input type="text" name="address_line_2" value="<?php echo $user_data['address_line_2']; ?>"/>
                     </div>
                   </div>
 
@@ -249,6 +262,13 @@
                   </div>	
 
                </form> 
+               <?php if ( $address_success ) :?>
+
+                    <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Success!</strong> Your address was updated successfully.
+            </div>
+              <?php endif ?>
           </div>
 
           </div>  <!-- / tab-content  -->   

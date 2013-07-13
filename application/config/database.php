@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'mysql:host=localhost';
 $db['default']['username'] = 'test';
-$db['default']['password'] = 'return0';
+$db['default']['password'] = 'return1771';
 $db['default']['database'] = 'test';
 $db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';

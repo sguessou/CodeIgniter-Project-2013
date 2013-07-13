@@ -142,7 +142,11 @@ class Users extends CI_Controller
         $data['user_personal'] = TRUE;
         $data['user_password'] = FALSE;
         $data['user_address'] = FALSE;
-        $data['success'] = NULL;
+        
+        $data['personal_success'] = NULL;
+        $data['password_success'] = NULL;
+        $data['address_success'] = NULL;
+        
         $this->accesslog_m->register( 'CI_BS->users->update_user_personal', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
         $this->load->view('/users/users_update_main_v', $data);	
         
@@ -157,6 +161,7 @@ class Users extends CI_Controller
 		$data = array();
 		
 		$this->load->model('users_m');
+		$this->load->model('country_m');
 		
 		$data['css'] = $this->css;
 		$data['site_title'] = $this->site_title;
@@ -167,11 +172,14 @@ class Users extends CI_Controller
 		$this->auth->confirm_auth();
 		
 		$data['logged'] = TRUE;
+
 		$data['user_data'] = $this->users_m->get_user_record($this->my_session->get('login'));
 
-		$data['action'] = $action;
+		$data['countries'] = $this->country_m->get_countries();
 
-		$data['success'] = TRUE;
+		//$data['action'] = $action;
+
+		//$data['success'] = TRUE;
 
 		//debug
 		//$data['stuff'] = $stuff;
@@ -182,13 +190,21 @@ class Users extends CI_Controller
 	        $data['user_password'] = FALSE;
 	        $data['user_address'] = FALSE;
 
+	        $data['personal_success'] = TRUE;
+	        $data['password_success'] = NULL;
+	        $data['address_success'] = NULL;
+
 			$this->load->view('/users/users_update_main_v', $data);
 		}
-		elseif ($action == 'passwd')
+		elseif ($action == 'password')
 		{
 			$data['user_personal'] = FALSE;
 	        $data['user_password'] = TRUE;
 	        $data['user_address'] = FALSE;
+
+	        $data['personal_success'] = NULL;
+	        $data['password_success'] = TRUE;
+	        $data['address_success'] = NULL;
 
 			$this->load->view('/users/users_update_main_v', $data);	
 		}
@@ -197,6 +213,10 @@ class Users extends CI_Controller
 			$data['user_personal'] = FALSE;
 	        $data['user_password'] = FALSE;
 	        $data['user_address'] = TRUE;
+
+	        $data['personal_success'] = NULL;
+	        $data['password_success'] = NULL;
+	        $data['address_success'] = TRUE;
 
 			$this->load->view('/users/users_update_main_v', $data);	
 		}
@@ -216,24 +236,28 @@ class Users extends CI_Controller
 		$this->load->model('users_m');
 
 		$data = array(); 
+
+		//the associative $data array is filled with all the user sent POST data 
 		$data['personal_data'] = $this->input->post(NULL, TRUE);
 
 		//debug
 		//$this->update_success('personal', $data['personal_data']);
 		
-		$this->users_m->update_personal_info( $data['personal_data'] );
+		//$this->users_m->update_personal_info( $data['personal_data'] );
 
 		if( $action == 'personal' )
 		{
+			$this->users_m->update_personal_info( $data['personal_data'] );
 			$this->update_success('personal');
 		}
-		elseif( $action == 'passwd' )
+		elseif( $action == 'password' )
 		{
-
+			$this->update_success('password');	
 		}	
 		elseif( $action == 'address' )
 		{
-
+			$this->users_m->update_address( $data['personal_data'] );
+			$this->update_success('address');	
 		}	
 	}
 

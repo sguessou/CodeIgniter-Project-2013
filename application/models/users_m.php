@@ -82,6 +82,7 @@ class Users_m extends CI_Model
 									  AND user_id = :user_id";
 														
 	  $stmt = $this->db->conn_id->prepare($sql);
+
 	  $stmt->bindParam(':firstname', $data['firstname'], \PDO::PARAM_STR );
 	  $stmt->bindParam(':lastname', $data['lastname'], \PDO::PARAM_STR );
 	  $stmt->bindParam(':email', $data['email'], \PDO::PARAM_STR );
@@ -98,7 +99,76 @@ class Users_m extends CI_Model
 		{
 			exit(print_r($stmt->errorInfo()));
 		}
-	}//End method updatePersonal
+	}//End method update_personal_info
+
+	/**
+	* Updates table user, set the personal data and it's related columns
+	* @param array $_POST 
+	* @return none
+	*/
+	public function update_address( $data )
+	{
+		$sql = "UPDATE user SET address_line_1 = :address_line_1,
+								address_line_2 = :address_line_2,
+								     town_city = :city,
+								        county = :county,
+									   country = :country,
+								    updated_at = :updated
+								   WHERE login = :login 
+								   AND user_id = :user_id";
+														
+	  $stmt = $this->db->conn_id->prepare($sql);
+
+	  $stmt->bindParam(':address_line_1', $data['address_line_1'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':address_line_2', $data['address_line_2'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':city', $data['city'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':county', $data['county'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':country', $data['country'], \PDO::PARAM_STR );
+	  $date = date("Y-m-d H:i:s");
+	  $stmt->bindParam(':updated', $date, \PDO::PARAM_STR );  
+	  $stmt->bindParam(':login', $data['username'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':user_id', $data['user_id'], \PDO::PARAM_INT );
+		
+		if( $stmt->execute() )
+		{
+			return;
+		}
+		else
+		{
+			exit(print_r($stmt->errorInfo()));
+		}
+	}//End method update_address
+
+	/**
+	* Updates table user, set the password column
+	* @param array $_POST 
+	* @return none
+	*/
+	public function update_password( $data )
+	{
+		$sql = "UPDATE user SET password = MD5(:password),
+								updated_at = :updated
+								WHERE login = :login 
+									  AND user_id = :user_id";
+														
+	  $stmt = $this->db->conn_id->prepare($sql);
+
+	  $stmt->bindParam(':password', $data['new_passwd_1'], \PDO::PARAM_STR );
+	  $date = date("Y-m-d H:i:s");
+	  $stmt->bindParam(':updated', $date, \PDO::PARAM_STR );  
+	  $stmt->bindParam(':login', $data['username'], \PDO::PARAM_STR );
+	  $stmt->bindParam(':user_id', $data['user_id'], \PDO::PARAM_INT );
+		
+		if( $stmt->execute() )
+		{
+			return;
+		}
+		else
+		{
+			exit(print_r($stmt->errorInfo()));
+		}
+	}//End method update_password
+
 	
 }//End class Users_m
 
