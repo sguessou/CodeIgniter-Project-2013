@@ -14,12 +14,16 @@ class Vieraskirja extends CI_Controller {
 
 	public function index() {
 
+		$this->accesslog_m->register( 'CI_BS->Vieraskirja->index', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
+
 		$this->data['viestit'] = $this->vieraskirjamodel->fetchData();
 		
 		$this->load->view('/vieraskirja/mainView', $this->data);
 	}
 	
 	public function saveData() {
+
+		$this->accesslog_m->register( 'CI_BS->Vieraskirja->save', $_SERVER['REMOTE_ADDR'], gethostbyaddr( $_SERVER['REMOTE_ADDR'] ) );
 		
 		$this->viesti = $this->input->post(NULL, TRUE); // returns all POST items with XSS filter 
 		
@@ -36,6 +40,7 @@ class Vieraskirja extends CI_Controller {
 		$this->data['baseUrl'] = 'http://'.$_SERVER['SERVER_NAME'];
 
 		$this->load->model('vieraskirjamodel');
+		$this->load->model('accesslog_m');
 
 	}
 
